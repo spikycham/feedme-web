@@ -6,6 +6,7 @@ import { Loader } from "lucide-react";
 import "./index.css";
 
 export default function Login() {
+    // TODO: navigate to the home when token is valid.
     const navigate = useNavigate();
     useEffect(() => {
         // Navigate to home screen if logged in.
@@ -29,6 +30,7 @@ export default function Login() {
                 account,
                 password,
             });
+            // TODO: remove this log.
             console.log(data);
             message.success("Log in successfully");
             navigate("/home");
@@ -37,7 +39,7 @@ export default function Login() {
                 message.failed("Incorrect account or password");
                 return;
             }
-            message.failed("Internal error");
+            message.internal();
         } finally {
             setLoading(false);
         }
@@ -54,7 +56,6 @@ export default function Login() {
                 <form className="form" onSubmit={login}>
                     <input name="account" placeholder="Enter Account" />
                     <input name="password" placeholder="Password" type="password" />
-                    <button className="forget-password">Forget Password?</button>
 
                     <button className={"submit " + (loading ? "loading" : "")} type="submit">
                         {loading && <Loader className="loader" />}

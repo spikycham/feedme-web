@@ -40,7 +40,6 @@
             text-align: center;
             color: var(--color-bg);
             background-color: var(--color-yellow);
-            cursor: pointer;
 
             > .loader {
                 width: var(--std-sm-icon-size);

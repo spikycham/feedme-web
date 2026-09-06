@@ -67,4 +67,8 @@ export const message = {
     success: (title: string) => setMessage(title, "success"),
     warning: (title: string) => setMessage(title, "warning"),
     failed: (title: string) => setMessage(title, "failed"),
+
+    internal() {
+        this.failed("Internal error");
+    },
 };
