@@ -15,12 +15,15 @@ function StatusIcon(status: MessageStatus) {
 }
 
 let setMessageTitle: ((title: string) => void) | null = null;
+let setMessageTimestamp: ((timestamp: number) => void) | null = null;
 let setMessageStatus: ((status: MessageStatus) => void) | null = null;
 
 export default function Message() {
     const [title, setTitle] = useState("");
+    const [timestamp, setTimestamp] = useState(0);
     const [status, setStatus] = useState<MessageStatus>("success");
     setMessageTitle = setTitle;
+    setMessageTimestamp = setTimestamp;
     setMessageStatus = setStatus;
 
     const contentRef = useRef<HTMLDivElement>(null);
@@ -31,16 +34,18 @@ export default function Message() {
         // Pop down animation.
         if (!contentRef.current) return;
         contentRef.current.classList.remove("hide");
-        contentRef.current.classList.add("show");
+        contentRef.current.classList.remove("show");
+        requestAnimationFrame(() => {
+            contentRef.current?.classList.add("show");
+        });
 
         // Hide up animation.
         if (timerRef.current) clearTimeout(timerRef.current);
         timerRef.current = setTimeout(() => {
-            if (!contentRef.current) return;
-            contentRef.current.classList.remove("show");
-            contentRef.current.classList.add("hide");
+            contentRef.current?.classList.remove("show");
+            contentRef.current?.classList.add("hide");
         }, 2000);
-    }, [title, status]);
+    }, [title, timestamp, status]);
 
     return (
         <div className="message">
@@ -53,8 +58,9 @@ export default function Message() {
 }
 
 function setMessage(title: string, status: MessageStatus) {
-    if (!setMessageTitle || !setMessageStatus) return;
+    if (!setMessageTitle || !setMessageTimestamp || !setMessageStatus) return;
     setMessageTitle(title);
+    setMessageTimestamp(Date.now());
     setMessageStatus(status);
 }
 export const message = {

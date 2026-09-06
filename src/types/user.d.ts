@@ -2,9 +2,9 @@ interface User {
     user_id: string;
     name: string;
     account: string;
-    // 0: customer, 1: merchant
-    role: number;
+    role: number; // 0: customer, 1: merchant
     avatar_uri: string;
+    user_id: string;
 }
 
 interface Token {

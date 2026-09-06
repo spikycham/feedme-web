@@ -2,6 +2,13 @@ interface ResponseStruct<T extends object> {
     data: T;
 }
 
+export class NetworkError extends Error {
+    constructor(message: string) {
+        super();
+        this.message = message;
+    }
+}
+
 class Network {
     base: URL;
 
@@ -10,7 +17,7 @@ class Network {
     }
 
     private validateStatus(status: number) {
-        if (status < 200 || status > 299) throw new Error("[NETWORK] response error");
+        if (status < 200 || status > 299) throw new NetworkError("response error");
     }
     private setDefaultHeaders(headers: Headers): Headers {
         if (!headers.get("Content-Type")) {
