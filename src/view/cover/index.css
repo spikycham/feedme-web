@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Caacupe+One&display=swap");
+
+.cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Caacupe One", sans-serif;
+    font-size: 66px;
+    color: var(--color-yellow);
+    background-color: var(--color-bg);
+    user-select: none;
+
+    &.hide {
+        opacity: 0;
+        transition: opacity 0.3s ease-out;
+    }
+
+    > span {
+        animation: popout 0.3s ease-out;
+    }
+}
+
+@keyframes popout {
+    0% {
+        transform: scale(0.7);
+        opacity: 1;
+    }
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

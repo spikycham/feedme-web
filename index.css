@@ -4,10 +4,26 @@
     --color-fg-gray: #767781;
     --color-gray: #eaeaea;
 
-    --color-green: #8ca247;
-    --color-yellow: #f4ba61;
+    --color-yellow: #f3b244;
+    --color-blue: #2d67c8;
+    --color-green: #4d9568;
+    --color-red: #c4352a;
 
-    --std-gap: 20px;
+    --std-lg-gap: 20px;
+    --std-sm-gap: 10px;
+    --std-pd: 20px;
+    --std-br: 8px;
+
+    --std-icon-size: 22px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overscroll-behavior: none;
 }
 
 body {
@@ -15,10 +31,14 @@ body {
     padding: 0;
     font-family: "Trebuchet MS", sans-serif;
     font-size: 14px;
-    background-color: var(--color-green);
 }
 
+h1,
 p {
     margin: 0;
     padding: 0;
+}
+
+button {
+    all: unset;
 }
