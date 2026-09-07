@@ -12,7 +12,3 @@ interface Token {
     refresh_token: string;
 }
 
-interface ResponseLogin {
-    token: Token;
-    user: User;
-}
