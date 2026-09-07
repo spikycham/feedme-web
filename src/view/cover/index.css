@@ -13,6 +13,7 @@
     color: var(--color-yellow);
     background-color: var(--color-bg);
     user-select: none;
+    z-index: 100;
 
     &.hide {
         opacity: 0;
