@@ -1,3 +1,12 @@
+import { useUserStore } from "@/store/user.store";
+
 export default function Home() {
-    return <div>Home</div>;
+    const name = useUserStore((state) => state.name);
+
+    return (
+        <>
+            <div>Home</div>
+            <div>Hello, {name}!</div>
+        </>
+    );
 }

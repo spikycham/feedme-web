@@ -26,10 +26,14 @@ class Network {
         return headers;
     }
 
-    public async get<T extends object>(path: string): Promise<T> {
+    public async get<T extends object>(path: string, headers?: Headers): Promise<T> {
         const url = new URL(path, this.base);
+        this.setDefaultHeaders(headers ?? new Headers());
 
-        const resp = await fetch(url, { method: "GET" });
+        const resp = await fetch(url, { 
+            method: "GET",
+            headers 
+        });
         this.validateStatus(resp.status);
 
         const data = (await resp.json()) as ResponseStruct<T>;
