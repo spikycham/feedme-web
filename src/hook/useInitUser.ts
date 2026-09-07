@@ -7,15 +7,15 @@ export default function useInitUser() {
     const [loading, setLoading] = useState(true);
 
     const setUserStore = useUserStore((state) => state.setUser);
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
     // Navigate to home screen if logged in,
     // jump to login page otherwise.
     const fetch = async () => {
         try {
             const data = await fetchUserMe();
             setUserStore(data);
-            navigate("/");
+            navigate("/layout");
         } catch {
             navigate("/login");
         } finally {

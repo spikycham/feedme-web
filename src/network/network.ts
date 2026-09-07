@@ -21,7 +21,7 @@ export class NetworkError extends Error {
 
 class Network {
     base: URL;
-    cbs: Array<() => void> = [];
+    cb: (() => void) | null = null;
 
     constructor(base: string) {
         this.base = new URL(base);
@@ -38,9 +38,11 @@ class Network {
         return headers;
     }
 
-    // Intercepte after the request,
-    // used for refresh tokens.
-    private async intercept<B extends object, R extends object>(config: InterceptionConfig<B>, status: number): Promise<R | null> {
+    // Intercepte after the request, used for refresh tokens.
+    private async intercept<B extends object, R extends object>(
+        config: InterceptionConfig<B>,
+        status: number,
+    ): Promise<R | null> {
         if (status !== 401) return null;
 
         // Get the new access token and refresh token.
@@ -49,7 +51,7 @@ class Network {
             setToken(access_token);
             setRefreshToken(refresh_token);
         } catch (err) {
-            console.log(err)
+            this.cb?.();
             return null;
         }
 
@@ -72,23 +74,29 @@ class Network {
                 return null;
         }
     }
+    public setTokenExpireHandler(cb: () => void) {
+        this.cb = cb;
+    }
 
     // Main methods of http requests.
     public async get<T extends object>(path: string, headers?: Headers): Promise<T> {
         const url = new URL(path, this.base);
         this.setDefaultHeaders(headers ?? new Headers());
 
-        const resp = await fetch(url, { 
+        const resp = await fetch(url, {
             method: "GET",
             headers,
         });
         this.validateStatus(resp.status);
 
-        const intercepted = await this.intercept({
-            path,
-            method: "GET",
-            headers,
-        }, resp.status);
+        const intercepted = await this.intercept(
+            {
+                path,
+                method: "GET",
+                headers,
+            },
+            resp.status,
+        );
         if (intercepted !== null) {
             return intercepted as T;
         }
@@ -113,11 +121,14 @@ class Network {
         });
         this.validateStatus(resp.status);
 
-        const intercepted = await this.intercept<B, R>({
-            path,
-            method: "GET",
-            headers,
-        }, resp.status);
+        const intercepted = await this.intercept<B, R>(
+            {
+                path,
+                method: "GET",
+                headers,
+            },
+            resp.status,
+        );
         if (intercepted !== null) {
             return intercepted;
         }
@@ -138,11 +149,14 @@ class Network {
         });
         this.validateStatus(resp.status);
 
-        await this.intercept({
-            path,
-            method: "GET",
-            headers,
-        }, resp.status);
+        await this.intercept(
+            {
+                path,
+                method: "GET",
+                headers,
+            },
+            resp.status,
+        );
     }
 
     public async patch<B extends object>(path: string, body: B, headers?: Headers) {
@@ -156,11 +170,14 @@ class Network {
         });
         this.validateStatus(resp.status);
 
-        await this.intercept({
-            path,
-            method: "GET",
-            headers,
-        }, resp.status);
+        await this.intercept(
+            {
+                path,
+                method: "GET",
+                headers,
+            },
+            resp.status,
+        );
     }
 
     public async delete<B extends object>(path: string, body: B, headers?: Headers) {
@@ -174,13 +191,17 @@ class Network {
         });
         this.validateStatus(resp.status);
 
-        await this.intercept({
-            path,
-            method: "GET",
-            headers,
-        }, resp.status);
+        await this.intercept(
+            {
+                path,
+                method: "GET",
+                headers,
+            },
+            resp.status,
+        );
     }
 }
 
-const net = new Network("http://localhost:5000");
+export const BASE_URL = "http://localhost:3000";
+const net = new Network(BASE_URL);
 export default net;

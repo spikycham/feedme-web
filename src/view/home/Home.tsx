@@ -1,3 +1,4 @@
+import { fetchUserMe } from "@/network/user.api";
 import { useUserStore } from "@/store/user.store";
 
 export default function Home() {
@@ -9,6 +10,12 @@ export default function Home() {
             <div>Home</div>
             <div>Hello, {name}!</div>
             <div>User ID: {id}.</div>
+            <button
+                onClick={() => {
+                    fetchUserMe();
+                }}>
+                request
+            </button>
         </>
     );
 }

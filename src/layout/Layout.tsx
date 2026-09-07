@@ -1,20 +1,15 @@
-import PageLoading from "@/component/page-loading/PageLoading";
-import useInitUser from "@/hook/useInitUser";
 import { Outlet } from "react-router";
+import useInitUser from "@/hook/useInitUser";
+import PageLoading from "@/component/page-loading/PageLoading";
 
 export default function Layout() {
     const loading = useInitUser();
 
+    if (loading) return <PageLoading />;
     return (
-        <>
-            {loading ? (
-                <PageLoading />
-            ) : (
-                <div>
-                    <div>layout</div>
-                    <Outlet />
-                </div>
-            )}
-        </>
+        <div>
+            <div>layout</div>
+            <Outlet />
+        </div>
     );
 }

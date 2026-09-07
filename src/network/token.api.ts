@@ -1,4 +1,5 @@
 import { getRefreshToken } from "@/util/token";
+import { BASE_URL } from "./network";
 
 interface Request {
     refresh_token: string;
@@ -10,16 +11,15 @@ interface Tokens {
 }
 
 interface Response {
-    data: Tokens
+    data: Tokens;
 }
 
 export async function fetchToken() {
     const body: Request = {
-        refresh_token: getRefreshToken()
-    }
+        refresh_token: getRefreshToken(),
+    };
 
-    // TODO: the base url.
-    const resp = await fetch("http://localhost:5000/api/auth/token", {
+    const resp = await fetch(new URL("/api/auth/token", BASE_URL), {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

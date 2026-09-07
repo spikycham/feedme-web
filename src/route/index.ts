@@ -3,23 +3,30 @@ import type { RouteObject } from "react-router";
 
 import Login from "@/view/login/Login";
 
+import Root from "@/layout/Root";
 import Layout from "@/layout/Layout";
 import Home from "@/view/home/Home";
 
 const routes: RouteObject[] = [
     {
-        path: "/login",
-        Component: Login,
-    },
-    {
         path: "/",
-        Component: Layout,
+        Component: Root,
         children: [
             {
-                index: true,
-                Component: Home
-            }
-        ]
+                path: "/login",
+                Component: Login,
+            },
+            {
+                path: "/layout",
+                Component: Layout,
+                children: [
+                    {
+                        index: true,
+                        Component: Home,
+                    },
+                ],
+            },
+        ],
     },
 ];
 

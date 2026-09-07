@@ -6,8 +6,8 @@ import { Loader } from "lucide-react";
 import { fetchLogin } from "@/network/login.api";
 import { setRefreshToken, setToken } from "@/util/token";
 import { useUserStore } from "@/store/user.store";
-import useInitUser from "@/hook/useInitUser";
 import PageLoading from "@/component/page-loading/PageLoading";
+import useInitUser from "@/hook/useInitUser";
 import "./index.css";
 
 export default function Login() {
@@ -50,7 +50,7 @@ export default function Login() {
             setUserStore(data.user);
 
             message.success("Log in successfully");
-            navigate("/");
+            navigate("/layout");
         } catch (err) {
             if (err instanceof NetworkError) {
                 message.failed("Incorrect account or password");
@@ -62,30 +62,25 @@ export default function Login() {
         }
     };
 
+    if (userLoading) return <PageLoading />;
     return (
-        <>
-            {userLoading ? (
-                <PageLoading />
-            ) : (
-                <div className="login">
-                    <section className="header">
-                        <h1>Log in</h1>
-                        <p>Welcome back, please enter login credentials to continue</p>
-                    </section>
+        <div className="login">
+            <section className="header">
+                <h1>Log in</h1>
+                <p>Welcome back, please enter login credentials to continue</p>
+            </section>
 
-                    <section>
-                        <form className="form" onSubmit={login}>
-                            <input name="account" placeholder="Enter Account" />
-                            <input name="password" placeholder="Password" type="password" />
+            <section>
+                <form className="form" onSubmit={login}>
+                    <input name="account" placeholder="Enter Account" />
+                    <input name="password" placeholder="Password" type="password" />
 
-                            <button className={"submit " + (loading ? "loading" : "")} type="submit">
-                                {loading && <Loader className="loader" />}
-                                <span>Log in</span>
-                            </button>
-                        </form>
-                    </section>
-                </div>
-            )}
-        </>
+                    <button className={"submit " + (loading ? "loading" : "")} type="submit">
+                        {loading && <Loader className="loader" />}
+                        <span>Log in</span>
+                    </button>
+                </form>
+            </section>
+        </div>
     );
 }
