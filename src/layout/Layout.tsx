@@ -1,4 +1,4 @@
-import PageLoading from "@/component/PageLoading/PageLoading";
+import PageLoading from "@/component/page-loading/PageLoading";
 import useInitUser from "@/hook/useInitUser";
 import { Outlet } from "react-router";
 

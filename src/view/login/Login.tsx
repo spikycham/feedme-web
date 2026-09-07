@@ -7,8 +7,8 @@ import { fetchLogin } from "@/network/login.api";
 import { setRefreshToken, setToken } from "@/util/token";
 import { useUserStore } from "@/store/user.store";
 import useInitUser from "@/hook/useInitUser";
+import PageLoading from "@/component/page-loading/PageLoading";
 import "./index.css";
-import PageLoading from "@/component/PageLoading/PageLoading";
 
 export default function Login() {
     const userLoading = useInitUser();
