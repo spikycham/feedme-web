@@ -50,7 +50,7 @@ class Network {
             const { access_token, refresh_token } = await fetchToken();
             setToken(access_token);
             setRefreshToken(refresh_token);
-        } catch (err) {
+        } catch {
             this.cb?.();
             return null;
         }

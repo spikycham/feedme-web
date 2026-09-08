@@ -4,7 +4,7 @@
     --color-fg-gray: #767781;
     --color-gray: #eaeaea;
 
-    --color-hover: #66666620;
+    --color-hover: #66666610;
 
     --color-yellow: #f3b244;
     --color-blue: #2d67c8;
@@ -45,4 +45,10 @@ p {
 button {
     all: unset;
     cursor: pointer;
+}
+
+@font-face {
+    font-family: "CaacupeOne";
+    src: url("/font/CaacupeOne.ttf") format("truetype");
+    font-display: block;
 }
