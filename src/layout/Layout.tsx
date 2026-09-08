@@ -10,12 +10,11 @@ export default function Layout() {
     if (loading) return <Loading />;
     return (
         <main className="layout">
-            <section>
-                <div>layout</div>
+            <section className="header">
                 <Outlet />
             </section>
 
-            <section>
+            <section className="footer">
                 <Tab />
             </section>
         </main>

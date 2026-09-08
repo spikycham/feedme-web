@@ -37,23 +37,24 @@ const tabs: Tab[] = [
     },
 ];
 
+const prevTabKey = Number(localStorage.getItem("previous_tab_key") ?? 0);
 export default function Tab() {
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(prevTabKey);
     const navigate = useNavigate();
+
+    const onNavigate = (tab: Tab) => {
+        setActive(tab.key);
+        localStorage.setItem("previous_path", tab.path);
+        localStorage.setItem("previous_tab_key", String(tab.key));
+        navigate(tab.path);
+    };
 
     return (
         <div className="tab">
             {tabs.map((tab) => (
-                <button
-                    key={tab.key}
-                    className={active === tab.key ? "active" : ""}
-                    onClick={() => {
-                        setActive(tab.key);
-                        navigate(tab.path);
-                    }}
-                >
+                <button key={tab.key} className={active === tab.key ? "active" : ""} onClick={() => onNavigate(tab)}>
                     <span>{tab.icon}</span>
-                    <span>{tab.title}</span>
+                    {/* <span>{tab.title}</span> */}
                     <div className="highlight"></div>
                 </button>
             ))}

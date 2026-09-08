@@ -2,6 +2,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: var(--std-lg-gap);
     height: 100vh;
     padding: var(--std-pd);
+
+    > .header {
+        flex: 1 0 0;
+        overflow-y: auto;
+    }
+    > .footer {
+        flex: 0 0 max-content;
+    }
 }

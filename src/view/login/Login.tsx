@@ -47,7 +47,7 @@ export default function Login() {
             setRefreshToken(data.token.refresh_token);
 
             // Set user store.
-            setUserStore(data.user);
+            setUserStore({ user: data.user });
 
             message.success("Log in successfully");
             navigate("/layout/order");

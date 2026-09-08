@@ -14,9 +14,10 @@ export default function useInitUser() {
     const fetch = async () => {
         try {
             const data = await fetchUserMe();
-            setUserStore(data);
-            navigate("/layout/order");
+            setUserStore({ user: data });
             
+            const prevPath = localStorage.getItem("previous_path") ?? "/layout/order";
+            navigate(prevPath);
         } catch {
             navigate("/login");
         } finally {
