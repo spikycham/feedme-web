@@ -1,9 +1,10 @@
 interface User {
-    user_id: string;
-    name: string;
     account: string;
-    role: number; // 0: customer, 1: merchant
     avatar_uri: string;
+    created_at: number;
+    name: string;
+    profile_background_uri: string;
+    role: number; // 0: customer, 1: merchant
     user_id: string;
 }
 

@@ -13,7 +13,9 @@ const INITIAL_USER_STATE: State = {
     user: {
         account: "",
         avatar_uri: "",
+        created_at: -1,
         name: "",
+        profile_background_uri: "",
         role: 0,
         user_id: "",
     }

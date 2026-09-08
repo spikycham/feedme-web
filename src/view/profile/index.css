@@ -1,0 +1,59 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--std-sm-gap);
+
+    > .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        background-color: var(--color-hover);
+        flex: 0 0 200px;
+        border-radius: var(--std-br);
+        overflow: hidden;
+
+        .info {
+            display: flex;
+            gap: var(--std-sm-gap);
+            align-items: end;
+            padding: 10px;
+
+            > .avatar {
+                width: 50px;
+                height: 50px;
+                overflow: hidden;
+                border-radius: var(--std-br);
+                border: 3px solid var(--color-bg);
+            
+                > img {
+                    object-fit: cover;
+                }
+            }
+
+            > h1 {
+                font-weight: normal;
+            
+                > .name {
+                    font-size: 36px;
+                    line-height: 36px;
+                    display: block;
+                }
+                > .id {
+                    display: block;
+                    font-size: 14px;
+                    line-height: 14px;
+                    color: var(--color-fg-gray);
+                }
+            }
+        }
+    }
+
+    .edit {
+        background-color: var(--color-yellow);
+        padding: 10px;
+        width: calc(100% - 20px);
+        text-align: center;
+        color: var(--color-bg);
+        border-radius: var(--std-br);
+    }
+}
