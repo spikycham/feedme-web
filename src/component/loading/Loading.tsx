@@ -1,6 +1,6 @@
 import "./index.css";
 
 // TODO: implement this component.
-export default function PageLoading() {
+export default function Loading() {
     return <div>loading...</div>;
 }

@@ -5,7 +5,11 @@ import Login from "@/view/login/Login";
 
 import Root from "@/layout/Root";
 import Layout from "@/layout/Layout";
-import Home from "@/view/home/Home";
+
+import OrderPage from "@/view/order/OrderPage";
+import FoodPage from "@/view/food/FoodPage";
+import HistoryPage from "@/view/history/HistoryPage";
+import ProfilePage from "@/view/profile/ProfilePage";
 
 const routes: RouteObject[] = [
     {
@@ -21,9 +25,21 @@ const routes: RouteObject[] = [
                 Component: Layout,
                 children: [
                     {
-                        index: true,
-                        Component: Home,
+                        path: "order",
+                        Component: OrderPage,
                     },
+                    {
+                        path: "food",
+                        Component: FoodPage,
+                    },
+                    {
+                        path: "history",
+                        Component: HistoryPage
+                    },
+                    {
+                        path: "profile",
+                        Component: ProfilePage
+                    }
                 ],
             },
         ],

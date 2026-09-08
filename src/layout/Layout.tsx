@@ -1,14 +1,13 @@
 import { Outlet } from "react-router";
 import useInitUser from "@/hook/useInitUser";
-import PageLoading from "@/component/page-loading/PageLoading";
+import Loading from "@/component/loading/Loading";
 import Tab from "@/component/tab/Tab";
 import "./index.css";
 
 export default function Layout() {
     const loading = useInitUser();
-    // TODO: navigate to the order page when the user is a merchant.
 
-    if (loading) return <PageLoading />;
+    if (loading) return <Loading />;
     return (
         <main className="layout">
             <section>

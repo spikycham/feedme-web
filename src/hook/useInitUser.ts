@@ -15,7 +15,8 @@ export default function useInitUser() {
         try {
             const data = await fetchUserMe();
             setUserStore(data);
-            navigate("/layout");
+            navigate("/layout/order");
+            
         } catch {
             navigate("/login");
         } finally {

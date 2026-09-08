@@ -7,6 +7,8 @@ interface User {
     user_id: string;
 }
 
+type UserRole = "customer" | "merchant"
+
 interface Token {
     access_token: string;
     refresh_token: string;

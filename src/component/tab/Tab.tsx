@@ -1,7 +1,7 @@
 import { ClipboardClock, Hamburger, ListOrdered, UserRoundPen } from "lucide-react";
-import "./index.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import "./index.css";
 
 interface Tab {
     key: number;
@@ -50,7 +50,8 @@ export default function Tab() {
                     onClick={() => {
                         setActive(tab.key);
                         navigate(tab.path);
-                    }}>
+                    }}
+                >
                     <span>{tab.icon}</span>
                     <span>{tab.title}</span>
                     <div className="highlight"></div>

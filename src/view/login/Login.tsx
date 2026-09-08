@@ -6,7 +6,7 @@ import { Loader } from "lucide-react";
 import { fetchLogin } from "@/network/login.api";
 import { setRefreshToken, setToken } from "@/util/token";
 import { useUserStore } from "@/store/user.store";
-import PageLoading from "@/component/page-loading/PageLoading";
+import Loading from "@/component/loading/Loading";
 import useInitUser from "@/hook/useInitUser";
 import "./index.css";
 
@@ -50,7 +50,7 @@ export default function Login() {
             setUserStore(data.user);
 
             message.success("Log in successfully");
-            navigate("/layout");
+            navigate("/layout/order");
         } catch (err) {
             if (err instanceof NetworkError) {
                 message.failed("Incorrect account or password");
@@ -62,7 +62,7 @@ export default function Login() {
         }
     };
 
-    if (userLoading) return <PageLoading />;
+    if (userLoading) return <Loading />;
     return (
         <div className="login">
             <section className="header">
