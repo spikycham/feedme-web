@@ -1,0 +1,27 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--std-sm-gap);
+    padding: 10px;
+    border-radius: var(--std-br);
+    text-align: center;
+
+    > .loader {
+        width: var(--std-sm-icon-size);
+        height: var(--std-sm-icon-size);
+        animation: rotate 1s linear infinite;
+    }
+}
+
+.button.primary {
+    background-color: var(--color-yellow);
+}
+.button.cacnel {
+    background-color: var(--color-gray);
+}
+
+.button.loading {
+    background-color: var(--color-gray);
+    cursor: wait;
+}

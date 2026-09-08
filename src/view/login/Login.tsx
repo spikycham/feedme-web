@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { NetworkError } from "@/network/network";
 import { message } from "@/component/message/Message";
-import { Loader } from "lucide-react";
 import { fetchLogin } from "@/network/login.api";
 import { setRefreshToken, setToken } from "@/util/token";
 import { useUserStore } from "@/store/user.store";
 import Loading from "@/component/loading/Loading";
 import useInitUser from "@/hook/useInitUser";
 import "./index.css";
+import Button from "@/component/button/Button";
 
 export default function Login() {
     const userLoading = useInitUser();
@@ -75,10 +75,7 @@ export default function Login() {
                     <input name="account" placeholder="Enter Account" />
                     <input name="password" placeholder="Password" type="password" />
 
-                    <button className={"submit " + (loading ? "loading" : "")} type="submit">
-                        {loading && <Loader className="loader" />}
-                        <span>Log in</span>
-                    </button>
+                    <Button htmlType="submit" title="Log in" loading={loading} />
                 </form>
             </section>
         </div>

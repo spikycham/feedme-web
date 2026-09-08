@@ -38,8 +38,8 @@ const routes: RouteObject[] = [
                     },
                     {
                         path: "profile",
-                        Component: ProfilePage
-                    }
+                        Component: ProfilePage,
+                    },
                 ],
             },
         ],

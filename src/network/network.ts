@@ -35,6 +35,7 @@ class Network {
         if (!headers.get("Content-Type")) {
             headers.set("Content-Type", "application/json");
         }
+        headers.set("Authorization", "Bearer " + getToken());
         return headers;
     }
 
@@ -81,7 +82,7 @@ class Network {
     // Main methods of http requests.
     public async get<T extends object>(path: string, headers?: Headers): Promise<T> {
         const url = new URL(path, this.base);
-        this.setDefaultHeaders(headers ?? new Headers());
+        headers = this.setDefaultHeaders(headers ?? new Headers());
 
         const resp = await fetch(url, {
             method: "GET",
@@ -112,7 +113,7 @@ class Network {
         headers?: Headers,
     ): Promise<R | null> {
         const url = new URL(path, this.base);
-        this.setDefaultHeaders(headers ?? new Headers());
+        headers = this.setDefaultHeaders(headers ?? new Headers());
 
         const resp = await fetch(url, {
             method: "POST",
