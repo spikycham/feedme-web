@@ -14,7 +14,7 @@ export class MissBodyError extends Error {
     }
 }
 
-export default async function fetchUpdateUser(body: Request) {
+export default async function fetchUpdateProfile(body: Request) {
     if (!body.new_avatar_uri&& !body.new_username && !body.new_profile_background_uri  && !body.new_password) {
         throw new MissBodyError("failed to update user profile")
     }

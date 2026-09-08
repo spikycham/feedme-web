@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--std-sm-gap);
-    padding: 10px;
+    padding: 10px 0;
     border-radius: var(--std-br);
     text-align: center;
 

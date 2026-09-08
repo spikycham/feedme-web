@@ -6,7 +6,7 @@ interface Props {
     show: boolean;
     onShow: (show: boolean) => void;
     title: string;
-    description: string;
+    description?: string;
     loading: boolean;
     onConfirm?: () => void;
     onCancel?: () => void;
