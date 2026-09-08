@@ -1,7 +1,8 @@
-import { fetchUserMe } from "@/network/user.api";
-import { useUserStore } from "@/store/user.store";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useUserStore } from "@/store/user.store";
+
+import fetchUserMe from "@/network/user.api";
 
 export default function useInitUser() {
     const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ export default function useInitUser() {
         try {
             const data = await fetchUserMe();
             setUserStore({ user: data });
-            
+
             const prevPath = localStorage.getItem("previous_path") ?? "/layout/order";
             navigate(prevPath);
         } catch {

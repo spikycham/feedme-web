@@ -1,5 +1,5 @@
 import net from "./network";
 
-export async function fetchLogout() {
+export default async function fetchLogout() {
     await net.post<{}, {}>("/api/auth/login", {});
 }

@@ -1,6 +1,6 @@
-import { message } from "@/component/message/Message";
-import net from "@/network/network";
 import { Navigate, Outlet, useNavigate } from "react-router";
+import net from "@/network/network";
+import { message } from "@/component/message/Message";
 
 export default function Root() {
     const navigate = useNavigate();

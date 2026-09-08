@@ -1,21 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { useUserStore } from "@/store/user.store";
 import { message } from "@/component/message/Message";
-import { Ban, SquarePen } from "lucide-react";
 
+import { Ban, SquarePen } from "lucide-react";
 import Modal from "@/component/modal/Modal";
 import Loading from "@/component/loading/Loading";
 import Button from "@/component/button/Button";
 
 import fetchUpdateProfile, { MissBodyError } from "@/network/update-profile.api";
 import fetchUploadFile from "@/network/upload-file.api";
+import fetchLogout from "@/network/logout.api";
+
+import { removeRefreshToken, removeToken } from "@/util/token";
 
 import "./index.css";
-import { NetworkError } from "@/network/network";
-import { fetchLogin } from "@/network/login.api";
-import { fetchLogout } from "@/network/logout.api";
-import { useNavigate } from "react-router";
-import { removeRefreshToken, removeToken } from "@/util/token";
 
 const MODAL_TITLES = ["Select Avatar", "Select Background"];
 

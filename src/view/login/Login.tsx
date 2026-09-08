@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import { NetworkError } from "@/network/network";
-import { message } from "@/component/message/Message";
-import { fetchLogin } from "@/network/login.api";
-import { setRefreshToken, setToken } from "@/util/token";
 import { useUserStore } from "@/store/user.store";
-import Loading from "@/component/loading/Loading";
+import { useNavigate } from "react-router";
+
+import { message } from "@/component/message/Message";
 import useInitUser from "@/hook/useInitUser";
-import "./index.css";
+
+import { NetworkError } from "@/network/network";
+import fetchLogin from "@/network/login.api";
+
+import Loading from "@/component/loading/Loading";
 import Button from "@/component/button/Button";
+
+import { setRefreshToken, setToken } from "@/util/token";
+
+import "./index.css";
 
 export default function Login() {
     const userLoading = useInitUser();

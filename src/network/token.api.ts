@@ -14,7 +14,7 @@ interface Response {
     data: Tokens;
 }
 
-export async function fetchToken() {
+export default async function fetchToken() {
     const body: Request = {
         refresh_token: getRefreshToken(),
     };

@@ -1,5 +1,5 @@
 import { getToken, setRefreshToken, setToken } from "@/util/token";
-import { fetchToken } from "./token.api";
+import fetchToken from "./token.api";
 
 interface ResponseStruct<T extends object> {
     data: T;
