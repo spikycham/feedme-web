@@ -4,6 +4,9 @@
     gap: var(--std-sm-gap);
 
     > .header {
+        --bw: 2px;
+
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: end;
@@ -12,7 +15,7 @@
         border-radius: var(--std-br);
         overflow: hidden;
 
-        .info {
+        > .info {
             display: flex;
             gap: var(--std-sm-gap);
             align-items: end;
@@ -23,9 +26,11 @@
                 height: 80px;
                 overflow: hidden;
                 border-radius: var(--std-br);
-                border: 3px solid var(--color-bg);
-            
+                border: var(--bw) solid var(--color-bg);
+
                 > img {
+                    width: calc(80px - 2 * var(--bw));
+                    height: calc(80px - 2 * var(--bw));
                     object-fit: cover;
                 }
             }
@@ -35,14 +40,14 @@
                 flex-direction: column;
                 gap: 5px;
                 font-weight: normal;
-            
+
                 > .name {
                     display: flex;
                     align-items: end;
                     gap: 5px;
                     font-size: 32px;
                     line-height: 32px;
-                
+
                     .edit {
                         width: 20px;
                         height: 20px;
@@ -56,6 +61,15 @@
                     color: var(--color-fg-gray);
                 }
             }
+        }
+
+        > img {
+            position: absolute;
+            top: -50%;
+            left: 0;
+            width: 100%;
+            object-fit: cover;
+            z-index: -1;
         }
     }
 }
@@ -72,9 +86,14 @@
     > label {
         width: 100%;
         height: 100%;
+
+        > .loading {
+            height: 150px;
+        }
         > img {
             width: 100%;
             object-fit: contain;
+            border-radius: var(--std-br);
         }
     }
     > input {
@@ -88,7 +107,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--std-sm-gap);
-    aspect-ratio: 4/3;
+    height: 150px;
     border-radius: var(--std-br);
     background-color: var(--color-gray);
     color: var(--color-fg-gray);

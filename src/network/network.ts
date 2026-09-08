@@ -106,19 +106,23 @@ class Network {
         return data.data;
     }
 
-    // TODO: how to a form item like a file?
     public async post<B extends object, R extends object>(
         path: string,
         body: B,
         headers?: Headers,
     ): Promise<R | null> {
         const url = new URL(path, this.base);
-        headers = this.setDefaultHeaders(headers ?? new Headers());
+        if (body instanceof FormData) {
+            headers = new Headers();
+            headers.set("Authorization", "Bearer " + getToken());
+        } else {
+            headers = this.setDefaultHeaders(headers ?? new Headers());
+        }
 
         const resp = await fetch(url, {
             method: "POST",
             headers,
-            body: JSON.stringify(body),
+            body: body instanceof FormData ? body : JSON.stringify(body),
         });
         this.validateStatus(resp.status);
 

@@ -1,8 +1,9 @@
+import net from "./network";
+
 interface Response {
-    url: string
+    url: string;
 }
 
-// TODO: implement post to send formdata
-export default async function fetchUploadFile(body: FormData): Response {
-    return await net.post()
+export default async function fetchUploadFile(body: FormData): Promise<Response> {
+    return (await net.post<FormData, Response>("/api/file", body)) as Response;
 }

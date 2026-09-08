@@ -5,6 +5,8 @@ import { Ban, SquarePen } from "lucide-react";
 import Modal from "@/component/modal/Modal";
 import fetchUpdateProfile, { MissBodyError } from "@/network/update-profile.api";
 import "./index.css";
+import fetchUploadFile from "@/network/upload-file.api";
+import Loading from "@/component/loading/Loading";
 
 const MODAL_TITLES = ["Select Avatar", "Select Background"];
 
@@ -38,27 +40,126 @@ export default function ProfilePage() {
         setShowEditName(true);
     };
 
+    const onConfirmEditName = async () => {
+        if (user.name === editName) {
+            message.warning("Same username");
+            setShowEditName(false);
+            return;
+        }
+
+        try {
+            setLoadingEditName(true);
+
+            await fetchUpdateProfile({ new_username: editName });
+            setUser({ user: { ...user, name: editName } });
+
+            setShowEditName(false);
+            message.success("Update username successfully");
+        } catch (err) {
+            if (err instanceof MissBodyError) {
+                message.warning("Missing name");
+                return;
+            }
+            message.internal();
+        } finally {
+            setLoadingEditName(false);
+        }
+    };
+
     // Edit images, including avatar and background.
-    const [editImgType, setEditImgType] = useState<0 | 1>(0); // 0: avatar, 1: background
-    const [editImgModalTitle, setEditImgModalTitle] = useState(MODAL_TITLES[0]);
     const [showEditImg, setShowEditImg] = useState(false);
+    const [editImgType, setEditImgType] = useState<0 | 1>(0);
     const [editImgSrc, setEditImgSrc] = useState("");
+
+    const [loadingUpload, setLoadingUpload] = useState(false);
     const [loadingEditImg, setLoadingEditImg] = useState(false);
 
-    const showEditImgModal = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-        setEditImgModalTitle(MODAL_TITLES[editImgType]);
-        setEditImgSrc(editImgType === 0 ? user.avatar_uri : user.profile_background_uri);
-        setShowEditImg(true);
+    const onChangeImgFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) {
+            message.warning("No photo selected");
+            return;
+        }
+
+        const formdata = new FormData();
+        formdata.set("file", file);
+
+        try {
+            setLoadingUpload(true);
+
+            const resp = await fetchUploadFile(formdata);
+            setEditImgSrc(resp.url);
+        } catch (err) {
+            message.failed("Failed to upload photo");
+        } finally {
+            setLoadingUpload(false);
+        }
+    };
+
+    const onConfirmEditImg = async () => {
+        if (user.avatar_uri === editImgSrc || user.profile_background_uri === editImgSrc) {
+            message.warning("Same picture");
+            setShowEditImg(false);
+            return;
+        }
+
+        try {
+            setLoadingEditImg(true);
+
+            const bodys = [
+                {
+                    new_avatar_uri: editImgSrc,
+                },
+                {
+                    new_profile_background_uri: editImgSrc,
+                },
+            ];
+            await fetchUpdateProfile(bodys[editImgType]);
+
+            const newState = [
+                {
+                    avatar_uri: editImgSrc,
+                },
+                {
+                    profile_background_uri: editImgSrc,
+                },
+            ];
+            setUser({ user: { ...user, ...newState[editImgType] } });
+
+            setShowEditImg(false);
+            const msgs = ["Update avatar successfully", "Update background successfully"];
+            message.success(msgs[editImgType]);
+        } catch (err) {
+            if (err instanceof MissBodyError) {
+                message.warning("Missing image");
+                return;
+            }
+        } finally {
+            setLoadingEditImg(false);
+        }
     };
 
     return (
         <>
             <div className="profile">
-                <section className="header" onClick={showEditImgModal}>
+                <section
+                    className="header"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setEditImgType(1);
+                        setEditImgSrc(user.profile_background_uri);
+                        setShowEditImg(true);
+                    }}>
                     <div className="info">
-                        <div className="avatar" onClick={showEditImgModal}>
-                            <img />
+                        <div
+                            className="avatar"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setEditImgType(0);
+                                setEditImgSrc(user.avatar_uri);
+                                setShowEditImg(true);
+                            }}>
+                            {user.avatar_uri !== "" && <img src={user.avatar_uri} />}
                         </div>
 
                         <h1>
@@ -71,6 +172,10 @@ export default function ProfilePage() {
                             </span>
                         </h1>
                     </div>
+
+                    {user.profile_background_uri !== "" && (
+                        <img src={user.profile_background_uri} />
+                    )}
                 </section>
 
                 <section>
@@ -84,26 +189,7 @@ export default function ProfilePage() {
                 title="Rename"
                 description="Enter your new username."
                 loading={loadingEditName}
-                onConfirm={async () => {
-                    try {
-                        setLoadingEditName(true);
-
-                        await fetchUpdateProfile({ new_username: editName });
-                        setUser({ user: { ...user, name: editName } });
-
-                        setShowEditName(false);
-                        message.success("Update username successfully");
-                    } catch (err) {
-                        if (err instanceof MissBodyError) {
-                            message.warning("Missing name");
-                            return;
-                        }
-                        message.internal();
-                    } finally {
-                        setLoadingEditName(false);
-                    }
-                }}
-            >
+                onConfirm={onConfirmEditName}>
                 <input
                     className="edit-rename"
                     placeholder="Enter Name"
@@ -115,65 +201,28 @@ export default function ProfilePage() {
             <Modal
                 show={showEditImg}
                 onShow={(show) => setShowEditImg(show)}
-                title={editImgModalTitle}
-                description="Upload an image by clicking the image."
+                title={MODAL_TITLES[editImgType]}
+                description="Upload picture by clicking the photo."
                 loading={loadingEditImg}
-                onConfirm={async () => {
-                    try {
-                        setLoadingEditImg(true);
-
-                        const bodys = [
-                            {
-                                new_avatar_uri: editImgSrc,
-                            },
-                            {
-                                new_profile_background_uri: editImgSrc,
-                            },
-                        ];
-                        await fetchUpdateProfile(bodys[editImgType]);
-                        setUser({ user: { ...user, ...bodys[editImgType] } });
-
-                        setShowEditImg(false);
-                        const msgs = ["Update avatar successfully", "Update background successfully"];
-                        message.success(msgs[editImgType]);
-                    } catch (err) {
-                        if (err instanceof MissBodyError) {
-                            message.warning("Missing image");
-                            return;
-                        }
-                    } finally {
-                        setLoadingEditImg(false);
-                    }
-                }}
-            >
+                onConfirm={onConfirmEditImg}>
                 <div className="edit-input">
-                    <label htmlFor="edit-img">{editImgSrc === "" ? <NoImg /> : <img src={editImgSrc} />}</label>
+                    <label htmlFor="edit-img">
+                        {loadingUpload ? (
+                            <div className="loading">
+                                <Loading />
+                            </div>
+                        ) : editImgSrc === "" ? (
+                            <NoImg />
+                        ) : (
+                            <img src={editImgSrc} />
+                        )}
+                    </label>
                     <input
                         id="edit-img"
                         className="edit-input"
                         type="file"
                         accept="image/*"
-                        onChange={async (e) => {
-                            const file = e.target.files?.[0];
-                            if (!file) {
-                                message.warning("No photo selected");
-                                return;
-                            }
-
-                            const blob = new Blob([file], { type: file.type });
-                            const url = URL.createObjectURL(blob);
-
-                            const formdata = new FormData();
-                            formdata.set("file", blob);
-
-                            // TODO: implement this
-                            try {
-                            } catch (err) {
-                            } finally {
-                            }
-
-                            setEditImgSrc(url);
-                        }}
+                        onChange={onChangeImgFile}
                     />
                 </div>
             </Modal>
@@ -185,7 +234,7 @@ function NoImg() {
     return (
         <div className="no-img">
             <Ban className="icon" />
-            <span>No Image</span>
+            <span>No Picture Set</span>
         </div>
     );
 }
