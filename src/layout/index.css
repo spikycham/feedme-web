@@ -9,8 +9,10 @@
     > .header {
         flex: 1 0 0;
         overflow-y: auto;
+        z-index: 2;
     }
     > .footer {
         flex: 0 0 max-content;
+        z-index: 1;
     }
 }

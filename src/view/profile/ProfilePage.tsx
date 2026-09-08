@@ -2,17 +2,28 @@ import { useState } from "react";
 import { useUserStore } from "@/store/user.store";
 import { message } from "@/component/message/Message";
 import { Ban, SquarePen } from "lucide-react";
+
 import Modal from "@/component/modal/Modal";
-import fetchUpdateProfile, { MissBodyError } from "@/network/update-profile.api";
-import "./index.css";
-import fetchUploadFile from "@/network/upload-file.api";
 import Loading from "@/component/loading/Loading";
+import Button from "@/component/button/Button";
+
+import fetchUpdateProfile, { MissBodyError } from "@/network/update-profile.api";
+import fetchUploadFile from "@/network/upload-file.api";
+
+import "./index.css";
+import { NetworkError } from "@/network/network";
+import { fetchLogin } from "@/network/login.api";
+import { fetchLogout } from "@/network/logout.api";
+import { useNavigate } from "react-router";
+import { removeRefreshToken, removeToken } from "@/util/token";
 
 const MODAL_TITLES = ["Select Avatar", "Select Background"];
 
 export default function ProfilePage() {
+    // User profile displays.
     const user = useUserStore((state) => state.user);
     const setUser = useUserStore((state) => state.setUser);
+
     const mixAccount = (account: string) => {
         const len = account.length;
         // The backend should constraint the length of account for at least 8.
@@ -139,6 +150,26 @@ export default function ProfilePage() {
         }
     };
 
+    // Log out.
+    const [loadingLogout, setLoadingLogout] = useState(false);
+    const navigate = useNavigate();
+    const onLogout = async () => {
+        try {
+            setLoadingLogout(true);
+            await fetchLogout();
+
+            removeToken();
+            removeRefreshToken();
+
+            navigate("/login");
+            message.success("Logged out");
+        } catch {
+            message.internal();
+        } finally {
+            setLoadingLogout(false);
+        }
+    };
+
     return (
         <>
             <div className="profile">
@@ -180,6 +211,10 @@ export default function ProfilePage() {
 
                 <section>
                     <p>Waiting for developing...</p>
+                </section>
+
+                <section className="logout">
+                    <Button title="Log out" loading={loadingLogout} onClick={onLogout} />
                 </section>
             </div>
 

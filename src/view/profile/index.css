@@ -72,6 +72,15 @@
             z-index: -1;
         }
     }
+
+    .logout {
+        display: flex;
+        align-items: center;
+
+        > button {
+            flex: 1;
+        }
+    }
 }
 
 .edit-rename {
