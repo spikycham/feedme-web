@@ -31,14 +31,17 @@
             }
 
             > h1 {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
                 font-weight: normal;
             
                 > .name {
                     display: flex;
                     align-items: end;
                     gap: 5px;
-                    font-size: 40px;
-                    line-height: 40px;
+                    font-size: 32px;
+                    line-height: 32px;
                 
                     .edit {
                         width: 20px;

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Button from "../button/Button";
 import "./index.css";
 
@@ -14,6 +15,17 @@ interface Props {
 
 export default function Modal(props: Props) {
     const onHide = () => props.onShow(false);
+
+    useEffect(() => {
+        if (!props.show) return;
+
+        const orig = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow = orig;
+        };
+    }, [props.show]);
 
     return (
         <div className={"modal" + (props.show ? " show" : "")}>
