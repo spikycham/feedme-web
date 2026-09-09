@@ -11,8 +11,8 @@ interface Food {
     category: number;
     created_at: number;
     deleted_at: number;
-    steps: [];
-    comments: [];
+    steps: FoodStep[];
+    comments: FoodComment[];
 }
 
 interface FoodStep {
@@ -22,8 +22,8 @@ interface FoodStep {
 interface FoodComment {
     commend_id: string;
     detail: string;
-    created_at: string;
-    deleted_at: string;
+    created_at: number;
+    deleted_at: number;
 }
 
 type FoodCategory = "staple food" | "vegetable" | "meat" | "seafood" | "soup" | "dessert" | "drink" | "other"

@@ -46,11 +46,14 @@ export default function FoodPage() {
                 <NoFood />
             ) : (
                 <ul className="food-list">
-                    {foods.map((food) => (
-                        <li key={food.food_id} onClick={() => navigate("/layout/food/detail/" + food.food_id)}>
-                            {food.name}
-                        </li>
-                    ))}
+                    {foods.map((food) => {
+                        console.log(food);
+                        return (
+                            <li key={food.food_id} onClick={() => navigate("/layout/food/detail/" + food.food_id)}>
+                                {food.name}
+                            </li>
+                        );
+                    })}
                 </ul>
             )}
         </>

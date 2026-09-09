@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
 
 interface Props {
@@ -8,8 +8,11 @@ interface Props {
 export default function Carousel(props: Props) {
     const [selected, setSelected] = useState(0);
 
-    useEffect(() => {
-        const timer = setInterval(() => {
+    const timerRef = useRef<number>(null);
+    const setNext = () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+
+        timerRef.current = setInterval(() => {
             setSelected((prev) => {
                 if (prev === props.srcs.length - 1) {
                     return 0;
@@ -17,7 +20,14 @@ export default function Carousel(props: Props) {
                 return prev + 1;
             });
         }, 3000);
-        return () => clearInterval(timer);
+    };
+
+    useEffect(() => {
+        setNext();
+        return () => {
+            if (!timerRef.current) return;
+            clearInterval(timerRef.current);
+        };
     }, []);
 
     return (
@@ -30,7 +40,10 @@ export default function Carousel(props: Props) {
                     <button
                         className={"selector" + (i === selected ? " active" : "")}
                         key={i}
-                        onClick={() => setSelected(i)}
+                        onClick={() => {
+                            setNext();
+                            setSelected(i);
+                        }}
                     ></button>
                 ))}
             </div>
