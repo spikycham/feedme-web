@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import "./index.css";
 import { MessageCircleCheck, MessageCircleWarning, MessageCircleX } from "lucide-react";
+import "./index.css";
 
 type MessageStatus = "success" | "warning" | "failed";
 function StatusIcon(status: MessageStatus) {
@@ -22,9 +22,12 @@ export default function Message() {
     const [title, setTitle] = useState("");
     const [timestamp, setTimestamp] = useState(0);
     const [status, setStatus] = useState<MessageStatus>("success");
-    setMessageTitle = setTitle;
-    setMessageTimestamp = setTimestamp;
-    setMessageStatus = setStatus;
+
+    useEffect(() => {
+        setMessageTitle = setTitle;
+        setMessageTimestamp = setTimestamp;
+        setMessageStatus = setStatus;
+    }, []);
 
     const contentRef = useRef<HTMLDivElement>(null);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
