@@ -1,4 +1,80 @@
-.food-list {}
+.food-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--std-sm-gap);
+
+    > h1 {
+        font-weight: normal;
+
+        > span {
+            display: block;
+        }
+    }
+
+    > .search {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--std-sm-gap);
+        padding: 15px 20px;
+        background-color: var(--color-gray);
+        border-radius: 30px;
+
+        > label {
+            height: 18px;
+        }
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        > input {
+            border: none;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            background-color: inherit;
+
+        }
+
+        > .filter {
+            height: 18px;
+        }
+    }
+
+    > ul {
+        display: flex;
+        flex-direction: column;
+        gap: var(--std-sm-gap);
+
+        > li {
+            display: flex;
+            align-items: center;
+            gap: var(--std-sm-gap);
+            padding: 10px;
+            border-radius: var(--std-br);
+            background-color: var(--color-gray);
+
+            > .img {
+                width: 40px;
+                height: 40px;
+                border-radius: var(--std-br);
+                overflow: hidden;
+
+                > img {
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+            > .info {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    }
+}
 
 .food-detail {
     display: flex;
