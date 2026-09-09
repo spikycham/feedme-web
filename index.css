@@ -54,6 +54,14 @@ button {
     cursor: pointer;
 }
 
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+
 @font-face {
     font-family: "CaacupeOne";
     src: url("/font/CaacupeOne.ttf") format("truetype");
