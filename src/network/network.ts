@@ -1,4 +1,4 @@
-import { getToken, setRefreshToken, setToken } from "@/util/token";
+import { getToken, removeRefreshToken, removeToken, setRefreshToken, setToken } from "@/util/token";
 import fetchToken from "./token.api";
 
 interface ResponseStruct<T extends object> {
@@ -53,6 +53,8 @@ class Network {
             setRefreshToken(refresh_token);
         } catch {
             this.cb?.();
+            removeToken();
+            removeRefreshToken();
             return null;
         }
 
@@ -138,8 +140,9 @@ class Network {
             return intercepted;
         }
 
-        const data = (await resp.json()) as ResponseStruct<R> | null;
-        if (!data) return null;
+        if (resp.status === 204) return null;
+
+        const data = (await resp.json()) as ResponseStruct<R>;
         return data.data;
     }
 

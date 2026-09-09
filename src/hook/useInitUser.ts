@@ -3,16 +3,19 @@ import { useNavigate } from "react-router";
 import { useUserStore } from "@/store/user.store";
 
 import fetchUserMe from "@/network/user.api";
+import { getToken } from "@/util/token";
 
 export default function useInitUser() {
-    const [loading, setLoading] = useState(true);
+    const hasToken = Boolean(getToken());
+    const [loading, setLoading] = useState(hasToken);
 
     const setUserStore = useUserStore((state) => state.setUser);
 
     const navigate = useNavigate();
+    
     // Navigate to home screen if logged in,
     // jump to login page otherwise.
-    const fetch = async () => {
+    const init = async () => {
         try {
             const data = await fetchUserMe();
             setUserStore({ user: data });
@@ -27,7 +30,11 @@ export default function useInitUser() {
     };
 
     useEffect(() => {
-        fetch();
+        if (!hasToken) {
+            navigate("/login");
+            return;
+        }
+        init();
     }, []);
 
     return loading;
