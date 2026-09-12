@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useFoodsStore } from "@/store/food.store";
 
-import { Search, SlidersHorizontal } from "lucide-react";
+import { PlusSquare, Search, ShoppingCart, SlidersHorizontal } from "lucide-react";
 import { message } from "@/component/message/Message";
 import Loading from "@/component/loading/Loading";
 
 import { NetworkError } from "@/network/network";
 import fetchFoodList from "@/network/food-list.api";
+import Permission from "@/util/permission";
+import { useUserStore } from "@/store/user.store";
+import { useCartStore } from "@/store/cart.store";
 
 export default function FoodPage() {
     const foods = useFoodsStore((state) => state.foods);
@@ -21,7 +24,9 @@ export default function FoodPage() {
     // TODO: filter foods by category.
     // TODO: but i guess i can just display the choices instead of open a new modal or something...
     // const [filter, setFilter] = useState(-1);
-    const filteredFoods = foods.filter((food) => food.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+    const filteredFoods = foods.filter((food) =>
+        food.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
+    );
 
     useEffect(() => {
         const init = async () => {
@@ -45,6 +50,10 @@ export default function FoodPage() {
     }, [loadedFoods, setFoods]);
 
     const navigate = useNavigate();
+
+    const user = useUserStore((state) => state.user);
+
+    const addCart = useCartStore((state) => state.add);
 
     return (
         <>
@@ -80,16 +89,31 @@ export default function FoodPage() {
 
                     <ul>
                         {filteredFoods.map((food) => {
-                            console.log(food);
                             return (
-                                <li key={food.food_id} onClick={() => navigate("/layout/food/detail/" + food.food_id)}>
-                                    <div className="img">{food.image_uris[0] && <img src={food.image_uris[0]} />}</div>
-                                    <div className="info">
-                                        <h3>{food.name}</h3>
-                                        <span>
-                                            ${food.prize.toFixed(2)} | {food.sold_count} Sold
-                                        </span>
+                                <li
+                                    key={food.food_id}
+                                    onClick={() => navigate("/layout/food/detail/" + food.food_id)}>
+                                    <div className="photo">
+                                        {food.image_uris[0] && <img src={food.image_uris[0]} />}
                                     </div>
+                                    <div className="name">
+                                        <h3>{food.name}</h3>
+                                        <p>
+                                            ${food.prize.toFixed(2)} | {food.sold_count} Sold
+                                        </p>
+                                    </div>
+
+                                    {Permission.IsCustomer(user.role) && (
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                addCart(food.food_id, food.prize);
+                                                message.success(`Add ${food.name} to cart`);
+                                            }}>
+                                            <div className="hl"></div>
+                                            <div className="vl"></div>
+                                        </button>
+                                    )}
                                 </li>
                             );
                         })}

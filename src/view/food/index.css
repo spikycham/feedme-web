@@ -35,7 +35,6 @@
             font-size: 14px;
             width: 100%;
             background-color: inherit;
-
         }
 
         > .filter {
@@ -44,21 +43,23 @@
     }
 
     > ul {
+        --img-width: 60px;
         display: flex;
         flex-direction: column;
         gap: var(--std-sm-gap);
 
         > li {
             display: flex;
-            align-items: center;
+            align-items: start;
             gap: var(--std-sm-gap);
             padding: 10px;
             border-radius: var(--std-br);
             background-color: var(--color-gray);
 
-            > .img {
-                width: 40px;
-                height: 40px;
+            > .photo {
+                flex: 0 0 var(--img-width);
+                width: var(--img-width);
+                height: var(--img-width);
                 border-radius: var(--std-br);
                 overflow: hidden;
 
@@ -67,10 +68,38 @@
                     object-fit: contain;
                 }
             }
-            > .info {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
+
+            > .name {
+                flex: 1 0 150px;
+                > p {
+                    color: var(--color-fg-gray);
+                }
+            }
+
+            > button {
+                position: relative;
+                align-self: center;
+                background-color: var(--color-yellow);
+                border-radius: var(--std-br);
+                width: 28px;
+                height: 28px;
+
+                > .hl,
+                > .vl {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 16px;
+                    height: 2px;
+                    border-radius: var(--std-br);
+                    background-color: var(--color-gray);
+                }
+                > .hl {
+                    transform: translate(-50%, -50%);
+                }
+                > .vl {
+                    transform: translate(-50%, -50%) rotate(90deg);
+                }
             }
         }
     }
@@ -87,13 +116,14 @@
     > p {
         color: var(--color-fg-gray);
     }
-    
+
     .info {
         display: flex;
         flex-direction: column;
         align-items: start;
 
-        > .ic, .txt {
+        > .ic,
+        .txt {
             display: flex;
             align-items: center;
             gap: var(--std-lg-gap);
@@ -103,7 +133,7 @@
                 align-items: center;
                 justify-content: center;
                 gap: 5px;
-            
+
                 > svg {
                     width: 18px;
                 }

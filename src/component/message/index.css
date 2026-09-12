@@ -13,9 +13,9 @@
         justify-content: center;
         gap: var(--std-sm-gap);
         padding: 10px 15px;
-        border: 1px solid var(--color-gray);
+        /* border: 1px solid var(--color-gray); */
         border-radius: var(--std-br);
-        background-color: var(--color-bg);
+        background-color: var(--color-gray);
         opacity: 0;
 
         .icon {

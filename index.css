@@ -1,8 +1,8 @@
 :root {
-    --color-bg: #ffffff;
+    --color-bg: #f2f5fb;
     --color-fg: #010101;
     --color-fg-gray: #767781;
-    --color-gray: #eaeaea;
+    --color-gray: #ffffff;
 
     --color-hover: #66666620;
 
@@ -27,6 +27,7 @@
 html,
 body {
     overscroll-behavior: none;
+    background-color: var(--color-bg);
 }
 
 body {
@@ -64,7 +65,8 @@ button {
     cursor: pointer;
 }
 
-ul, li {
+ul,
+li {
     margin: 0;
     padding: 0;
 }
