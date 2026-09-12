@@ -11,6 +11,7 @@ import FoodPage from "@/view/food/FoodPage";
 import HistoryPage from "@/view/history/HistoryPage";
 import ProfilePage from "@/view/profile/ProfilePage";
 import FoodDetail from "@/view/food/FoodDetail";
+import CartPage from "@/view/cart/CartPage";
 
 const routes: RouteObject[] = [
     {
@@ -38,8 +39,12 @@ const routes: RouteObject[] = [
                         Component: FoodDetail,
                     },
                     {
+                        path: "cart",
+                        Component: CartPage,
+                    },
+                    {
                         path: "history",
-                        Component: HistoryPage
+                        Component: HistoryPage,
                     },
                     {
                         path: "profile",

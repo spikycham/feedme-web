@@ -179,8 +179,7 @@ export default function ProfilePage() {
                         setEditImgType(1);
                         setEditImgSrc(user.profile_background_uri);
                         setShowEditImg(true);
-                    }}
-                >
+                    }}>
                     <div className="info">
                         <div
                             className="avatar"
@@ -189,8 +188,7 @@ export default function ProfilePage() {
                                 setEditImgType(0);
                                 setEditImgSrc(user.avatar_uri);
                                 setShowEditImg(true);
-                            }}
-                        >
+                            }}>
                             {user.avatar_uri !== "" && <img src={user.avatar_uri} />}
                         </div>
 
@@ -205,7 +203,9 @@ export default function ProfilePage() {
                         </h1>
                     </div>
 
-                    {user.profile_background_uri !== "" && <img src={user.profile_background_uri} />}
+                    {user.profile_background_uri !== "" && (
+                        <img src={user.profile_background_uri} />
+                    )}
                 </section>
 
                 <section>
@@ -223,8 +223,7 @@ export default function ProfilePage() {
                 title="Rename"
                 description="Enter your new username."
                 loading={loadingEditName}
-                onConfirm={onConfirmEditName}
-            >
+                onConfirm={onConfirmEditName}>
                 <input
                     className="edit-rename"
                     placeholder="Enter Name"
@@ -239,8 +238,7 @@ export default function ProfilePage() {
                 title={MODAL_TITLES[editImgType]}
                 description="Upload picture by clicking the photo."
                 loading={loadingEditImg}
-                onConfirm={onConfirmEditImg}
-            >
+                onConfirm={onConfirmEditImg}>
                 <div className="edit-input">
                     <label htmlFor="edit-img">
                         {loadingUpload ? (

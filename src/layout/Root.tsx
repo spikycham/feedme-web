@@ -11,7 +11,7 @@ export default function Root() {
 
     return (
         <>
-            <Navigate to="/layout/order" />
+            <Navigate to="/layout/food" />
             <Outlet />
         </>
     );

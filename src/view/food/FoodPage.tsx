@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useUserStore } from "@/store/user.store";
 import { useFoodsStore } from "@/store/food.store";
 
-import { PlusSquare, Search, ShoppingCart, SlidersHorizontal } from "lucide-react";
+import Permission from "@/util/permission";
+
+import { Search, SlidersHorizontal } from "lucide-react";
 import { message } from "@/component/message/Message";
 import Loading from "@/component/loading/Loading";
+import OrderAction from "./Action";
 
 import { NetworkError } from "@/network/network";
 import fetchFoodList from "@/network/food-list.api";
-import Permission from "@/util/permission";
-import { useUserStore } from "@/store/user.store";
-import { useCartStore } from "@/store/cart.store";
 
 export default function FoodPage() {
     const foods = useFoodsStore((state) => state.foods);
@@ -53,8 +54,6 @@ export default function FoodPage() {
 
     const user = useUserStore((state) => state.user);
 
-    const addCart = useCartStore((state) => state.add);
-
     return (
         <>
             {loading ? (
@@ -93,26 +92,22 @@ export default function FoodPage() {
                                 <li
                                     key={food.food_id}
                                     onClick={() => navigate("/layout/food/detail/" + food.food_id)}>
-                                    <div className="photo">
-                                        {food.image_uris[0] && <img src={food.image_uris[0]} />}
-                                    </div>
-                                    <div className="name">
-                                        <h3>{food.name}</h3>
-                                        <p>
-                                            ${food.prize.toFixed(2)} | {food.sold_count} Sold
-                                        </p>
-                                    </div>
+                                    <section className="info">
+                                        <div className="photo">
+                                            {food.image_uris[0] && <img src={food.image_uris[0]} />}
+                                        </div>
+                                        <div className="text">
+                                            <h3>{food.name}</h3>
+                                            <p>{food.sold_count} Sold</p>
+                                        </div>
+                                    </section>
 
                                     {Permission.IsCustomer(user.role) && (
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                addCart(food.food_id, food.prize);
-                                                message.success(`Add ${food.name} to cart`);
-                                            }}>
-                                            <div className="hl"></div>
-                                            <div className="vl"></div>
-                                        </button>
+                                        <OrderAction
+                                            food_id={food.food_id}
+                                            name={food.name}
+                                            price={food.prize}
+                                        />
                                     )}
                                 </li>
                             );

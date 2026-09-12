@@ -55,7 +55,7 @@ export default function Login() {
             setUserStore({ user: data.user });
 
             message.success("Log in successfully");
-            navigate("/layout/order");
+            navigate("/layout/food");
         } catch (err) {
             if (err instanceof NetworkError) {
                 message.failed("Incorrect account or password");

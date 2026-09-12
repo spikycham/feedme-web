@@ -12,7 +12,7 @@ export default function useInitUser() {
     const setUserStore = useUserStore((state) => state.setUser);
 
     const navigate = useNavigate();
-    
+
     // Navigate to home screen if logged in,
     // jump to login page otherwise.
     const init = async () => {
@@ -20,7 +20,7 @@ export default function useInitUser() {
             const data = await fetchUserMe();
             setUserStore({ user: data });
 
-            const prevPath = localStorage.getItem("previous_path") ?? "/layout/order";
+            const prevPath = localStorage.getItem("previous_path") ?? "/layout/food";
             navigate(prevPath);
         } catch {
             navigate("/login");

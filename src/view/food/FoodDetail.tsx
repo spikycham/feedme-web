@@ -1,11 +1,25 @@
 import { useParams } from "react-router";
 import { useFoodsStore } from "@/store/food.store";
 
-import { Beef, Cake, CircleDollarSign, Hamburger, LeafyGreen, Shrimp, Soup, Star, Wheat, Wine } from "lucide-react";
+import {
+    Beef,
+    Cake,
+    CircleDollarSign,
+    Hamburger,
+    LeafyGreen,
+    Shrimp,
+    Soup,
+    Star,
+    Wheat,
+    Wine,
+} from "lucide-react";
 
-import Carousel from "@/component/carousel/Carousel";
+// import Carousel from "@/component/carousel/Carousel";
 
 import "./index.css";
+import OrderAction from "./Action";
+import Permission from "@/util/permission";
+import { useUserStore } from "@/store/user.store";
 
 // type FoodCategory = "staple food" | "vegetable" | "meat" | "seafood" | "soup" | "dessert" | "drink" | "other"
 const foodCategoryMap = [
@@ -65,64 +79,68 @@ export default function FoodDetail() {
         return `${y}-${m}-${d} ${h}:${mi}:${s}`;
     };
 
+    const user = useUserStore((state) => state.user);
+
     if (!food) return null;
 
     // TODO: when a comment is added, there should be a notification to the merchant!
     return (
         <div className="food-detail">
-            <Carousel srcs={food.image_uris} />
-
             <h1>{food.name}</h1>
-            <p>{food.detail}</p>
 
-            <section>
-                <h3>- Attributes</h3>
+            {food.image_uris[0] && (
+                <div className="photo">
+                    <img src={food.image_uris[0]} />
+                </div>
+            )}
+
+            <div className="desc">
+                {/* <span className="min">{getMinBySec(food.required_time)} Min</span> */}
                 <div className="info">
-                    <div className="txt">
-                        <div>{food.sold_count} Sold</div>
-                        <div>{getMinBySec(food.required_time)} Min</div>
-                    </div>
-
-                    <div className="ic">
-                        <div>
-                            <CircleDollarSign />
-                            <span>{food.prize}</span>
-                        </div>
-                        <div>
-                            <Star /> {food.rate}
-                        </div>
-                        <div>
-                            {foodCategoryMap[food.category].Icon} {foodCategoryMap[food.category].name}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <h3>- Ingredients</h3>
-                <div className="ig-container">
-                    {food.ingredients.map((ig) => (
-                        <span className="ingredient" key={ig}>
-                            {ig}
+                    <section>
+                        <span className="rate">
+                            <Star />
+                            &nbsp;{food.rate} Rating
                         </span>
-                    ))}
+                        <span className="sold">&nbsp;({food.sold_count} Sold)</span>
+                    </section>
+                    <section>
+                        <span className="price">${food.prize}</span>
+                        <span className="avg">/Average</span>
+                    </section>
                 </div>
-            </section>
+                <p>{food.detail}</p>
+            </div>
+
+            {Permission.IsMerchant(user.role) && (
+                <>
+                    <section>
+                        <h3>Ingredients</h3>
+                        <div className="ig-container">
+                            {food.ingredients.map((ig) => (
+                                <span className="ingredient" key={ig}>
+                                    {ig}
+                                </span>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Steps</h3>
+                        {food.steps.map((step) => (
+                            <p key={step.sort}>
+                                {step.sort}. {step.detail}
+                            </p>
+                        ))}
+                    </section>
+                </>
+            )}
 
             <section>
-                <h3>- Steps</h3>
-                {food.steps.map((step) => (
-                    <p key={step.sort}>
-                        {step.sort}. {step.detail}
-                    </p>
-                ))}
-            </section>
-
-            <section>
-                <h3>- Comments</h3>
+                <h3>Comments</h3>
                 <div className="cm-container">
                     {food.comments.map((c) => (
-                        <p>
+                        <p key={c.commend_id}>
                             <span>{getDateTimeBySec(c.created_at)}</span>
                             <span>{c.detail}</span>
                         </p>
