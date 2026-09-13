@@ -3,7 +3,7 @@ interface Food {
     name: string;
     detail: string;
     prize: number;
-    rate: number // [0.0, 5.0]
+    rate: number; // [0.0, 5.0]
     required_time: number;
     sold_count: number;
     image_uris: string[];
@@ -20,10 +20,18 @@ interface FoodStep {
     detail: string;
 }
 interface FoodComment {
-    commend_id: string;
+    comment_id: string;
     detail: string;
     created_at: number;
     deleted_at: number;
 }
 
-type FoodCategory = "staple food" | "vegetable" | "meat" | "seafood" | "soup" | "dessert" | "drink" | "other"
+type FoodCategory =
+    | "staple food"
+    | "vegetable"
+    | "meat"
+    | "seafood"
+    | "soup"
+    | "dessert"
+    | "drink"
+    | "other";

@@ -12,7 +12,7 @@ export default function Layout() {
     if (loading) return <Loading />;
     return (
         <main className="layout">
-            <section className="header">
+            <section className="content">
                 <Outlet />
             </section>
 

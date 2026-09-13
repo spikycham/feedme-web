@@ -1,16 +1,96 @@
 .cart {
     position: relative;
 
+    .empty {
+        font-weight: normal;
+
+        > span {
+            display: block;
+        }
+
+        > .sec-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            > .goto {
+                font-size: 16px;
+                padding: 5px 10px;
+                border-radius: 20px;
+                background-color: var(--color-gray);
+            }
+        }
+    }
+
     .list {
+        --img-width: 66px;
         display: flex;
         flex-direction: column;
         gap: var(--std-sm-gap);
+
+        > .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--std-sm-gap);
+            padding: var(--std-pd);
+            border-radius: var(--std-br);
+            background-color: var(--color-gray);
+
+            > .info {
+                display: flex;
+                gap: var(--std-sm-gap);
+
+                > .photo {
+                    width: var(--img-width);
+                    height: var(--img-width);
+                    border-radius: var(--std-br);
+                    overflow: hidden;
+
+                    > img {
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+
+                > .text {
+                    > h3 {
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            > .actions {
+                display: flex;
+                align-items: end;
+                gap: var(--std-sm-gap);
+
+                > .clear {
+                    display: grid;
+                    place-items: center;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: var(--std-br);
+                    background-color: var(--color-red);
+                    color: var(--color-gray);
+                }
+            }
+        }
+
+        .item.total {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .price {
+                font-size: 18px;
+            }
+        }
     }
 
     > .pay {
         position: fixed;
-        right: 20px;
-        bottom: 110px;
+        right: 10px;
+        bottom: 97px;
         display: grid;
         place-items: center;
         width: 60px;

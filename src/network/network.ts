@@ -140,7 +140,8 @@ class Network {
             return intercepted;
         }
 
-        if (resp.status === 204) return null;
+        const noBody = [201, 204];
+        if (noBody.includes(resp.status)) return null;
 
         const data = (await resp.json()) as ResponseStruct<R>;
         return data.data;

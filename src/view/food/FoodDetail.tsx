@@ -1,18 +1,7 @@
 import { useParams } from "react-router";
 import { useFoodsStore } from "@/store/food.store";
 
-import {
-    Beef,
-    Cake,
-    CircleDollarSign,
-    Hamburger,
-    LeafyGreen,
-    Shrimp,
-    Soup,
-    Star,
-    Wheat,
-    Wine,
-} from "lucide-react";
+import { Beef, Cake, Hamburger, LeafyGreen, Shrimp, Soup, Star, Wheat, Wine } from "lucide-react";
 
 // import Carousel from "@/component/carousel/Carousel";
 
@@ -82,6 +71,7 @@ export default function FoodDetail() {
     const user = useUserStore((state) => state.user);
 
     if (!food) return null;
+    console.log(food.comments);
 
     // TODO: when a comment is added, there should be a notification to the merchant!
     return (
@@ -140,7 +130,7 @@ export default function FoodDetail() {
                 <h3>Comments</h3>
                 <div className="cm-container">
                     {food.comments.map((c) => (
-                        <p key={c.commend_id}>
+                        <p key={c.comment_id}>
                             <span>{getDateTimeBySec(c.created_at)}</span>
                             <span>{c.detail}</span>
                         </p>

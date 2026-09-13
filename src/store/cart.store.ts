@@ -33,7 +33,9 @@ export const useCartStore = create<State & Action>()((set) => ({
             const foods = new Map(state.foods);
             const curr = foods.get(id);
             if (!curr) return { foods, amount: state.amount };
+
             foods.set(id, foods.get(id)! - 1);
+            if (foods.get(id) === 0) foods.delete(id);
 
             const amount = state.amount - unitPrice;
             return { foods, amount };

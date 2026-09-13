@@ -1,20 +1,33 @@
 import { useState } from "react";
+import { useFoodsStore } from "@/store/food.store";
 import { useCartStore } from "@/store/cart.store";
 
-import { ClipboardCheck } from "lucide-react";
+import { ClipboardCheck, Trash } from "lucide-react";
+import { message } from "@/component/message/Message";
 import Modal from "@/component/modal/Modal";
+import OrderAction from "../food/Action";
 
+import { NetworkError } from "@/network/network";
 import fetchCreateOrder from "@/network/create-order.api";
 import type { RequestCreateOrder } from "@/network/create-order.api";
 
 import "./index.css";
-import { NetworkError } from "@/network/network";
-import { message } from "@/component/message/Message";
 
 export default function CartPage() {
     const [showPay, setShowPay] = useState(false);
     const [loadingPay, setLoadingPay] = useState(false);
 
+    // Display food details.
+    const foods = useFoodsStore((state) => state.foods);
+    const getFoodDetail = (id: string) => {
+        return foods.find((f) => f.food_id === id);
+    };
+
+    // Cart actions.
+    const clearOne = useCartStore((state) => state.clearOne);
+    const clearAll = useCartStore((state) => state.clearAll);
+
+    // Submit pay.
     const amount = useCartStore((state) => state.amount);
     const cartFoods = useCartStore((state) => state.foods);
     const body: RequestCreateOrder = {
@@ -35,11 +48,13 @@ export default function CartPage() {
         setLoadingPay(true);
         try {
             await fetchCreateOrder(body);
+            clearAll();
         } catch (err) {
             if (err instanceof NetworkError) {
                 message.failed("Failed to pay");
                 return;
             }
+
             message.internal();
         } finally {
             setLoadingPay(false);
@@ -50,7 +65,57 @@ export default function CartPage() {
     return (
         <>
             <div className="cart">
-                <section className="list"></section>
+                <section>
+                    {cartFoods.size === 0 ? (
+                        <h1 className="empty">
+                            <span>Your cart is empty,</span>
+                            <span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;let's get your <strong>food</strong>!
+                            </span>
+                        </h1>
+                    ) : (
+                        <ul className="list">
+                            <li className="item total">
+                                <span>Total:</span>
+                                <span className="price">${amount.toFixed(2)}</span>
+                            </li>
+
+                            {[...cartFoods.entries()].map(([id, count]) => {
+                                const food = getFoodDetail(id);
+                                if (!food) return null;
+
+                                return (
+                                    <li key={id} className="item">
+                                        <section className="info">
+                                            <div className="photo">
+                                                {food.image_uris[0] && (
+                                                    <img src={food.image_uris[0]} />
+                                                )}
+                                            </div>
+                                            <div className="text">
+                                                <h3>{food.name}</h3>
+                                            </div>
+                                        </section>
+                                        <section className="actions">
+                                            <OrderAction
+                                                food_id={food.food_id}
+                                                name={food.name}
+                                                price={food.prize}
+                                                count={count}
+                                            />
+
+                                            <button
+                                                className="clear"
+                                                onClick={() => clearOne(food.food_id, food.prize)}>
+                                                <Trash />
+                                            </button>
+                                        </section>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
+                </section>
 
                 <button className="pay" onClick={() => setShowPay(true)}>
                     <ClipboardCheck />
