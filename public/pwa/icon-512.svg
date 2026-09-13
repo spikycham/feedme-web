@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect x="0" y="0" width="512" height="512" rx="112" ry="112" fill="#f3b244"/>
+  <!-- Cloche / Plate outline -->
+  <path d="M128 310 C128 235, 384 235, 384 310 Z" fill="none" stroke="#ffffff" stroke-width="21" stroke-linejoin="round"/>
+  <line x1="106" y1="330" x2="406" y2="330" stroke="#ffffff" stroke-width="21" stroke-linecap="round"/>
+  <circle cx="256" cy="224" r="18" fill="#ffffff"/>
+  <!-- Fork -->
+  <path d="M202 298 V373 M186 298 V330 C186 341, 218 341, 218 330 V298 M202 341 V373" fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Spoon -->
+  <path d="M310 373 V336 C323 336, 328 320, 328 310 C328 296, 310 296, 310 310 C310 296, 292 296, 292 310 C292 320, 297 336, 310 336" fill="#ffffff"/>
+</svg>

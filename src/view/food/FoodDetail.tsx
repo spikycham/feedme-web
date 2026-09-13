@@ -90,7 +90,7 @@ export default function FoodDetail() {
                         <h3>Steps</h3>
                         {food.steps.map((step) => (
                             <p key={step.sort}>
-                                {step.sort}. {step.detail}
+                                {step.sort + 1}. {step.detail}
                             </p>
                         ))}
                     </section>
