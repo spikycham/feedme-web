@@ -15,7 +15,7 @@ export default function OrderAction(props: Props) {
 
     return (
         <div className="action">
-            <p className="price">${(props.price * (props.count ?? 0)).toFixed(2)}</p>
+            <p className="price">${(props.price * (props.count ?? 1)).toFixed(2)}</p>
             <div onClick={(e) => e.stopPropagation()}>
                 <div className="buttons">
                     <button

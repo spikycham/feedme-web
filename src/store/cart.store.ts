@@ -12,13 +12,13 @@ type Action = {
     clearAll: () => void;
 };
 
-const INIT_CART_STATE: State = {
+const INIT_CART_STATE = (): State => ({
     foods: new Map(),
     amount: 0,
-};
+});
 
 export const useCartStore = create<State & Action>()((set) => ({
-    ...INIT_CART_STATE,
+    ...INIT_CART_STATE(),
 
     add: (id, unitPrice) =>
         set((state) => {
@@ -51,7 +51,5 @@ export const useCartStore = create<State & Action>()((set) => ({
             const amount = state.amount - curr * unitPrice;
             return { foods, amount };
         }),
-    clearAll: () => {
-        return { ...INIT_CART_STATE };
-    },
+    clearAll: () => set(() => INIT_CART_STATE()),
 }));

@@ -49,12 +49,14 @@ export default function CartPage() {
         try {
             await fetchCreateOrder(body);
             clearAll();
+            message.success("Created a new order");
         } catch (err) {
+            console.log(err);
+
             if (err instanceof NetworkError) {
                 message.failed("Failed to pay");
                 return;
             }
-
             message.internal();
         } finally {
             setLoadingPay(false);

@@ -8,7 +8,11 @@
         padding: var(--std-pd);
         flex: 1 0 0;
         overflow-y: auto;
+        scrollbar-width: none;
         z-index: 2;
+    }
+    > .content::-webkit-scrollbar {
+        display: none;
     }
     > .footer {
         padding: var(--std-pd);

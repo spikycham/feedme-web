@@ -1,50 +1,16 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { useUserStore } from "@/store/user.store";
 import { useFoodsStore } from "@/store/food.store";
 
-import { Beef, Cake, Hamburger, LeafyGreen, Shrimp, Soup, Star, Wheat, Wine } from "lucide-react";
+import { ChevronLeft, Star } from "lucide-react";
 
 // import Carousel from "@/component/carousel/Carousel";
 
-import "./index.css";
-import OrderAction from "./Action";
 import Permission from "@/util/permission";
-import { useUserStore } from "@/store/user.store";
+
+import "./index.css";
 
 // type FoodCategory = "staple food" | "vegetable" | "meat" | "seafood" | "soup" | "dessert" | "drink" | "other"
-const foodCategoryMap = [
-    {
-        name: "Staple Food",
-        Icon: <Wheat />,
-    },
-    {
-        name: "Vegetable",
-        Icon: <LeafyGreen />,
-    },
-    {
-        name: "Meat",
-        Icon: <Beef />,
-    },
-    {
-        name: "Seafood",
-        Icon: <Shrimp />,
-    },
-    {
-        name: "Soup",
-        Icon: <Soup />,
-    },
-    {
-        name: "Dessert",
-        Icon: <Cake />,
-    },
-    {
-        name: "Drink",
-        Icon: <Wine />,
-    },
-    {
-        name: "Other",
-        Icon: <Hamburger />,
-    },
-];
 
 export default function FoodDetail() {
     const { id } = useParams();
@@ -69,14 +35,19 @@ export default function FoodDetail() {
     };
 
     const user = useUserStore((state) => state.user);
+    const navigate = useNavigate();
 
     if (!food) return null;
-    console.log(food.comments);
 
     // TODO: when a comment is added, there should be a notification to the merchant!
     return (
         <div className="food-detail">
-            <h1>{food.name}</h1>
+            <div className="header">
+                <button className="back" onClick={() => navigate("/layout/food")}>
+                    <ChevronLeft />
+                </button>
+                <h1>{food.name}</h1>
+            </div>
 
             {food.image_uris[0] && (
                 <div className="photo">

@@ -36,10 +36,35 @@
             width: 100%;
             background-color: inherit;
         }
+    }
 
-        > .filter {
-            height: 18px;
+    .filter {
+        display: flex;
+        gap: var(--std-sm-gap);
+        overflow-x: auto;
+        scrollbar-width: none;
+
+        > .item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            border-radius: var(--std-br);
+            padding: 0 10px;
+
+            svg {
+                width: 16px;
+            }
+            span {
+                white-space: nowrap;
+            }
         }
+        > .item.active {
+            background-color: var(--color-gray);
+        }
+    }
+    .filter::-webkit-scrollbar {
+        display: none;
     }
 
     > ul {
@@ -96,8 +121,22 @@
     flex-direction: column;
     gap: var(--std-sm-gap);
 
-    > h1 {
-        text-align: center;
+    .header {
+        display: flex;
+        align-items: center;
+        gap: var(--std-sm-gap);
+
+        .back {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-gray);
+            border-radius: var(--std-br);
+        }
+        h1 {
+            justify-self: center;
+        }
     }
 
     .photo {
