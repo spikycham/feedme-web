@@ -1,0 +1,88 @@
+.order-list {
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--std-sm-gap);
+
+        > .item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: var(--std-pd);
+            border-radius: var(--std-br);
+            background-color: var(--color-gray);
+
+            > .header {
+                h3 {
+                    font-weight: normal;
+                }
+                p {
+                    color: var(--color-fg-gray);
+                }
+            }
+
+            > .info {
+                p {
+                    display: flex;
+                    color: var(--color-fg-gray);
+
+                    .title {
+                        min-width: 60px;
+                    }
+                }
+            }
+
+            > .content {
+                --img-width: 50px;
+                display: grid;
+                grid-template-columns: repeat(2, 50%);
+                row-gap: var(--std-sm-gap);
+
+                > .food {
+                    display: flex;
+                    gap: var(--std-sm-gap);
+
+                    h3 {
+                        font-weight: normal;
+                    }
+
+                    > .photo {
+                        width: var(--img-width);
+                        height: var(--img-width);
+                        border-radius: var(--std-br);
+                        overflow: hidden;
+
+                        > img {
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                    }
+
+                    > .info {
+                        color: var(--color-fg-gray);
+                        > span {
+                            display: block;
+                        }
+                    }
+                }
+            }
+
+            > .action {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: end;
+
+                button {
+                    padding: 10px 20px;
+                }
+            }
+        }
+    }
+}
+
+.break-line {
+    height: 1px;
+    background-color: var(--color-fg-gray);
+    border-radius: var(--std-br);
+}

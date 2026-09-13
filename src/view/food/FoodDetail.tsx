@@ -7,6 +7,7 @@ import { ChevronLeft, Star } from "lucide-react";
 // import Carousel from "@/component/carousel/Carousel";
 
 import Permission from "@/util/permission";
+import { getDateTimeBySec } from "@/util/time";
 
 import "./index.css";
 
@@ -16,23 +17,6 @@ export default function FoodDetail() {
     const { id } = useParams();
     const foods = useFoodsStore((state) => state.foods);
     const food = foods.find((food) => food.food_id === id);
-
-    const getMinBySec = (sec: number) => {
-        return (sec / 60).toFixed(0);
-    };
-    const getDateTimeBySec = (sec: number) => {
-        const time = new Date(sec * 1000);
-
-        const y = time.getFullYear();
-        const m = time.getMonth().toString().padStart(2, "0");
-        const d = time.getDate().toString().padStart(2, "0");
-
-        const h = time.getHours().toString().padStart(2, "0");
-        const mi = time.getMinutes().toString().padStart(2, "0");
-        const s = time.getSeconds().toString().padStart(2, "0");
-
-        return `${y}-${m}-${d} ${h}:${mi}:${s}`;
-    };
 
     const user = useUserStore((state) => state.user);
     const navigate = useNavigate();

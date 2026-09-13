@@ -34,7 +34,7 @@ export default function Modal(props: Props) {
                 <p>
                     <span>{props.description}</span>
                 </p>
-                <div>{props.children}</div>
+                {props.children && <div>{props.children}</div>}
                 <div className="operation">
                     <Button type="cancel" title="Cancel" onClick={onHide} />
                     <Button title="Confirm" loading={props.loading} onClick={props.onConfirm} />
