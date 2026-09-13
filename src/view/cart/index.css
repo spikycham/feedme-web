@@ -1,0 +1,25 @@
+.cart {
+    position: relative;
+
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--std-sm-gap);
+    }
+
+    > .pay {
+        position: fixed;
+        right: 20px;
+        bottom: 110px;
+        display: grid;
+        place-items: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        background-color: var(--color-yellow);
+
+        > svg {
+            color: var(--color-bg);
+        }
+    }
+}

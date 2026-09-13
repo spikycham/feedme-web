@@ -8,7 +8,8 @@ interface State {
 type Action = {
     add: (id: string, unitPrice: number) => void;
     remove: (id: string, unitPrice: number) => void;
-    clear: () => void;
+    clearOne: (id: string, unitPrice: number) => void;
+    clearAll: () => void;
 };
 
 const INIT_CART_STATE: State = {
@@ -37,7 +38,18 @@ export const useCartStore = create<State & Action>()((set) => ({
             const amount = state.amount - unitPrice;
             return { foods, amount };
         }),
-    clear: () => {
+    clearOne: (id, unitPrice) =>
+        set((state) => {
+            const foods = new Map(state.foods);
+            const curr = foods.get(id);
+            if (!curr) return { foods, amount: state.amount };
+
+            foods.delete(id);
+
+            const amount = state.amount - curr * unitPrice;
+            return { foods, amount };
+        }),
+    clearAll: () => {
         return { ...INIT_CART_STATE };
     },
 }));
