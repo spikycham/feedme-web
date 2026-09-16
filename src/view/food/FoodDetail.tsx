@@ -28,9 +28,7 @@ export default function FoodDetail() {
     return (
         <div className="food-detail">
             <div className="header">
-                <button
-                    className="back"
-                    onClick={() => navigate("/layout/food")}>
+                <button className="back" onClick={() => navigate("/layout/food")}>
                     <ChevronLeft />
                 </button>
                 <h1>{food.name}</h1>
@@ -48,16 +46,18 @@ export default function FoodDetail() {
                     <section>
                         <span className="rate">
                             <Star />
-                            &nbsp;{food.rate} Rating
+                            &nbsp;{food.rate} {i18n.t("rating")}
                         </span>
-                        <span className="sold">&nbsp;({food.sold_count} Sold)</span>
+                        <span className="sold">
+                            &nbsp;({food.sold_count} {i18n.t("sold_count")})
+                        </span>
                     </section>
                     <section>
                         <span className="price">
                             {i18n.t("money_sign")}
                             {food.prize}
                         </span>
-                        <span className="avg">/Average</span>
+                        <span className="avg">/{i18n.t("average")}</span>
                     </section>
                 </div>
                 <p>{food.detail}</p>
@@ -69,9 +69,7 @@ export default function FoodDetail() {
                         <h3>Ingredients</h3>
                         <div className="ig-container">
                             {food.ingredients.map((ig) => (
-                                <span
-                                    className="ingredient"
-                                    key={ig}>
+                                <span className="ingredient" key={ig}>
                                     {ig}
                                 </span>
                             ))}
@@ -90,7 +88,7 @@ export default function FoodDetail() {
             )}
 
             <section>
-                <h3>Comments</h3>
+                <h3>{i18n.t("comments")}</h3>
                 <div className="cm-container">
                     {food.comments.map((c) => (
                         <p key={c.comment_id}>

@@ -18,5 +18,19 @@
     "pay_for_meals": "确定支付?",
     "cart_empty_prompt": "您还未点餐",
     "lets_get_your": "先去看看",
-    "cart_food_prompt": "菜单"
+    "cart_food_prompt": "菜单",
+    "search_food": "搜索您的最爱大餐",
+    "reset": "清空",
+    "staple_food": "主食",
+    "vegetable": "蔬菜",
+    "meat": "肉类",
+    "seafood": "海鲜",
+    "soup": "汤",
+    "dessert": "甜点",
+    "drink": "饮品",
+    "other_food": "其他食物",
+    "sold_count": "售出",
+    "rating": "评分",
+    "average": "平均",
+    "comments": "评论"
 }

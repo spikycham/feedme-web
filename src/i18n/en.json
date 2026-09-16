@@ -18,5 +18,19 @@
     "pay_for_meals": "Pay for meals?",
     "cart_empty_prompt": "Your cart is empty",
     "lets_get_your": "let's get your ",
-    "cart_food_prompt": "food"
+    "cart_food_prompt": "food",
+    "search_food": "Search your favorite food",
+    "reset": "reset",
+    "staple_food": "Staple Food",
+    "vegetable": "Vegetable",
+    "meat": "Meat",
+    "seafood": "Seafood",
+    "soup": "Soup",
+    "dessert": "Dessert",
+    "drink": "Drink",
+    "other_food": "Other",
+    "sold_count": "Sold",
+    "rating": "Rating",
+    "average": "Average",
+    "comments": "Comments"
 }

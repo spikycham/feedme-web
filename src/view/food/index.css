@@ -61,6 +61,7 @@
         }
         > .item.active {
             background-color: var(--color-gray);
+            white-space: nowrap;
         }
     }
     .filter::-webkit-scrollbar {

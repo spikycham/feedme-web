@@ -13,6 +13,7 @@ import fetchFoodList from "@/network/food-list.api";
 
 import Permission from "@/util/permission";
 
+import i18n from "@/i18n";
 import "./index.css";
 
 interface FoodCategoryMap {
@@ -24,49 +25,49 @@ interface FoodCategoryMap {
 const foodCategoryMap: FoodCategoryMap[] = [
     {
         key: 0,
-        name: "Staple Food",
+        name: i18n.t("staple_food"),
         Icon: <Wheat />,
         color: "var(--color-yellow)",
     },
     {
         key: 1,
-        name: "Vegetable",
+        name: i18n.t("vegetable"),
         Icon: <LeafyGreen />,
         color: "var(--color-green)",
     },
     {
         key: 2,
-        name: "Meat",
+        name: i18n.t("meat"),
         Icon: <Beef />,
         color: "var(--color-red)",
     },
     {
         key: 3,
-        name: "Seafood",
+        name: i18n.t("seafood"),
         Icon: <Shrimp />,
         color: "var(--color-blue)",
     },
     {
         key: 4,
-        name: "Soup",
+        name: i18n.t("soup"),
         Icon: <Soup />,
         color: "var(--color-maroon)",
     },
     {
         key: 5,
-        name: "Dessert",
+        name: i18n.t("dessert"),
         Icon: <Cake />,
         color: "var(--color-pink)",
     },
     {
         key: 6,
-        name: "Drink",
+        name: i18n.t("drink"),
         Icon: <Wine />,
         color: "var(--color-orange)",
     },
     {
         key: 7,
-        name: "Other",
+        name: i18n.t("other_food"),
         Icon: <Hamburger />,
         color: "var(--color-fg-gray)",
     },
@@ -136,14 +137,14 @@ export default function FoodPage() {
                         </label>
                         <input
                             id="food-search"
-                            placeholder="Search your favorite food"
+                            placeholder={i18n.t("search_food")}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
 
                     <div className="filter">
                         <button className="item active" onClick={() => setFilter(new Set())}>
-                            Reset
+                            {i18n.t("reset")}
                         </button>
 
                         {foodCategoryMap.map((item) => (
@@ -180,7 +181,9 @@ export default function FoodPage() {
                                         </div>
                                         <div className="text">
                                             <h3>{food.name}</h3>
-                                            <p>{food.sold_count} Sold</p>
+                                            <p>
+                                                {food.sold_count} {i18n.t("sold_count")}
+                                            </p>
                                         </div>
                                     </section>
 
