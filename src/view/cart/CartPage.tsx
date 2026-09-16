@@ -11,6 +11,7 @@ import { NetworkError } from "@/network/network";
 import fetchCreateOrder from "@/network/create-order.api";
 import type { RequestCreateOrder } from "@/network/create-order.api";
 
+import i18n from "@/i18n";
 import "./index.css";
 
 export default function CartPage() {
@@ -70,16 +71,20 @@ export default function CartPage() {
                 <section>
                     {cartFoods.size === 0 ? (
                         <h1 className="empty">
-                            <span>Your cart is empty,</span>
+                            <span>{i18n.t("cart_empty_prompt")},</span>
                             <span>
-                                &nbsp;&nbsp;&nbsp;&nbsp;let's get your <strong>food</strong>!
+                                &nbsp;&nbsp;&nbsp;&nbsp;{i18n.t("lets_get_your")}
+                                <strong>{i18n.t("cart_food_prompt")}</strong>!
                             </span>
                         </h1>
                     ) : (
                         <ul className="list">
                             <li className="item total">
-                                <span>Total:</span>
-                                <span className="price">${amount.toFixed(2)}</span>
+                                <span>{i18n.t("total_expense")}:</span>
+                                <span className="price">
+                                    {i18n.t("money_sign")}
+                                    {amount.toFixed(2)}
+                                </span>
                             </li>
 
                             {[...cartFoods.entries()].map(([id, count]) => {
@@ -127,10 +132,13 @@ export default function CartPage() {
             <Modal
                 show={showPay}
                 onShow={setShowPay}
-                title="Pay for meals?"
+                title={i18n.t("pay_for_meals")}
                 loading={loadingPay}
                 onConfirm={submitPay}>
-                <span>Total expense: ${amount.toFixed(2).padStart(5, "0")}</span>
+                <span>
+                    {i18n.t("total_expense")}: {i18n.t("money_sign")}
+                    {amount.toFixed(2).padStart(5, "0")}
+                </span>
             </Modal>
         </>
     );

@@ -1,5 +1,6 @@
 import { useCartStore } from "@/store/cart.store";
 import { message } from "@/component/message/Message";
+import i18n from "@/i18n";
 
 interface Props {
     food_id: string;
@@ -15,7 +16,10 @@ export default function OrderAction(props: Props) {
 
     return (
         <div className="action">
-            <p className="price">${(props.price * (props.count ?? 1)).toFixed(2)}</p>
+            <p className="price">
+                {i18n.t("money_sign")}
+                {(props.price * (props.count ?? 1)).toFixed(2)}
+            </p>
             <div onClick={(e) => e.stopPropagation()}>
                 <div className="buttons">
                     <button

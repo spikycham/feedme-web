@@ -12,5 +12,11 @@
     "action_cancel": "取消",
     "select_avatar": "选择头像",
     "select_background": "选择背景图片",
-    "upload_picture_prompt": "点击图片以选择进行上传"
+    "upload_picture_prompt": "点击图片以选择进行上传",
+    "money_sign": "¥",
+    "total_expense": "合计",
+    "pay_for_meals": "确定支付?",
+    "cart_empty_prompt": "您还未点餐",
+    "lets_get_your": "先去看看",
+    "cart_food_prompt": "菜单"
 }

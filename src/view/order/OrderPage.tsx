@@ -14,6 +14,7 @@ import fetchUpdateOrderStatus from "@/network/update-order-status.api";
 
 import "./index.css";
 import { useOrdersStore } from "@/store/order.store";
+import i18n from "@/i18n";
 
 const orderStatusMap = [
     {
@@ -81,7 +82,9 @@ export default function OrderPage() {
                         {orders
                             .sort((a, b) => b.created_at - a.created_at)
                             .map((order) => (
-                                <li key={order.order_id} className="item">
+                                <li
+                                    key={order.order_id}
+                                    className="item">
                                     <section className="header">
                                         <h3>Order #: {order.order_id.slice(0, 4)}</h3>
                                         <p>
@@ -104,7 +107,10 @@ export default function OrderPage() {
                                         </p>
                                         <p>
                                             <span className="title">Total:</span>
-                                            <span>${order.amount.toFixed(2)}</span>
+                                            <span>
+                                                {i18n.t("money_sign")}
+                                                {order.amount.toFixed(2)}
+                                            </span>
                                         </p>
                                     </section>
 
@@ -119,7 +125,9 @@ export default function OrderPage() {
                                             if (!food) return null;
 
                                             return (
-                                                <div className="food" key={orderFood.food_id}>
+                                                <div
+                                                    className="food"
+                                                    key={orderFood.food_id}>
                                                     <div className="photo">
                                                         {food.image_uris[0] && (
                                                             <img src={food.image_uris[0]} />

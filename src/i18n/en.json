@@ -12,5 +12,11 @@
     "action_cancel": "Cancel",
     "select_avatar": "Select Avatar",
     "select_background": "Select Background",
-    "upload_picture_prompt": "Upload picture by clicking the photo"
+    "upload_picture_prompt": "Upload picture by clicking the photo",
+    "money_sign": "$",
+    "total_expense": "Total expense",
+    "pay_for_meals": "Pay for meals?",
+    "cart_empty_prompt": "Your cart is empty",
+    "lets_get_your": "let's get your ",
+    "cart_food_prompt": "food"
 }

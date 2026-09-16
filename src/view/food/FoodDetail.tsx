@@ -9,6 +9,7 @@ import { ChevronLeft, Star } from "lucide-react";
 import Permission from "@/util/permission";
 import { getDateTimeBySec } from "@/util/time";
 
+import i18n from "@/i18n";
 import "./index.css";
 
 // type FoodCategory = "staple food" | "vegetable" | "meat" | "seafood" | "soup" | "dessert" | "drink" | "other"
@@ -27,7 +28,9 @@ export default function FoodDetail() {
     return (
         <div className="food-detail">
             <div className="header">
-                <button className="back" onClick={() => navigate("/layout/food")}>
+                <button
+                    className="back"
+                    onClick={() => navigate("/layout/food")}>
                     <ChevronLeft />
                 </button>
                 <h1>{food.name}</h1>
@@ -50,7 +53,10 @@ export default function FoodDetail() {
                         <span className="sold">&nbsp;({food.sold_count} Sold)</span>
                     </section>
                     <section>
-                        <span className="price">${food.prize}</span>
+                        <span className="price">
+                            {i18n.t("money_sign")}
+                            {food.prize}
+                        </span>
                         <span className="avg">/Average</span>
                     </section>
                 </div>
@@ -63,7 +69,9 @@ export default function FoodDetail() {
                         <h3>Ingredients</h3>
                         <div className="ig-container">
                             {food.ingredients.map((ig) => (
-                                <span className="ingredient" key={ig}>
+                                <span
+                                    className="ingredient"
+                                    key={ig}>
                                     {ig}
                                 </span>
                             ))}

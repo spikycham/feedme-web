@@ -33,12 +33,18 @@ export default function Modal(props: Props) {
         <div className={"modal" + (props.show ? " show" : "")}>
             <div className="content">
                 <h1>{props.title}</h1>
-                <p>
-                    <span>{props.description}</span>
-                </p>
+                {props.description && (
+                    <p>
+                        <span>{props.description}</span>
+                    </p>
+                )}
                 {props.children && <div>{props.children}</div>}
                 <div className="operation">
-                    <Button type="cancel" title={i18n.t("action_cancel")} onClick={onHide} />
+                    <Button
+                        type="cancel"
+                        title={i18n.t("action_cancel")}
+                        onClick={onHide}
+                    />
                     <Button
                         title={i18n.t("action_confirm")}
                         loading={props.loading}
@@ -46,7 +52,9 @@ export default function Modal(props: Props) {
                     />
                 </div>
             </div>
-            <div className="background" onClick={onHide}></div>
+            <div
+                className="background"
+                onClick={onHide}></div>
         </div>
     );
 }
