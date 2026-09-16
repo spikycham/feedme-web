@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFoodsStore } from "@/store/food.store";
+import { useOrdersStore } from "@/store/order.store";
 
 import { message } from "@/component/message/Message";
 import Loading from "@/component/loading/Loading";
@@ -12,21 +13,20 @@ import { getDateTimeBySec, getMinBySec } from "@/util/time";
 
 import fetchUpdateOrderStatus from "@/network/update-order-status.api";
 
-import "./index.css";
-import { useOrdersStore } from "@/store/order.store";
 import i18n from "@/i18n";
+import "./index.css";
 
 const orderStatusMap = [
     {
-        label: "Pending",
+        label: i18n.t("status_pending"),
         color: "var(--color-yellow)",
     },
     {
-        label: "Rejected",
+        label: i18n.t("status_rejected"),
         color: "var(--color-red)",
     },
     {
-        label: "Done",
+        label: i18n.t("status_done"),
         color: "var(--color-green)",
     },
 ];
@@ -82,13 +82,12 @@ export default function OrderPage() {
                         {orders
                             .sort((a, b) => b.created_at - a.created_at)
                             .map((order) => (
-                                <li
-                                    key={order.order_id}
-                                    className="item">
+                                <li key={order.order_id} className="item">
                                     <section className="header">
                                         <h3>Order #: {order.order_id.slice(0, 4)}</h3>
                                         <p>
-                                            {order.foods.length} Foods | By Cham |{" "}
+                                            {i18n.t("food_count", { count: order.foods.length })} |
+                                            &nbsp;{i18n.t("order_by", { name: "Cham" })} |&nbsp;
                                             {getDateTimeBySec(order.created_at)}
                                         </p>
                                     </section>
@@ -97,7 +96,7 @@ export default function OrderPage() {
 
                                     <section className="info">
                                         <p>
-                                            <span className="title">Status:</span>
+                                            <span className="title">{i18n.t("status")}:</span>
                                             <span
                                                 style={{
                                                     color: orderStatusMap[order.status].color,
@@ -106,7 +105,9 @@ export default function OrderPage() {
                                             </span>
                                         </p>
                                         <p>
-                                            <span className="title">Total:</span>
+                                            <span className="title">
+                                                {i18n.t("total_expense")}:
+                                            </span>
                                             <span>
                                                 {i18n.t("money_sign")}
                                                 {order.amount.toFixed(2)}
@@ -125,9 +126,7 @@ export default function OrderPage() {
                                             if (!food) return null;
 
                                             return (
-                                                <div
-                                                    className="food"
-                                                    key={orderFood.food_id}>
+                                                <div className="food" key={orderFood.food_id}>
                                                     <div className="photo">
                                                         {food.image_uris[0] && (
                                                             <img src={food.image_uris[0]} />
@@ -136,7 +135,7 @@ export default function OrderPage() {
                                                     <div className="info">
                                                         <h3>{food.name}</h3>
                                                         <span>
-                                                            Time:&nbsp;
+                                                            {i18n.t("spend_time")}:&nbsp;
                                                             {(
                                                                 Number(
                                                                     getMinBySec(food.required_time),
@@ -144,7 +143,9 @@ export default function OrderPage() {
                                                             ).toFixed(0)}
                                                             min
                                                         </span>
-                                                        <span>Quantity: {orderFood.count}</span>
+                                                        <span>
+                                                            {i18n.t("quantity")}: {orderFood.count}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             );
@@ -157,25 +158,25 @@ export default function OrderPage() {
 
                                             <section className="action">
                                                 <Button
-                                                    title="Reject"
+                                                    title={i18n.t("action_reject")}
                                                     onClick={() => {
                                                         setUpdateStatusId(order.order_id);
                                                         setUpdateStatusValue(1);
-                                                        setActionModalTitle("Action");
+                                                        setActionModalTitle(i18n.t("action"));
                                                         setActionModalDescription(
-                                                            "Reject food request?",
+                                                            i18n.t("reject_cook_prompt"),
                                                         );
                                                         setShowModal(true);
                                                     }}
                                                 />
                                                 <Button
-                                                    title="Finish"
+                                                    title={i18n.t("action_finish")}
                                                     onClick={() => {
                                                         setUpdateStatusId(order.order_id);
                                                         setUpdateStatusValue(2);
-                                                        setActionModalTitle("Action");
+                                                        setActionModalTitle(i18n.t("action"));
                                                         setActionModalDescription(
-                                                            "Finish cooking?",
+                                                            i18n.t("finish_cook_prompt"),
                                                         );
                                                         setShowModal(true);
                                                     }}

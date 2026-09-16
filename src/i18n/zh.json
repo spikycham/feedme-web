@@ -32,5 +32,19 @@
     "sold_count": "售出",
     "rating": "评分",
     "average": "平均",
-    "comments": "评论"
+    "comments": "评论",
+    "food_count_one": "{{count}} 个菜",
+    "food_count_other": "{{count}} 个菜",
+    "order_by": "{{name}} 点单",
+    "status": "状态",
+    "spend_time": "需要时间",
+    "quantity": "数量",
+    "action_finish": "完成",
+    "action_reject": "拒绝",
+    "finish_cook_prompt": "确定完成订单吗?",
+    "reject_cook_prompt": "是否拒绝订单?",
+    "action": "操作确认",
+    "status_pending": "待确认",
+    "status_done": "完成",
+    "status_rejected": "拒绝"
 }

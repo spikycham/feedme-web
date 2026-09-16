@@ -32,5 +32,19 @@
     "sold_count": "Sold",
     "rating": "Rating",
     "average": "Average",
-    "comments": "Comments"
+    "comments": "Comments",
+    "food_count_one": "{{count}} Food",
+    "food_count_other": "{{count}} Foods",
+    "order_by": "By {{name}}",
+    "status": "Status",
+    "spend_time": "Time",
+    "quantity": "Quantity",
+    "action_finish": "Finish",
+    "action_reject": "Reject",
+    "finish_cook_prompt": "Finish cooking?",
+    "reject_cook_prompt": "Reject food request?",
+    "action": "Action",
+    "status_pending": "Pending",
+    "status_done": "Done",
+    "status_reject": "Rejected"
 }

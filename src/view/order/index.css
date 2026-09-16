@@ -60,8 +60,10 @@
 
                     > .info {
                         color: var(--color-fg-gray);
+
                         > span {
                             display: block;
+                            line-height: 16px;
                         }
                     }
                 }
