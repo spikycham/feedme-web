@@ -14,6 +14,7 @@ import Button from "@/component/button/Button";
 import { setRefreshToken, setToken } from "@/util/token";
 
 import "./index.css";
+import i18n from "@/i18n";
 
 export default function Login() {
     const userLoading = useInitUser();
@@ -71,16 +72,16 @@ export default function Login() {
     return (
         <div className="login">
             <section className="header">
-                <h1>Log in</h1>
-                <p>Welcome back, please enter login credentials to continue</p>
+                <h1>{i18n.t("log_in")}</h1>
+                <p>{i18n.t("welcome_back")}</p>
             </section>
 
             <section>
                 <form className="form" onSubmit={login}>
-                    <input name="account" placeholder="Enter Account" />
-                    <input name="password" placeholder="Password" type="password" />
+                    <input name="account" placeholder={i18n.t("enter_account")} />
+                    <input name="password" placeholder={i18n.t("enter_password")} type="password" />
 
-                    <Button htmlType="submit" title="Log in" loading={loading} />
+                    <Button htmlType="submit" title={i18n.t("log_in")} loading={loading} />
                 </form>
             </section>
         </div>

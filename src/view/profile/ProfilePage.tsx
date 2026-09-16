@@ -14,9 +14,10 @@ import fetchLogout from "@/network/logout.api";
 
 import { removeRefreshToken, removeToken } from "@/util/token";
 
+import i18n from "@/i18n";
 import "./index.css";
 
-const MODAL_TITLES = ["Select Avatar", "Select Background"];
+const MODAL_TITLES = [i18n.t("select_avatar"), i18n.t("select_background")];
 
 export default function ProfilePage() {
     // User profile displays.
@@ -209,19 +210,19 @@ export default function ProfilePage() {
                 </section>
 
                 <section>
-                    <p>Waiting for developing...</p>
+                    <p>{i18n.t("wait_for_develop")}...</p>
                 </section>
 
                 <section className="logout">
-                    <Button title="Log out" loading={loadingLogout} onClick={onLogout} />
+                    <Button title={i18n.t("log_out")} loading={loadingLogout} onClick={onLogout} />
                 </section>
             </div>
 
             <Modal
                 show={showEditName}
                 onShow={(show) => setShowEditName(show)}
-                title="Rename"
-                description="Enter your new username."
+                title={i18n.t("rename")}
+                description={i18n.t("new_username")}
                 loading={loadingEditName}
                 onConfirm={onConfirmEditName}>
                 <input
@@ -236,7 +237,7 @@ export default function ProfilePage() {
                 show={showEditImg}
                 onShow={(show) => setShowEditImg(show)}
                 title={MODAL_TITLES[editImgType]}
-                description="Upload picture by clicking the photo."
+                description={i18n.t("upload_picture_prompt")}
                 loading={loadingEditImg}
                 onConfirm={onConfirmEditImg}>
                 <div className="edit-input">

@@ -1,0 +1,16 @@
+{
+    "loading": "加载中",
+    "log_in": "登录",
+    "welcome_back": "欢迎回来，请输入账号密码以继续",
+    "enter_account": "输入账号",
+    "enter_password": "输入密码",
+    "log_out": "退出",
+    "wait_for_develop": "待开发",
+    "rename": "重命名",
+    "new_username": "输入新用户名",
+    "action_confirm": "确认",
+    "action_cancel": "取消",
+    "select_avatar": "选择头像",
+    "select_background": "选择背景图片",
+    "upload_picture_prompt": "点击图片以选择进行上传"
+}

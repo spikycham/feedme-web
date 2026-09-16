@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import Button from "../button/Button";
+
+import i18n from "@/i18n";
 import "./index.css";
 
 interface Props {
@@ -36,8 +38,12 @@ export default function Modal(props: Props) {
                 </p>
                 {props.children && <div>{props.children}</div>}
                 <div className="operation">
-                    <Button type="cancel" title="Cancel" onClick={onHide} />
-                    <Button title="Confirm" loading={props.loading} onClick={props.onConfirm} />
+                    <Button type="cancel" title={i18n.t("action_cancel")} onClick={onHide} />
+                    <Button
+                        title={i18n.t("action_confirm")}
+                        loading={props.loading}
+                        onClick={props.onConfirm}
+                    />
                 </div>
             </div>
             <div className="background" onClick={onHide}></div>
