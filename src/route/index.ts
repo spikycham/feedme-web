@@ -9,7 +9,6 @@ import Layout from "@/layout/Layout";
 import OrderPage from "@/view/order/OrderPage";
 import CurrentOrder from "@/view/order/CurrentOrder";
 import FoodPage from "@/view/food/FoodPage";
-import HistoryPage from "@/view/history/HistoryPage";
 import ProfilePage from "@/view/profile/ProfilePage";
 import FoodDetail from "@/view/food/FoodDetail";
 import CartPage from "@/view/cart/CartPage";
@@ -46,10 +45,6 @@ const routes: RouteObject[] = [
                     {
                         path: "cart",
                         Component: CartPage,
-                    },
-                    {
-                        path: "history",
-                        Component: HistoryPage,
                     },
                     {
                         path: "profile",

@@ -143,9 +143,7 @@ export default function FoodPage() {
                     </div>
 
                     <div className="filter">
-                        <button
-                            className="item active"
-                            onClick={() => setFilter(new Set())}>
+                        <button className="item active" onClick={() => setFilter(new Set())}>
                             {i18n.t("reset")}
                         </button>
 
@@ -207,5 +205,5 @@ export default function FoodPage() {
 }
 
 function NoFood() {
-    return <div>No Food Found</div>;
+    return <div>{i18n.t("no_food")}</div>;
 }

@@ -67,5 +67,8 @@
     "food_list": "菜品列表",
     "order_history": "订单历史",
     "cart": "购物车",
-    "profile": "个人信息"
+    "profile": "个人信息",
+    "no_order": "暂无订单，请耐心等待...",
+    "no_food": "还未上传任何菜品...",
+    "no_order_history": "暂未任何已完成烹饪的订单..."
 }

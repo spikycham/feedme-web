@@ -75,7 +75,7 @@ export default function CurrentOrder() {
                     <Loading />
                 ) : (
                     <div className="card-container">
-                        {filterted[offset] && (
+                        {filterted[offset] ? (
                             <section
                                 className="card"
                                 onDoubleClick={(e) => {
@@ -175,6 +175,8 @@ export default function CurrentOrder() {
                                     </div>
                                 </footer>
                             </section>
+                        ) : (
+                            <p>{i18n.t("no_order")}</p>
                         )}
                     </div>
                 )}

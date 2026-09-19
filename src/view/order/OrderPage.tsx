@@ -68,99 +68,108 @@ export default function OrderPage() {
                 <Loading />
             ) : (
                 <div className="order-list">
-                    <ul className="list">
-                        {orders
-                            .sort((a, b) => b.done_at - a.done_at)
-                            .filter((o) => o.status !== 0)
-                            .map((order) => (
-                                <li
-                                    key={order.order_id}
-                                    className="item">
-                                    <section className="header">
-                                        <h3>Order: #{order.order_id.slice(0, 4)}</h3>
-                                        <p>
-                                            {i18n.t("food_count", { count: order.foods.length })} |
-                                            &nbsp;{i18n.t("order_by", { name: "Cham" })}
-                                        </p>
-                                    </section>
+                    {orders.length === 0 ? (
+                        <p>{i18n.t("no_order_history")}</p>
+                    ) : (
+                        <ul className="list">
+                            {orders
+                                .sort((a, b) => b.done_at - a.done_at)
+                                .filter((o) => o.status !== 0)
+                                .map((order) => (
+                                    <li key={order.order_id} className="item">
+                                        <section className="header">
+                                            <h3>Order: #{order.order_id.slice(0, 4)}</h3>
+                                            <p>
+                                                {i18n.t("food_count", {
+                                                    count: order.foods.length,
+                                                })}{" "}
+                                                | &nbsp;{i18n.t("order_by", { name: "Cham" })}
+                                            </p>
+                                        </section>
 
-                                    <BreakLine />
+                                        <BreakLine />
 
-                                    <section className="info">
-                                        <p>
-                                            <span className="title">{i18n.t("status")}:</span>
-                                            <span
-                                                style={{
-                                                    color: orderStatusMap[order.status].color,
-                                                }}>
-                                                {orderStatusMap[order.status].label}
-                                            </span>
-                                        </p>
-                                        <p>
-                                            <span className="title">
-                                                {i18n.t("total_expense")}:
-                                            </span>
-                                            <span>
-                                                {i18n.t("money_sign")}
-                                                {order.amount.toFixed(2)}
-                                            </span>
-                                        </p>
-                                        <p>
-                                            <span className="title">{i18n.t("created_at")}:</span>
-                                            <span>{getDateTimeBySec(order.created_at)}</span>
-                                        </p>
-                                        <p>
-                                            <span className="title">{i18n.t("done_at")}:</span>
-                                            <span>{getDateTimeBySec(order.done_at)}</span>
-                                        </p>
-                                    </section>
+                                        <section className="info">
+                                            <p>
+                                                <span className="title">{i18n.t("status")}:</span>
+                                                <span
+                                                    style={{
+                                                        color: orderStatusMap[order.status].color,
+                                                    }}>
+                                                    {orderStatusMap[order.status].label}
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span className="title">
+                                                    {i18n.t("total_expense")}:
+                                                </span>
+                                                <span>
+                                                    {i18n.t("money_sign")}
+                                                    {order.amount.toFixed(2)}
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span className="title">
+                                                    {i18n.t("created_at")}:
+                                                </span>
+                                                <span>{getDateTimeBySec(order.created_at)}</span>
+                                            </p>
+                                            <p>
+                                                <span className="title">{i18n.t("done_at")}:</span>
+                                                <span>{getDateTimeBySec(order.done_at)}</span>
+                                            </p>
+                                        </section>
 
-                                    <BreakLine />
+                                        <BreakLine />
 
-                                    <section className="content">
-                                        {order.foods.map((orderFood) => {
-                                            const food = foods.find(
-                                                (f) => f.food_id === orderFood.food_id,
-                                            );
+                                        <section className="content">
+                                            {order.foods.map((orderFood) => {
+                                                const food = foods.find(
+                                                    (f) => f.food_id === orderFood.food_id,
+                                                );
 
-                                            if (!food) return null;
+                                                if (!food) return null;
 
-                                            return (
-                                                <div
-                                                    className="food"
-                                                    key={orderFood.food_id}
-                                                    onClick={() =>
-                                                        navigate(
-                                                            `/layout/food/detail/${orderFood.food_id}`,
-                                                        )
-                                                    }>
-                                                    <div className="photo">
-                                                        {food.image_uris[0] && (
-                                                            <img src={food.image_uris[0]} />
-                                                        )}
+                                                return (
+                                                    <div
+                                                        className="food"
+                                                        key={orderFood.food_id}
+                                                        onClick={() =>
+                                                            navigate(
+                                                                `/layout/food/detail/${orderFood.food_id}`,
+                                                            )
+                                                        }>
+                                                        <div className="photo">
+                                                            {food.image_uris[0] && (
+                                                                <img src={food.image_uris[0]} />
+                                                            )}
+                                                        </div>
+                                                        <div className="info">
+                                                            <h3>{food.name}</h3>
+                                                            <span>
+                                                                {i18n.t("spend_time")}:&nbsp;
+                                                                {(
+                                                                    Number(
+                                                                        getMinBySec(
+                                                                            food.required_time,
+                                                                        ),
+                                                                    ) * orderFood.count
+                                                                ).toFixed(0)}
+                                                                min
+                                                            </span>
+                                                            <span>
+                                                                {i18n.t("quantity")}:{" "}
+                                                                {orderFood.count}
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                    <div className="info">
-                                                        <h3>{food.name}</h3>
-                                                        <span>
-                                                            {i18n.t("spend_time")}:&nbsp;
-                                                            {(
-                                                                Number(
-                                                                    getMinBySec(food.required_time),
-                                                                ) * orderFood.count
-                                                            ).toFixed(0)}
-                                                            min
-                                                        </span>
-                                                        <span>
-                                                            {i18n.t("quantity")}: {orderFood.count}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </section>
-                                </li>
-                            ))}
-                    </ul>
+                                                );
+                                            })}
+                                        </section>
+                                    </li>
+                                ))}
+                        </ul>
+                    )}
                 </div>
             )}
         </>

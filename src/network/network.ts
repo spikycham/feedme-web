@@ -20,11 +20,11 @@ export class NetworkError extends Error {
 }
 
 class Network {
-    base: URL;
+    base: string;
     cb: (() => void) | null = null;
 
     constructor(base: string) {
-        this.base = new URL(base);
+        this.base = base;
     }
 
     private validateStatus(status: number) {
@@ -83,7 +83,7 @@ class Network {
 
     // Main methods of http requests.
     public async get<T extends object>(path: string, headers?: Headers): Promise<T> {
-        const url = new URL(path, this.base);
+        const url = this.base + path;
         headers = this.setDefaultHeaders(headers ?? new Headers());
 
         const resp = await fetch(url, {
@@ -113,7 +113,8 @@ class Network {
         body: B,
         headers?: Headers,
     ): Promise<R | null> {
-        const url = new URL(path, this.base);
+        const url = this.base + path;
+
         if (body instanceof FormData) {
             headers = new Headers();
             headers.set("Authorization", "Bearer " + getToken());
@@ -148,7 +149,7 @@ class Network {
     }
 
     public async put<B extends object>(path: string, body: B, headers?: Headers) {
-        const url = new URL(path, this.base);
+        const url = this.base + path;
         headers = this.setDefaultHeaders(new Headers());
 
         const resp = await fetch(url, {
@@ -169,7 +170,7 @@ class Network {
     }
 
     public async patch<B extends object>(path: string, body: B, headers?: Headers) {
-        const url = new URL(path, this.base);
+        const url = this.base + path;
         headers = this.setDefaultHeaders(new Headers());
 
         const resp = await fetch(url, {
@@ -190,7 +191,7 @@ class Network {
     }
 
     public async delete<B extends object>(path: string, body: B, headers?: Headers) {
-        const url = new URL(path, this.base);
+        const url = this.base + path;
         headers = this.setDefaultHeaders(new Headers());
 
         const resp = await fetch(url, {
@@ -211,7 +212,7 @@ class Network {
     }
 }
 
-export const BASE_URL = "https://food.devcham.xyz";
+export const BASE_URL = "https://devcham.xyz/feedme";
 // export const BASE_URL = "http://localhost:3000";
 const net = new Network(BASE_URL);
 export default net;
