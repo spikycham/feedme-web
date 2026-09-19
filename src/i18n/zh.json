@@ -70,5 +70,18 @@
     "profile": "个人信息",
     "no_order": "暂无订单，请耐心等待...",
     "no_food": "还未上传任何菜品...",
-    "no_order_history": "暂未任何已完成烹饪的订单..."
+    "no_order_history": "暂未任何已完成烹饪的订单...",
+    "please_enter_account": "请输入账号",
+    "please_enter_password": "请输入密码",
+    "log_in_successfully": "登录成功",
+    "incorrect_account_or_password": "账号或密码错误",
+    "token_expired": "登录已过期",
+    "order_created_success": "下单成功",
+    "order_create_failed": "下单失败",
+    "item_added_to_cart": "{{name}} 已加入购物车",
+    "item_removed_from_cart": "{{name}} 已移出购物车",
+    "failed_to_request_foods_data": "获取菜品数据失败",
+    "failed_to_fetch_order_list": "获取订单列表失败",
+    "failed_to_update_order_status": "更新订单状态失败",
+    "same_username": "用户名相同"
 }

@@ -9,7 +9,7 @@
 //     );
 // });
 
-const CACHE_VERSION = 2;
+const CACHE_VERSION = 3;
 
 self.addEventListener("install", (e) => {
     // e.waitUntil();
@@ -35,6 +35,7 @@ self.addEventListener("fetch", (e) => {
                 caches.open(String(CACHE_VERSION)).then((cache) => {
                     cache.put(req, copy);
                 });
+                return resp;
             });
         }),
     );
