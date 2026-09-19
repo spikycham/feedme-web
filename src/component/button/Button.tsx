@@ -6,7 +6,7 @@ interface Props {
     htmlType?: "submit" | "reset" | "button";
     title: string;
     loading?: boolean;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function Button(props: Props) {
@@ -17,8 +17,7 @@ export default function Button(props: Props) {
             className={"button" + (props.loading ? " loading" : "") + (" " + type)}
             type={props.htmlType}
             disabled={props.loading}
-            onClick={props.onClick}
-        >
+            onClick={props.onClick}>
             {props.loading && <Loader className="loader" />}
             <span>{props.title}</span>
         </button>

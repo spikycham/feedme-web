@@ -28,7 +28,7 @@ export default function FoodDetail() {
     return (
         <div className="food-detail">
             <div className="header">
-                <button className="back" onClick={() => navigate("/layout/food")}>
+                <button className="back" onClick={() => navigate(-1)}>
                     <ChevronLeft />
                 </button>
                 <h1>{food.name}</h1>

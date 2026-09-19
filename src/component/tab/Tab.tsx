@@ -1,4 +1,4 @@
-import { Hamburger, ListOrdered, ShoppingCart, UserRoundPen } from "lucide-react";
+import { Hamburger, HandPlatter, ListOrdered, ShoppingCart, UserRoundPen } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import "./index.css";
@@ -15,10 +15,10 @@ interface Tab {
 
 const tabs: Tab[] = [
     {
-        key: 0,
-        icon: <ListOrdered />,
-        title: "Order",
-        path: "/layout/order",
+        key: 5,
+        icon: <HandPlatter />,
+        title: "Service",
+        path: "/layout/service",
         isShow: (role) => Permission.IsMerchant(role),
     },
     {
@@ -27,6 +27,13 @@ const tabs: Tab[] = [
         title: "Food",
         path: "/layout/food",
         isShow: (role) => Permission.IsCustomer(role) || Permission.IsMerchant(role),
+    },
+    {
+        key: 0,
+        icon: <ListOrdered />,
+        title: "Order",
+        path: "/layout/order",
+        isShow: (role) => Permission.IsMerchant(role),
     },
     {
         key: 2,

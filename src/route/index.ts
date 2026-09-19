@@ -7,6 +7,7 @@ import Root from "@/layout/Root";
 import Layout from "@/layout/Layout";
 
 import OrderPage from "@/view/order/OrderPage";
+import CurrentOrder from "@/view/order/CurrentOrder";
 import FoodPage from "@/view/food/FoodPage";
 import HistoryPage from "@/view/history/HistoryPage";
 import ProfilePage from "@/view/profile/ProfilePage";
@@ -29,6 +30,10 @@ const routes: RouteObject[] = [
                     {
                         path: "order",
                         Component: OrderPage,
+                    },
+                    {
+                        path: "service",
+                        Component: CurrentOrder,
                     },
                     {
                         path: "food",

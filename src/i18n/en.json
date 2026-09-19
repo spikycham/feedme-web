@@ -46,5 +46,10 @@
     "action": "Action",
     "status_pending": "Pending",
     "status_done": "Done",
-    "status_reject": "Rejected"
+    "status_reject": "Rejected",
+    "wait_for_finish": "Waiting for finishing...",
+    "created_at": "Created at",
+    "done_at": "Done at",
+    "reject_order": "Rejected this order",
+    "finish_order": "Finished this order"
 }

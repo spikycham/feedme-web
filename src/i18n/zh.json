@@ -46,5 +46,10 @@
     "action": "操作确认",
     "status_pending": "待确认",
     "status_done": "完成",
-    "status_rejected": "拒绝"
+    "status_rejected": "拒绝",
+    "wait_for_finish": "等待出餐...",
+    "created_at": "创建时间",
+    "done_at": "完成时间",
+    "reject_order": "已拒绝出餐",
+    "finish_order": "已完成烹饪"
 }

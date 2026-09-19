@@ -21,6 +21,7 @@ export const useOrdersStore = create<State & Action>()((set) => ({
             if (!order) return state;
 
             order.status = status;
+            order.done_at = Date.now() / 1000;
             return newState;
         }),
 }));
