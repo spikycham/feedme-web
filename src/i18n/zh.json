@@ -61,5 +61,11 @@
     "update_avatar_successfully": "头像修改成功",
     "update_background_successfully": "背景图片修改成功",
     "missing_picture": "缺少图片",
-    "logged_out": "已退出登录"
+    "logged_out": "已退出登录",
+    "current_order_prompt": "您当前待完成的烹饪...",
+    "current_order": "当前订单",
+    "food_list": "菜品列表",
+    "order_history": "订单历史",
+    "cart": "购物车",
+    "profile": "个人信息"
 }

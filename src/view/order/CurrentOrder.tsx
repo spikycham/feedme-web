@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useFoodsStore } from "@/store/food.store";
 import { useOrdersStore } from "@/store/order.store";
@@ -70,7 +70,7 @@ export default function CurrentOrder() {
     return (
         <>
             <div className="service">
-                <h1>Your current orders.</h1>
+                <h2>{i18n.t("current_order_prompt")}</h2>
                 {loadingPage ? (
                     <Loading />
                 ) : (

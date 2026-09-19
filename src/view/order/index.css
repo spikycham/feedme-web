@@ -83,8 +83,9 @@
     height: 100%;
     overflow: hidden;
 
-    h1 {
+    h2 {
         font-weight: normal;
+        margin: 0;
     }
 
     .card-container {
@@ -101,7 +102,7 @@
             gap: var(--std-lg-gap);
             justify-content: space-between;
             width: 90%;
-            height: 70%;
+            height: 90%;
             padding: 40px 30px;
             border-radius: var(--std-br);
             background-color: var(--color-gray);

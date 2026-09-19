@@ -1,11 +1,10 @@
-import { Hamburger, HandPlatter, ListOrdered, ShoppingCart, UserRoundPen } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import "./index.css";
-import Permission from "@/util/permission";
 import { useUserStore } from "@/store/user.store";
 
-interface Tab {
+import "./index.css";
+
+export interface TabType {
     key: number;
     icon: React.ReactNode;
     title: string;
@@ -13,58 +12,16 @@ interface Tab {
     isShow: (role: UserRole) => boolean;
 }
 
-const tabs: Tab[] = [
-    {
-        key: 5,
-        icon: <HandPlatter />,
-        title: "Service",
-        path: "/layout/service",
-        isShow: (role) => Permission.IsMerchant(role),
-    },
-    {
-        key: 1,
-        icon: <Hamburger />,
-        title: "Food",
-        path: "/layout/food",
-        isShow: (role) => Permission.IsCustomer(role) || Permission.IsMerchant(role),
-    },
-    {
-        key: 0,
-        icon: <ListOrdered />,
-        title: "Order",
-        path: "/layout/order",
-        isShow: (role) => Permission.IsMerchant(role),
-    },
-    {
-        key: 2,
-        icon: <ShoppingCart />,
-        title: "Cart",
-        path: "/layout/cart",
-        isShow: (role) => Permission.IsCustomer(role),
-    },
-    // {
-    //     key: 3,
-    //     icon: <ClipboardClock />,
-    //     title: "History",
-    //     path: "/layout/history",
-    //     isShow: (role) => Permission.IsCustomer(role) || Permission.IsMerchant(role),
-    // },
-    {
-        key: 4,
-        icon: <UserRoundPen />,
-        title: "Profile",
-        path: "/layout/profile",
-        isShow: (role) => Permission.IsCustomer(role) || Permission.IsMerchant(role),
-    },
-];
+interface Props {
+    tabs: TabType[];
+    active: number;
+    onChange: (k: number) => void;
+}
 
-const prevTabKey = Number(localStorage.getItem("previous_tab_key") ?? 0);
-export default function Tab() {
-    const [active, setActive] = useState(prevTabKey);
+export default function Tab(props: Props) {
     const navigate = useNavigate();
 
-    const onNavigate = (tab: Tab) => {
-        setActive(tab.key);
+    const onNavigate = (tab: TabType) => {
         localStorage.setItem("previous_path", tab.path);
         localStorage.setItem("previous_tab_key", String(tab.key));
         navigate(tab.path);
@@ -74,13 +31,16 @@ export default function Tab() {
 
     return (
         <div className="tab">
-            {tabs.map((tab) => {
+            {props.tabs.map((tab) => {
                 if (!tab.isShow(user.role)) return null;
                 return (
                     <button
                         key={tab.key}
-                        className={active === tab.key ? "active" : ""}
-                        onClick={() => onNavigate(tab)}>
+                        className={props.active === tab.key ? "active" : ""}
+                        onClick={() => {
+                            props.onChange(tab.key);
+                            onNavigate(tab);
+                        }}>
                         <span>{tab.icon}</span>
                         {/* <span>{tab.title}</span> */}
                         <div className="highlight"></div>

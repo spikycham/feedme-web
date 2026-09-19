@@ -60,5 +60,11 @@
     "update_avatar_successfully": "Avatar updated successfully",
     "update_background_successfully": "Background updated successfully",
     "missing_picture": "Missing picture",
-    "logged_out": "Logged out successfully"
+    "logged_out": "Logged out successfully",
+    "current_order_prompt": "Your current orders...",
+    "current_order": "Current Order",
+    "food_list": "Food List",
+    "order_history": "Order History",
+    "cart": "Cart",
+    "profile": "Profile"
 }

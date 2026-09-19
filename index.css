@@ -30,7 +30,7 @@
 html,
 body {
     overscroll-behavior: none;
-    background-color: var(--color-bg);
+    background-color: var(--color-gray);
 }
 
 body {
