@@ -1,12 +1,16 @@
 import { Navigate, Outlet, useNavigate } from "react-router";
-import net from "@/network/network";
+
 import { message } from "@/component/message/Message";
+
+import net from "@/network/network";
+
+import i18n from "@/i18n";
 
 export default function Root() {
     const navigate = useNavigate();
     net.setTokenExpireHandler(() => {
         navigate("/login");
-        message.warning("Login credentials expired");
+        message.warning(i18n.t("token_expired"));
     });
 
     return (

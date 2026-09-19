@@ -37,7 +37,7 @@ export default function CurrentOrder() {
                 setOrders(data.list);
             } catch (err) {
                 if (err instanceof NetworkError) {
-                    message.failed("Failed to fetch order list");
+                    message.failed(i18n.t("failed_to_fetch_order_list"));
                     return;
                 }
                 message.internal();
@@ -202,7 +202,7 @@ export default function CurrentOrder() {
                         }
                     } catch (err) {
                         if (err instanceof NetworkError) {
-                            message.failed("Failed to update order status");
+                            message.failed(i18n.t("failed_to_update_order_status"));
                             return;
                         }
                         message.internal();

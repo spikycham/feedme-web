@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageCircleCheck, MessageCircleWarning, MessageCircleX } from "lucide-react";
+
+import i18n from "@/i18n";
 import "./index.css";
 
 type MessageStatus = "success" | "warning" | "failed";
@@ -72,6 +74,6 @@ export const message = {
     failed: (title: string) => setMessage(title, "failed"),
 
     internal() {
-        this.failed("Internal error");
+        this.failed(i18n.t("internal_error"));
     },
 };

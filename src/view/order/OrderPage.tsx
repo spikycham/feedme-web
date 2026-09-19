@@ -48,7 +48,7 @@ export default function OrderPage() {
                 setOrders(data.list);
             } catch (err) {
                 if (err instanceof NetworkError) {
-                    message.failed("Failed to fetch order list");
+                    message.failed(i18n.t("failed_to_fetch_order_list"));
                     return;
                 }
                 message.internal();
@@ -73,7 +73,9 @@ export default function OrderPage() {
                             .sort((a, b) => b.done_at - a.done_at)
                             .filter((o) => o.status !== 0)
                             .map((order) => (
-                                <li key={order.order_id} className="item">
+                                <li
+                                    key={order.order_id}
+                                    className="item">
                                     <section className="header">
                                         <h3>Order: #{order.order_id.slice(0, 4)}</h3>
                                         <p>

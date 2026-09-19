@@ -53,7 +53,7 @@ export default function ProfilePage() {
 
     const onConfirmEditName = async () => {
         if (user.name === editName) {
-            message.warning("Same username");
+            message.warning(i18n.t("same_username"));
             setShowEditName(false);
             return;
         }
@@ -65,10 +65,10 @@ export default function ProfilePage() {
             setUser({ user: { ...user, name: editName } });
 
             setShowEditName(false);
-            message.success("Update username successfully");
+            message.success(i18n.t("update_username_successfully"));
         } catch (err) {
             if (err instanceof MissBodyError) {
-                message.warning("Missing name");
+                message.warning(i18n.t("missing_name"));
                 return;
             }
             message.internal();
@@ -88,7 +88,7 @@ export default function ProfilePage() {
     const onChangeImgFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) {
-            message.warning("No photo selected");
+            message.warning(i18n.t("no_photo_selected"));
             return;
         }
 
@@ -101,7 +101,7 @@ export default function ProfilePage() {
             const resp = await fetchUploadFile(formdata);
             setEditImgSrc(resp.url);
         } catch {
-            message.failed("Failed to upload photo");
+            message.failed(i18n.t("failed_to_upload_photo"));
         } finally {
             setLoadingUpload(false);
         }
@@ -109,7 +109,7 @@ export default function ProfilePage() {
 
     const onConfirmEditImg = async () => {
         if (user.avatar_uri === editImgSrc || user.profile_background_uri === editImgSrc) {
-            message.warning("Same picture");
+            message.warning(i18n.t("same_picture"));
             setShowEditImg(false);
             return;
         }
@@ -138,11 +138,14 @@ export default function ProfilePage() {
             setUser({ user: { ...user, ...newState[editImgType] } });
 
             setShowEditImg(false);
-            const msgs = ["Update avatar successfully", "Update background successfully"];
+            const msgs = [
+                i18n.t("update_avatar_successfully"),
+                i18n.t("update_background_successfully"),
+            ];
             message.success(msgs[editImgType]);
         } catch (err) {
             if (err instanceof MissBodyError) {
-                message.warning("Missing image");
+                message.warning(i18n.t("missing_picture"));
                 return;
             }
         } finally {
@@ -162,7 +165,7 @@ export default function ProfilePage() {
             removeRefreshToken();
 
             navigate("/login");
-            message.success("Logged out");
+            message.success(i18n.t("logged_out"));
         } catch {
             message.internal();
         } finally {
@@ -196,7 +199,10 @@ export default function ProfilePage() {
                         <h1>
                             <p className="name">
                                 <span>{user.name}</span>
-                                <SquarePen className="edit" onClick={showEditNameModal} />
+                                <SquarePen
+                                    className="edit"
+                                    onClick={showEditNameModal}
+                                />
                             </p>
                             <span className="id">
                                 {mixAccount(user.account)} | {user.user_id.slice(0, 8)}
@@ -214,7 +220,11 @@ export default function ProfilePage() {
                 </section>
 
                 <section className="logout">
-                    <Button title={i18n.t("log_out")} loading={loadingLogout} onClick={onLogout} />
+                    <Button
+                        title={i18n.t("log_out")}
+                        loading={loadingLogout}
+                        onClick={onLogout}
+                    />
                 </section>
             </div>
 

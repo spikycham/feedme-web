@@ -51,5 +51,14 @@
     "created_at": "Created at",
     "done_at": "Done at",
     "reject_order": "Rejected this order",
-    "finish_order": "Finished this order"
+    "finish_order": "Finished this order",
+    "update_username_successfully": "Username updated successfully",
+    "missing_name": "Missing username",
+    "no_photo_selected": "No photo selected",
+    "failed_to_upload_photo": "Failed to upload photo",
+    "same_picture": "Same picture",
+    "update_avatar_successfully": "Avatar updated successfully",
+    "update_background_successfully": "Background updated successfully",
+    "missing_picture": "Missing picture",
+    "logged_out": "Logged out successfully"
 }

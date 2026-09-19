@@ -98,7 +98,7 @@ export default function FoodPage() {
                 setFoods(data.list);
             } catch (err) {
                 if (err instanceof NetworkError) {
-                    message.failed("Faield to request foods data");
+                    message.failed(i18n.t("failed_to_request_foods_data"));
                     return;
                 }
                 message.internal();
@@ -143,7 +143,9 @@ export default function FoodPage() {
                     </div>
 
                     <div className="filter">
-                        <button className="item active" onClick={() => setFilter(new Set())}>
+                        <button
+                            className="item active"
+                            onClick={() => setFilter(new Set())}>
                             {i18n.t("reset")}
                         </button>
 

@@ -26,7 +26,7 @@ export default function OrderAction(props: Props) {
                         className="rmv"
                         onClick={() => {
                             removeCart(props.food_id, props.price);
-                            message.success(`Removed ${props.name}`);
+                            message.success(i18n.t("item_removed_from_cart", { name: props.name }));
                         }}>
                         -
                     </button>
@@ -35,7 +35,7 @@ export default function OrderAction(props: Props) {
                         className="add"
                         onClick={() => {
                             addCart(props.food_id, props.price);
-                            message.success(`Added ${props.name} to cart`);
+                            message.success(i18n.t("item_added_to_cart", { name: props.name }));
                         }}>
                         +
                     </button>

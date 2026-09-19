@@ -41,7 +41,7 @@ export default function CartPage() {
 
     const submitPay = async () => {
         if (amount === 0) {
-            message.warning("No meal in cart");
+            message.warning(i18n.t("cart_empty_prompt"));
             setShowPay(false);
             return;
         }
@@ -50,12 +50,12 @@ export default function CartPage() {
         try {
             await fetchCreateOrder(body);
             clearAll();
-            message.success("Created a new order");
+            message.success(i18n.t("order_created_success"));
         } catch (err) {
             console.log(err);
 
             if (err instanceof NetworkError) {
-                message.failed("Failed to pay");
+                message.failed(i18n.t("order_create_failed"));
                 return;
             }
             message.internal();
@@ -92,7 +92,9 @@ export default function CartPage() {
                                 if (!food) return null;
 
                                 return (
-                                    <li key={id} className="item">
+                                    <li
+                                        key={id}
+                                        className="item">
                                         <section className="info">
                                             <div className="photo">
                                                 {food.image_uris[0] && (
@@ -124,7 +126,9 @@ export default function CartPage() {
                     )}
                 </section>
 
-                <button className="pay" onClick={() => setShowPay(true)}>
+                <button
+                    className="pay"
+                    onClick={() => setShowPay(true)}>
                     <ClipboardCheck />
                 </button>
             </div>

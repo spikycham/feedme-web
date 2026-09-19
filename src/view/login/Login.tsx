@@ -33,11 +33,11 @@ export default function Login() {
         const account = formdata.get("account");
         const password = formdata.get("password");
         if (!account) {
-            message.warning("Please enter account");
+            message.warning(i18n.t("please_enter_account"));
             return;
         }
         if (!password) {
-            message.warning("Please enter password");
+            message.warning(i18n.t("please_enter_password"));
             return;
         }
 
@@ -55,11 +55,11 @@ export default function Login() {
             // Set user store.
             setUserStore({ user: data.user });
 
-            message.success("Log in successfully");
+            message.success(i18n.t("log_in_successfully"));
             navigate("/layout/food");
         } catch (err) {
             if (err instanceof NetworkError) {
-                message.failed("Incorrect account or password");
+                message.failed(i18n.t("incorrect_account_or_password"));
                 return;
             }
             message.internal();
@@ -77,11 +77,24 @@ export default function Login() {
             </section>
 
             <section>
-                <form className="form" onSubmit={login}>
-                    <input name="account" placeholder={i18n.t("enter_account")} />
-                    <input name="password" placeholder={i18n.t("enter_password")} type="password" />
+                <form
+                    className="form"
+                    onSubmit={login}>
+                    <input
+                        name="account"
+                        placeholder={i18n.t("enter_account")}
+                    />
+                    <input
+                        name="password"
+                        placeholder={i18n.t("enter_password")}
+                        type="password"
+                    />
 
-                    <Button htmlType="submit" title={i18n.t("log_in")} loading={loading} />
+                    <Button
+                        htmlType="submit"
+                        title={i18n.t("log_in")}
+                        loading={loading}
+                    />
                 </form>
             </section>
         </div>
