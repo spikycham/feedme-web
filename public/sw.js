@@ -39,7 +39,7 @@ self.addEventListener("fetch", (e) => {
                         .then(cache => {
                             cache.put(req, copy);
                         });
-                    return copy;
+                    return resp;
                 });
             })
     );
