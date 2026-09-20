@@ -135,7 +135,9 @@
             background-color: var(--color-gray);
             border-radius: var(--std-br);
         }
-        h1 {
+        h2 {
+            font-weight: normal;
+            margin: 0;
             justify-self: center;
         }
     }

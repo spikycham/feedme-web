@@ -18,5 +18,5 @@ export default async function fetchUpdateProfile(body: Request) {
     if (!body.new_avatar_uri&& !body.new_username && !body.new_profile_background_uri  && !body.new_password) {
         throw new MissBodyError("failed to update user profile")
     }
-    return await net.patch("/api/user/profile", body);
+    return await net.patch("api/user/profile", body);
 }

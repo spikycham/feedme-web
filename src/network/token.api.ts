@@ -19,7 +19,7 @@ export default async function fetchToken() {
         refresh_token: getRefreshToken(),
     };
 
-    const resp = await fetch(new URL("/api/auth/token", BASE_URL), {
+    const resp = await fetch(new URL("api/auth/token", BASE_URL), {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
