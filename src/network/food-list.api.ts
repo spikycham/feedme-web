@@ -5,5 +5,5 @@ interface Response{
 }
 
 export default async function fetchFoodList(): Promise<Response> {
-    return await net.get("/api/food/list");
+    return await net.get("api/food/list");
 }

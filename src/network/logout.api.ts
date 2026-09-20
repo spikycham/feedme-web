@@ -6,7 +6,7 @@ interface Request {
 }
 
 export default async function fetchLogout() {
-    await net.post<Request, {}>("/api/auth/logout", {
+    await net.post<Request, {}>("api/auth/logout", {
         refresh_token: getRefreshToken()
     });
 }

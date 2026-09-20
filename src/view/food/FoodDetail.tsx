@@ -1,28 +1,28 @@
-import { useNavigate, useParams } from "react-router";
-import { useUserStore } from "@/store/user.store";
-import { useFoodsStore } from "@/store/food.store";
+import { useNavigate, useParams } from 'react-router'
+import { useUserStore } from '@/store/user.store'
+import { useFoodsStore } from '@/store/food.store'
 
-import { ChevronLeft, Star } from "lucide-react";
+import { ChevronLeft, Star } from 'lucide-react'
 
 // import Carousel from "@/component/carousel/Carousel";
 
-import Permission from "@/util/permission";
-import { getDateTimeBySec } from "@/util/time";
+import Permission from '@/util/permission'
+import { getDateTimeBySec } from '@/util/time'
 
-import i18n from "@/i18n";
-import "./index.css";
+import i18n from '@/i18n'
+import './index.css'
 
 // type FoodCategory = "staple food" | "vegetable" | "meat" | "seafood" | "soup" | "dessert" | "drink" | "other"
 
 export default function FoodDetail() {
-    const { id } = useParams();
-    const foods = useFoodsStore((state) => state.foods);
-    const food = foods.find((food) => food.food_id === id);
+    const { id } = useParams()
+    const foods = useFoodsStore((state) => state.foods)
+    const food = foods.find((food) => food.food_id === id)
 
-    const user = useUserStore((state) => state.user);
-    const navigate = useNavigate();
+    const user = useUserStore((state) => state.user)
+    const navigate = useNavigate()
 
-    if (!food) return null;
+    if (!food) return null
 
     // TODO: when a comment is added, there should be a notification to the merchant!
     return (
@@ -31,7 +31,7 @@ export default function FoodDetail() {
                 <button className="back" onClick={() => navigate(-1)}>
                     <ChevronLeft />
                 </button>
-                <h1>{food.name}</h1>
+                <h2>{food.name}</h2>
             </div>
 
             {food.image_uris[0] && (
@@ -46,18 +46,18 @@ export default function FoodDetail() {
                     <section>
                         <span className="rate">
                             <Star />
-                            &nbsp;{food.rate} {i18n.t("rating")}
+                            &nbsp;{food.rate} {i18n.t('rating')}
                         </span>
                         <span className="sold">
-                            &nbsp;({food.sold_count} {i18n.t("sold_count")})
+                            &nbsp;({food.sold_count} {i18n.t('sold_count')})
                         </span>
                     </section>
                     <section>
                         <span className="price">
-                            {i18n.t("money_sign")}
+                            {i18n.t('money_sign')}
                             {food.prize}
                         </span>
-                        <span className="avg">/{i18n.t("average")}</span>
+                        <span className="avg">/{i18n.t('average')}</span>
                     </section>
                 </div>
                 <p>{food.detail}</p>
@@ -88,7 +88,7 @@ export default function FoodDetail() {
             )}
 
             <section>
-                <h3>{i18n.t("comments")}</h3>
+                <h3>{i18n.t('comments')}</h3>
                 <div className="cm-container">
                     {food.comments.map((c) => (
                         <p key={c.comment_id}>
@@ -99,5 +99,5 @@ export default function FoodDetail() {
                 </div>
             </section>
         </div>
-    );
+    )
 }

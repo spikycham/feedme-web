@@ -211,7 +211,8 @@ class Network {
     }
 }
 
-export const BASE_URL = "https://food.devcham.xyz";
+// export const BASE_URL = "https://food.devcham.xyz";
+export const BASE_URL = "https://devcham.xyz/feedme-dev/";
 // export const BASE_URL = "http://localhost:3000";
 const net = new Network(BASE_URL);
 export default net;
