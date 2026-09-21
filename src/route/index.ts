@@ -12,6 +12,7 @@ import FoodPage from "@/view/food/FoodPage";
 import ProfilePage from "@/view/profile/ProfilePage";
 import FoodDetail from "@/view/food/FoodDetail";
 import CartPage from "@/view/cart/CartPage";
+import CreateFoodPage from "@/view/food/CreateFoodPage";
 
 const routes: RouteObject[] = [
     {
@@ -41,6 +42,10 @@ const routes: RouteObject[] = [
                     {
                         path: "food/detail/:id",
                         Component: FoodDetail,
+                    },
+                    {
+                        path: "food/create",
+                        Component: CreateFoodPage,
                     },
                     {
                         path: "cart",

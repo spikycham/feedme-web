@@ -11,30 +11,48 @@
         }
     }
 
-    > .search {
+    > .actions {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         gap: var(--std-sm-gap);
-        padding: 15px 20px;
-        background-color: var(--color-gray);
-        border-radius: 30px;
 
-        > label {
-            height: 18px;
+        >.search {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--std-sm-gap);
+            padding: 15px 20px;
+            background-color: var(--color-gray);
+            border-radius: 30px;
+
+            > label {
+                height: 18px;
+            }
+
+            svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            > input {
+                border: none;
+                outline: none;
+                font-size: 14px;
+                width: 100%;
+                background-color: inherit;
+            }
         }
 
-        svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        > input {
-            border: none;
-            outline: none;
-            font-size: 14px;
-            width: 100%;
-            background-color: inherit;
+        > .create {
+            display: grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--color-gray);
+            cursor: pointer;
         }
     }
 
@@ -127,14 +145,6 @@
         align-items: center;
         gap: var(--std-sm-gap);
 
-        .back {
-            display: grid;
-            place-items: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--color-gray);
-            border-radius: var(--std-br);
-        }
         h2 {
             font-weight: normal;
             margin: 0;
@@ -298,6 +308,19 @@
         > .add {
             color: var(--color-gray);
             background-color: var(--color-fg);
+        }
+    }
+}
+
+.create-food {
+    > .header {
+        display: flex;
+        align-items: center;
+        gap: var(--std-sm-gap);
+
+        > h2 {
+            font-weight: normal;
+            margin: 0;
         }
     }
 }

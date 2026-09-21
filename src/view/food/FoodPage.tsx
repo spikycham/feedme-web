@@ -3,7 +3,18 @@ import { useNavigate } from "react-router";
 import { useUserStore } from "@/store/user.store";
 import { useFoodsStore } from "@/store/food.store";
 
-import { Search, Beef, Cake, Hamburger, LeafyGreen, Shrimp, Soup, Wheat, Wine } from "lucide-react";
+import {
+    Search,
+    Beef,
+    Cake,
+    Hamburger,
+    LeafyGreen,
+    Shrimp,
+    Soup,
+    Wheat,
+    Wine,
+    Plus,
+} from "lucide-react";
 import { message } from "@/component/message/Message";
 import Loading from "@/component/loading/Loading";
 import OrderAction from "./Action";
@@ -131,16 +142,21 @@ export default function FoodPage() {
                         </span>
                     </h1>
 
-                    <div className="search">
-                        <label htmlFor="food-search">
-                            <Search />
-                        </label>
-                        <input
-                            id="food-search"
-                            placeholder={i18n.t("search_food")}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </div>
+                    <section className="actions">
+                        <div className="search">
+                            <label htmlFor="food-search">
+                                <Search />
+                            </label>
+                            <input
+                                id="food-search"
+                                placeholder={i18n.t("search_food")}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                        </div>
+                        <div className="create" onClick={() => navigate("/layout/food/create")}>
+                            <Plus />
+                        </div>
+                    </section>
 
                     <div className="filter">
                         <button className="item active" onClick={() => setFilter(new Set())}>
@@ -162,7 +178,8 @@ export default function FoodPage() {
                                         next.add(item.key);
                                         return next;
                                     })
-                                }>
+                                }
+                            >
                                 <span>{item.Icon}</span>
                                 <span>{item.name}</span>
                             </button>
@@ -174,7 +191,8 @@ export default function FoodPage() {
                             return (
                                 <li
                                     key={food.food_id}
-                                    onClick={() => navigate("/layout/food/detail/" + food.food_id)}>
+                                    onClick={() => navigate("/layout/food/detail/" + food.food_id)}
+                                >
                                     <section className="info">
                                         <div className="photo">
                                             {food.image_uris[0] && <img src={food.image_uris[0]} />}
