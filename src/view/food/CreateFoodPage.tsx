@@ -7,6 +7,7 @@ import Button from "@/component/button/Button";
 import fetchUploadFile from "@/network/upload-file.api";
 
 import i18n from "@/i18n";
+import { Ban, Loader } from "lucide-react";
 
 export default function CreateFoodPage() {
     const [loadingUploadImg, setLoadingUploadImg] = useState(false);
@@ -34,6 +35,13 @@ export default function CreateFoodPage() {
         }
     };
 
+    // Form items.
+    const [name, setName] = useState("");
+    const [detail, setDetail] = useState("");
+    const [price, setPrice] = useState(0); // request field name is "prize"
+    const [requiredTime, setRequiredTime] = useState(0);
+    const [category, setCategory] = useState(0);
+
     const handleSubmitForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
@@ -42,7 +50,7 @@ export default function CreateFoodPage() {
         <form className="create-food" onSubmit={handleSubmitForm}>
             <section className="header">
                 <Back />
-                <h2>$$Add new meal</h2>
+                <h2>$$添加菜品</h2>
             </section>
 
             <section className="img">
@@ -51,7 +59,14 @@ export default function CreateFoodPage() {
                 ) : (
                     <>
                         <label className="upload-img" htmlFor="upload-img">
-                            {imgUri === "" ? <div>wait for uploading...</div> : <div>image</div>}
+                            {imgUri === "" ? (
+                                <div className="wait">
+                                    <Ban size={20} />
+                                    <span>$$点击上传...</span>
+                                </div>
+                            ) : (
+                                imgUri !== "" && <img src={imgUri} />
+                            )}
                         </label>
                         <input
                             id="upload-img"
@@ -63,7 +78,14 @@ export default function CreateFoodPage() {
                 )}
             </section>
 
-            <section className="display-info"></section>
+            <section className="display-info">
+                <h3>$$展示信息</h3>
+                <FormItem label="$$菜名" value={name} onChange={(v) => setName(v)} />
+                <FormItem label="$$菜品描述" value={detail} onChange={(v) => setDetail(v)} />
+                <FormItem label="$$标价" value={price} onChange={(v) => setPrice(v)} />
+                <FormItem label="$$需要时间 (s)" value={price} onChange={(v) => setPrice(v)} />
+                {/* TODO: select the category */}
+            </section>
 
             <section className="cook-info"></section>
 
@@ -73,5 +95,43 @@ export default function CreateFoodPage() {
 }
 
 function UploadImgLoading() {
-    return <div>loading...</div>;
+    return (
+        <div className="loading-img">
+            <Loader size={20} />
+            <span>$$加载中...</span>
+        </div>
+    );
+}
+
+interface FormItemProps<T extends string | number> {
+    label: string;
+    value: T;
+    onChange: (v: T) => void;
+}
+function FormItem<T extends string | number>(props: FormItemProps<T>) {
+    const isNumber = typeof props.value === "number";
+
+    return (
+        <div className="form-item">
+            <span>{props.label}</span>
+            <input
+                type={isNumber ? "number" : "text"}
+                value={props.value}
+                onChange={(e) => {
+                    const v = e.target.value as T;
+                    if (isNumber && Number(v) <= 0) {
+                        props.onChange(0 as T);
+                        return;
+                    }
+
+                    if (isNumber) {
+                        props.onChange(Number(v) as T);
+                        return;
+                    }
+
+                    props.onChange(v);
+                }}
+            />
+        </div>
+    );
 }

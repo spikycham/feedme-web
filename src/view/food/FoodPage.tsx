@@ -153,9 +153,12 @@ export default function FoodPage() {
                                 onChange={(e) => setSearch(e.target.value)}
                             />
                         </div>
-                        <div className="create" onClick={() => navigate("/layout/food/create")}>
-                            <Plus />
-                        </div>
+
+                        {Permission.IsMerchant(user.role) && (
+                            <div className="create" onClick={() => navigate("/layout/food/create")}>
+                                <Plus />
+                            </div>
+                        )}
                     </section>
 
                     <div className="filter">
@@ -178,8 +181,7 @@ export default function FoodPage() {
                                         next.add(item.key);
                                         return next;
                                     })
-                                }
-                            >
+                                }>
                                 <span>{item.Icon}</span>
                                 <span>{item.name}</span>
                             </button>
@@ -191,8 +193,7 @@ export default function FoodPage() {
                             return (
                                 <li
                                     key={food.food_id}
-                                    onClick={() => navigate("/layout/food/detail/" + food.food_id)}
-                                >
+                                    onClick={() => navigate("/layout/food/detail/" + food.food_id)}>
                                     <section className="info">
                                         <div className="photo">
                                             {food.image_uris[0] && <img src={food.image_uris[0]} />}
