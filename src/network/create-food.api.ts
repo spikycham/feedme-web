@@ -4,6 +4,7 @@ interface CreateFoodBasicProps {
     name: string;
     detail: string;
     prize: number;
+    rate: number;
     required_time: number;
     category: number;
 }
@@ -23,8 +24,8 @@ export default async function fetchCreateFood(body: RequestCreateFood) {
 export class CreateFoodBody {
     body: RequestCreateFood
     constructor(opts: CreateFoodBasicProps) {
-        const { name, detail, prize, required_time, category } = opts;
-        this.body = { name, detail, prize, required_time, category };
+        const { name, detail, prize, rate, required_time, category } = opts;
+        this.body = { name, detail, prize, rate, required_time, category };
     }
 
     public addImg(imgUri: string) {

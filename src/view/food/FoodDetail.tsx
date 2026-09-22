@@ -83,17 +83,19 @@ export default function FoodDetail() {
                 </>
             )}
 
-            <section>
-                <h3>{i18n.t("comments")}</h3>
-                <div className="cm-container">
-                    {food.comments.map((c) => (
-                        <p key={c.comment_id}>
-                            <span>{getDateTimeBySec(c.created_at)}</span>
-                            <span>{c.detail}</span>
-                        </p>
-                    ))}
-                </div>
-            </section>
+            {food.comments.length > 0 && (
+                <section>
+                    <h3>{i18n.t("comments")}</h3>
+                    <div className="cm-container">
+                        {food.comments.map((c) => (
+                            <p key={c.comment_id}>
+                                <span>{getDateTimeBySec(c.created_at)}</span>
+                                <span>{c.detail}</span>
+                            </p>
+                        ))}
+                    </div>
+                </section>
+            )}
         </div>
     );
 }

@@ -14,6 +14,9 @@ import fetchCreateFood, { CreateFoodBody } from "@/network/create-food.api";
 
 import i18n from "@/i18n";
 import { NetworkError } from "@/network/network";
+import { useNavigate } from "react-router";
+import fetchFoodList from "@/network/food-list.api";
+import { useFoodsStore } from "@/store/food.store";
 
 const categoryOptions: Option<number>[] = foodCategoryMap.map((c) => ({
     key: c.key,
@@ -54,6 +57,7 @@ export default function CreateFoodPage() {
     const [name, setName] = useState("");
     const [detail, setDetail] = useState("");
     const [price, setPrice] = useState("0"); // request field name is "prize"
+    const [rate, setRate] = useState("0");
     const [requiredTime, setRequiredTime] = useState("0"); // input min, need sec
     const [category, setCategory] = useState(0);
 
@@ -68,11 +72,13 @@ export default function CreateFoodPage() {
     const [steps, setSteps] = useState<FoodStep[]>([]);
     const stepKeyRef = useRef(0);
 
+    const navigate = useNavigate();
+    const setFoods = useFoodsStore((state) => state.setFoods);
     const handleSubmitForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (name === "" || detail === "" || requiredTime === "0") {
-            message.warning("missing_fields");
+            message.warning(i18n.t("missing_fields"));
             return;
         }
 
@@ -80,8 +86,9 @@ export default function CreateFoodPage() {
             name,
             detail,
             prize: Number(price),
-            required_time: Number(requiredTime),
-            category,
+            rate: Number(rate),
+            required_time: Number(requiredTime) * 60,
+            category: Number(category),
         });
         body.addImg(imgUri);
         body.addIngs(ings.map((v) => v.label));
@@ -95,6 +102,12 @@ export default function CreateFoodPage() {
         try {
             setLoadingCreate(true);
             await fetchCreateFood(body.body);
+
+            navigate("/layout/food");
+            message.success(i18n.t("success_to_create_food"));
+
+            const data = await fetchFoodList();
+            setFoods(data.list);
         } catch (err) {
             if (err instanceof NetworkError) {
                 message.failed(i18n.t("failed_to_create_food"));
@@ -107,138 +120,153 @@ export default function CreateFoodPage() {
     };
 
     return (
-        <form className="create-food" onSubmit={handleSubmitForm}>
-            <section className="header">
-                <Back />
-                <h2>$$添加菜品</h2>
-            </section>
+        <>
+            <form className="create-food" onSubmit={handleSubmitForm}>
+                <section className="header">
+                    <Back />
+                    <h2>$$添加菜品</h2>
+                </section>
 
-            <section className="img">
-                {loadingUploadImg ? (
-                    <UploadImgLoading />
-                ) : (
-                    <>
-                        <label className="upload-img" htmlFor="upload-img">
-                            {imgUri === "" ? (
-                                <div className="wait">
-                                    <Ban size={20} />
-                                    <span>$$点击上传...</span>
-                                </div>
-                            ) : (
-                                imgUri !== "" && <img src={imgUri} />
-                            )}
-                        </label>
-                        <input
-                            id="upload-img"
-                            type="file"
-                            accept="image/*"
-                            onChange={onChangeImgFile}
-                        />
-                    </>
-                )}
-            </section>
+                <section className="img">
+                    {loadingUploadImg ? (
+                        <UploadImgLoading />
+                    ) : (
+                        <>
+                            <label className="upload-img" htmlFor="upload-img">
+                                {imgUri === "" ? (
+                                    <div className="wait">
+                                        <Ban size={20} />
+                                        <span>$$点击上传...</span>
+                                    </div>
+                                ) : (
+                                    imgUri !== "" && <img src={imgUri} />
+                                )}
+                            </label>
+                            <input
+                                id="upload-img"
+                                type="file"
+                                accept="image/*"
+                                onChange={onChangeImgFile}
+                            />
+                        </>
+                    )}
+                </section>
 
-            <section className="display-info">
-                <h3>$$展示信息</h3>
-                <FormItem label="$$菜名" type="text" value={name} onChange={(v) => setName(v)} />
-                <FormItem
-                    label="$$菜品描述"
-                    type="text"
-                    value={detail}
-                    onChange={(v) => setDetail(v)}
-                />
-                <FormItem
-                    label="$$标价"
-                    type="number"
-                    value={price}
-                    onChange={(v) => setPrice(v)}
-                />
-                <FormItem
-                    label="$$需要时间 (min)"
-                    type="number"
-                    value={requiredTime}
-                    onChange={(v) => setRequiredTime(v)}
-                />
-
-                <div className="form-item">
-                    <span>$$菜品种类</span>
-                    <Select
-                        options={categoryOptions}
-                        value={category}
-                        onChange={(v) => setCategory(v)}
+                <section className="display-info">
+                    <h3>$$展示信息</h3>
+                    <FormItem
+                        label="$$菜名"
+                        type="text"
+                        value={name}
+                        onChange={(v) => setName(v)}
                     />
-                </div>
-            </section>
+                    <FormItem
+                        label="$$菜品描述"
+                        type="text"
+                        value={detail}
+                        onChange={(v) => setDetail(v)}
+                    />
+                    <FormItem
+                        label="$$标价"
+                        type="number"
+                        max={9999}
+                        value={price}
+                        onChange={(v) => setPrice(v)}
+                    />
+                    <FormItem
+                        label="$$推荐指数 (0~5)"
+                        type="number"
+                        max={5}
+                        value={rate}
+                        onChange={(v) => setRate(v)}
+                    />
+                    <FormItem
+                        label="$$需要时间 (min)"
+                        type="number"
+                        max={1200}
+                        value={requiredTime}
+                        onChange={(v) => setRequiredTime(v)}
+                    />
 
-            <section className="ing-info">
-                <h3>{i18n.t("ingredients")}</h3>
+                    <div className="form-item">
+                        <span>$$菜品种类</span>
+                        <Select
+                            options={categoryOptions}
+                            value={category}
+                            onChange={(v) => setCategory(v)}
+                        />
+                    </div>
+                </section>
 
-                <div className="content">
-                    {ings.map((ing) => (
-                        <div
-                            className="ing"
-                            key={ing.key}
-                            onClick={() => {
-                                setIngs((prev) => {
-                                    const newState = [...prev];
-                                    const idx = newState.findIndex((s) => s.key === ing.key);
-                                    if (idx === -1) return newState;
+                <section className="ing-info">
+                    <h3>{i18n.t("ingredients")}</h3>
 
-                                    newState.splice(idx, 1);
-                                    return newState;
-                                });
-                            }}
-                        >
-                            <span>{ing.label}</span>
-                            <X size={20} />
+                    <div className="content">
+                        {ings.map((ing) => (
+                            <div
+                                className="ing"
+                                key={ing.key}
+                                onClick={() => {
+                                    setIngs((prev) => {
+                                        const newState = [...prev];
+                                        const idx = newState.findIndex((s) => s.key === ing.key);
+                                        if (idx === -1) return newState;
+
+                                        newState.splice(idx, 1);
+                                        return newState;
+                                    });
+                                }}
+                            >
+                                <span>{ing.label}</span>
+                                <X size={20} />
+                            </div>
+                        ))}
+
+                        <div className="add-ing" onClick={() => setShowAddIng(true)}>
+                            <Plus size={20} />
+                            <span>{i18n.t("add_ingredient")}</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="step-info">
+                    <h3>{i18n.t("steps")}</h3>
+                    {steps.map((step, idx) => (
+                        <div className="step" key={step.sort}>
+                            <span>{idx + 1}.&nbsp;</span>
+                            <input
+                                value={step.detail}
+                                placeholder={i18n.t("please_input")}
+                                onChange={(e) =>
+                                    setSteps((prev) => {
+                                        const newState = [...prev];
+                                        const target = newState.find((s) => s.sort === step.sort);
+                                        if (!target) return newState;
+                                        target.detail = e.target.value;
+                                        return newState;
+                                    })
+                                }
+                            />
                         </div>
                     ))}
 
-                    <div className="add-ing" onClick={() => setShowAddIng(true)}>
+                    <div
+                        className="step-add"
+                        onClick={() => {
+                            setSteps((prev) => {
+                                const newState = [...prev];
+                                newState.push({ sort: stepKeyRef.current++, detail: "" });
+                                return newState;
+                            });
+                        }}
+                    >
                         <Plus size={20} />
-                        <span>{i18n.t("add_ingredient")}</span>
+                        <span>{i18n.t("add_step")}</span>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section className="step-info">
-                <h3>{i18n.t("steps")}</h3>
-                {steps.map((step, idx) => (
-                    <div className="step" key={step.sort}>
-                        <span>{idx + 1}.&nbsp;</span>
-                        <input
-                            value={step.detail}
-                            placeholder={i18n.t("please_input")}
-                            onChange={(e) =>
-                                setSteps((prev) => {
-                                    const newState = [...prev];
-                                    const target = newState.find((s) => s.sort === step.sort);
-                                    if (!target) return newState;
-                                    target.detail = e.target.value;
-                                    return newState;
-                                })
-                            }
-                        />
-                    </div>
-                ))}
-
-                <div
-                    className="step-add"
-                    onClick={() => {
-                        setSteps((prev) => {
-                            const newState = [...prev];
-                            newState.push({ sort: stepKeyRef.current++, detail: "" });
-                            return newState;
-                        });
-                    }}
-                >
-                    <Plus size={20} />
-                    <span>{i18n.t("add_step")}</span>
-                </div>
-            </section>
-
-            <Button title="$$提交" htmlType="submit" loading={loadingCreate} />
-
+                <Button title="$$提交" htmlType="submit" loading={loadingCreate} />
+            </form>
             <Modal
                 show={showAddIng}
                 onShow={(show) => setShowAddIng(show)}
@@ -267,7 +295,7 @@ export default function CreateFoodPage() {
                     onChange={(e) => setCurrIng(e.target.value)}
                 />
             </Modal>
-        </form>
+        </>
     );
 }
 
@@ -284,6 +312,7 @@ interface FormItemProps {
     label: string;
     value: string;
     type: "text" | "number";
+    max?: number;
     onChange: (v: string) => void;
 }
 function FormItem(props: FormItemProps) {
@@ -308,8 +337,8 @@ function FormItem(props: FormItemProps) {
                         return;
                     }
 
-                    if (parsed >= 10000) {
-                        props.onChange("9999");
+                    if (props.max && parsed >= props.max) {
+                        props.onChange(String(props.max));
                         return;
                     }
 

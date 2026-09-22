@@ -89,5 +89,7 @@
     "please_input": "please input",
     "add_step": "add a new step",
     "add_ingredient": "add a new ingredient",
-    "failed_to_create_food": "failed to create food"
+    "failed_to_create_food": "failed to create food",
+    "success_to_create_food": "create food successfully",
+    "missing_fields": "missing food informations"
 }

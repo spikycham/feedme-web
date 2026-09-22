@@ -449,16 +449,15 @@
             border: 1px dashed var(--color-fg-gray);
         }
     }
-
-    > .modal .add-ing {
-        border-radius: var(--std-br);
-        padding: 10px;
-        border: none;
-        outline: none;
-        width: 100%;
-        background-color: var(--color-gray);
-        font-size: 14px;
-    }
+}
+.modal .add-ing {
+    border-radius: var(--std-br);
+    padding: 10px;
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: var(--color-gray);
+    font-size: 14px;
 }
 
 .loading-img {

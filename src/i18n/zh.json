@@ -89,5 +89,7 @@
     "please_input": "请输入...",
     "add_step": "添加步骤",
     "add_ingredient": "添加材料",
-    "failed_to_create_food": "添加菜品失败"
+    "failed_to_create_food": "添加菜品失败",
+    "success_to_create_food": "添加菜品成功",
+    "missing_fields": "菜品信息缺失，请补充"
 }
