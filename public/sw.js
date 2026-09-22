@@ -9,7 +9,7 @@
 //     );
 // });
 
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 4;
 
 self.addEventListener("install", (e) => {
     // e.waitUntil();
