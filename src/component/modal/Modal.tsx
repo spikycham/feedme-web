@@ -16,7 +16,10 @@ interface Props {
 }
 
 export default function Modal(props: Props) {
-    const onHide = () => props.onShow(false);
+    const onHide = () => {
+        props.onShow(false);
+        props.onCancel?.();
+    };
 
     useEffect(() => {
         if (!props.show) return;
@@ -40,11 +43,7 @@ export default function Modal(props: Props) {
                 )}
                 {props.children && <div>{props.children}</div>}
                 <div className="operation">
-                    <Button
-                        type="cancel"
-                        title={i18n.t("action_cancel")}
-                        onClick={onHide}
-                    />
+                    <Button type="cancel" title={i18n.t("action_cancel")} onClick={onHide} />
                     <Button
                         title={i18n.t("action_confirm")}
                         loading={props.loading}
@@ -52,9 +51,7 @@ export default function Modal(props: Props) {
                     />
                 </div>
             </div>
-            <div
-                className="background"
-                onClick={onHide}></div>
+            <div className="background" onClick={onHide}></div>
         </div>
     );
 }

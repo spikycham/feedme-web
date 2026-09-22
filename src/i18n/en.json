@@ -31,6 +31,8 @@
     "other_food": "Other",
     "sold_count": "Sold",
     "rating": "Rating",
+    "ingredients": "Ingredients",
+    "steps": "Steps",
     "average": "Average",
     "comments": "Comments",
     "food_count_one": "{{count}} Food",
@@ -83,5 +85,9 @@
     "internal_error": "Internal error",
     "no_order": "No order yet, please wait...",
     "no_food": "No food uploaded yet...",
-    "no_order_history": "No finished order yet..."
+    "no_order_history": "No finished order yet...",
+    "please_input": "please input",
+    "add_step": "add a new step",
+    "add_ingredient": "add a new ingredient",
+    "failed_to_create_food": "failed to create food"
 }

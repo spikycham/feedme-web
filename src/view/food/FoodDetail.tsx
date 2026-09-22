@@ -62,7 +62,7 @@ export default function FoodDetail() {
             {Permission.IsMerchant(user.role) && (
                 <>
                     <section>
-                        <h3>Ingredients</h3>
+                        <h3>{i18n.t("ingredients")}</h3>
                         <div className="ig-container">
                             {food.ingredients.map((ig) => (
                                 <span className="ingredient" key={ig}>
@@ -73,7 +73,7 @@ export default function FoodDetail() {
                     </section>
 
                     <section>
-                        <h3>Steps</h3>
+                        <h3>{i18n.t("steps")}</h3>
                         {food.steps.map((step) => (
                             <p key={step.sort}>
                                 {step.sort + 1}. {step.detail}

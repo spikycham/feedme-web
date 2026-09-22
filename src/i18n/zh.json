@@ -31,6 +31,8 @@
     "other_food": "其他食物",
     "sold_count": "售出",
     "rating": "评分",
+    "ingredients": "准备材料",
+    "steps": "制作步骤",
     "average": "平均",
     "comments": "评论",
     "food_count_one": "{{count}} 个菜",
@@ -83,5 +85,9 @@
     "failed_to_request_foods_data": "获取菜品数据失败",
     "failed_to_fetch_order_list": "获取订单列表失败",
     "failed_to_update_order_status": "更新订单状态失败",
-    "same_username": "用户名相同"
+    "same_username": "用户名相同",
+    "please_input": "请输入...",
+    "add_step": "添加步骤",
+    "add_ingredient": "添加材料",
+    "failed_to_create_food": "添加菜品失败"
 }

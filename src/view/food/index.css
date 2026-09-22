@@ -315,7 +315,7 @@
 .create-food {
     display: flex;
     flex-direction: column;
-    gap: var(--std-lg-gap);
+    gap: var(--std-sm-gap);
 
     > .header {
         display: flex;
@@ -354,7 +354,7 @@
         }
     }
 
-    > .display-info {
+    > .display-info, .step-info, .ing-info {
         display: flex;
         flex-direction: column;
         gap: var(--std-sm-gap);
@@ -362,12 +362,102 @@
         border-radius: var(--std-br);
         background-color: var(--color-gray);
 
+    }
+
+    > .display-info {
         > .form-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: var(--std-sm-gap);
+            font-size: 14px;
+
+            > span {
+                flex: 0 0 120px;
+            }
+            > input {
+                flex: 1 0 100px;
+                border-radius: var(--std-br);
+                padding: 5px 10px;
+                border: none;
+                outline: none;
+                background-color: var(--color-bg);
+                font-size: 14px;
+            }
+            > select {
+                flex: 1 0 100px;
+            }
         }
+    }
+
+    .ing-info {
+        .content {
+            display: flex;
+            gap: var(--std-sm-gap);
+            flex-direction: row;
+
+            .ing, .add-ing {
+                background-color: var(--color-bg);
+                border-radius: 20px;
+                padding: 5px 10px;
+                width: max-content;
+            }
+
+            .ing {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+            }
+            .add-ing {
+                display: flex;
+                gap: 5px;
+                align-items: center;
+                border: 1px dashed var(--color-fg-gray);
+            }
+        }
+    }
+
+    .step-info {
+        font-size: 14px;
+
+        .step, .step-add {
+            background-color: var(--color-bg);
+            border-radius: var(--std-br);
+            padding: 10px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+
+            > input {
+                flex: 1 0 100px;
+                border-radius: var(--std-br);
+                border: none;
+                outline: none;
+                background-color: var(--color-bg);
+                font-size: 14px;
+                white-space: pre-wrap;
+            }
+        }
+
+        .step-add {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--color-fg-gray);
+        }
+    }
+
+    > .modal .add-ing {
+        border-radius: var(--std-br);
+        padding: 10px;
+        border: none;
+        outline: none;
+        width: 100%;
+        background-color: var(--color-gray);
+        font-size: 14px;
     }
 }
 

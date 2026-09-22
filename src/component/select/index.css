@@ -1,1 +1,8 @@
-.select {}
+.select {
+    border-radius: var(--std-br);
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    background-color: var(--color-bg);
+    font-size: 14px;
+}
