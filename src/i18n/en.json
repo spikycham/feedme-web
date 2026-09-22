@@ -91,5 +91,15 @@
     "add_ingredient": "add a new ingredient",
     "failed_to_create_food": "failed to create food",
     "success_to_create_food": "create food successfully",
-    "missing_fields": "missing food informations"
+    "missing_fields": "missing food informations",
+    "add_food": "Add Food",
+    "click_to_upload": "Click to upload",
+    "display_info": "Display Information",
+    "food_name": "Food Name",
+    "food_detail": "Food Description",
+    "price": "Price",
+    "recommend_rate": "Recommendation",
+    "required_time": "Required Time",
+    "food_category": "Food Category",
+    "submit": "Submit"
 }

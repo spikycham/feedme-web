@@ -395,12 +395,12 @@
             display: flex;
             gap: var(--std-sm-gap);
             flex-direction: row;
+            flex-wrap: wrap;
 
             .ing, .add-ing {
                 background-color: var(--color-bg);
                 border-radius: 20px;
                 padding: 5px 10px;
-                width: max-content;
             }
 
             .ing {
@@ -412,7 +412,7 @@
                 display: flex;
                 gap: 5px;
                 align-items: center;
-                border: 1px dashed var(--color-fg-gray);
+                box-sizing: border-box;
             }
         }
     }
@@ -446,7 +446,6 @@
             gap: 5px;
             align-items: center;
             justify-content: center;
-            border: 1px dashed var(--color-fg-gray);
         }
     }
 }

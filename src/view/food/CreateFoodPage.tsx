@@ -124,7 +124,7 @@ export default function CreateFoodPage() {
             <form className="create-food" onSubmit={handleSubmitForm}>
                 <section className="header">
                     <Back />
-                    <h2>$$添加菜品</h2>
+                    <h2>{i18n.t("add_food")}</h2>
                 </section>
 
                 <section className="img">
@@ -136,7 +136,7 @@ export default function CreateFoodPage() {
                                 {imgUri === "" ? (
                                     <div className="wait">
                                         <Ban size={20} />
-                                        <span>$$点击上传...</span>
+                                        <span>{i18n.t("click_to_upload")}...</span>
                                     </div>
                                 ) : (
                                     imgUri !== "" && <img src={imgUri} />
@@ -153,35 +153,35 @@ export default function CreateFoodPage() {
                 </section>
 
                 <section className="display-info">
-                    <h3>$$展示信息</h3>
+                    <h3>{i18n.t("display_info")}</h3>
                     <FormItem
-                        label="$$菜名"
+                        label={i18n.t("food_name")}
                         type="text"
                         value={name}
                         onChange={(v) => setName(v)}
                     />
                     <FormItem
-                        label="$$菜品描述"
+                        label={i18n.t("food_detail")}
                         type="text"
                         value={detail}
                         onChange={(v) => setDetail(v)}
                     />
                     <FormItem
-                        label="$$标价"
+                        label={i18n.t("price")}
                         type="number"
                         max={9999}
                         value={price}
                         onChange={(v) => setPrice(v)}
                     />
                     <FormItem
-                        label="$$推荐指数 (0~5)"
+                        label={`${i18n.t("recommend_rate")} (0~5)`}
                         type="number"
                         max={5}
                         value={rate}
                         onChange={(v) => setRate(v)}
                     />
                     <FormItem
-                        label="$$需要时间 (min)"
+                        label={`${i18n.t("required_time")} (min)`}
                         type="number"
                         max={1200}
                         value={requiredTime}
@@ -189,7 +189,7 @@ export default function CreateFoodPage() {
                     />
 
                     <div className="form-item">
-                        <span>$$菜品种类</span>
+                        <span>{i18n.t("food_category")}</span>
                         <Select
                             options={categoryOptions}
                             value={category}
@@ -265,7 +265,11 @@ export default function CreateFoodPage() {
                     </div>
                 </section>
 
-                <Button title="$$提交" htmlType="submit" loading={loadingCreate} />
+                <Button
+                    title={i18n.t("submit")}
+                    htmlType="submit"
+                    loading={loadingCreate}
+                />
             </form>
             <Modal
                 show={showAddIng}
@@ -303,7 +307,7 @@ function UploadImgLoading() {
     return (
         <div className="loading-img">
             <Loader size={20} />
-            <span>$$加载中...</span>
+            <span>{i18n.t("loading")}...</span>
         </div>
     );
 }

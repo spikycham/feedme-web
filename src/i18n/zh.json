@@ -91,5 +91,15 @@
     "add_ingredient": "添加材料",
     "failed_to_create_food": "添加菜品失败",
     "success_to_create_food": "添加菜品成功",
-    "missing_fields": "菜品信息缺失，请补充"
+    "missing_fields": "菜品信息缺失，请补充",
+    "add_food": "添加菜品",
+    "click_to_upload": "点击上传",
+    "display_info": "展示信息",
+    "food_name": "菜名",
+    "food_detail": "菜品描述",
+    "price": "标价",
+    "recommend_rate": "推荐指数",
+    "required_time": "需要时间",
+    "food_category": "菜品种类",
+    "submit": "提交"
 }
