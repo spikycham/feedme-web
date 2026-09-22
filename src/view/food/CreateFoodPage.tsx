@@ -1,13 +1,22 @@
 import { useState } from "react";
+import { Ban, Loader } from "lucide-react";
 
 import { message } from "@/component/message/Message";
 import Back from "@/component/back/Back";
 import Button from "@/component/button/Button";
+import Select, { type Option } from "@/component/select/Select";
+
+import { foodCategoryMap } from "./category";
 
 import fetchUploadFile from "@/network/upload-file.api";
 
 import i18n from "@/i18n";
-import { Ban, Loader } from "lucide-react";
+
+const categoryOptions: Option<number>[] = foodCategoryMap.map((c) => ({
+    key: c.key,
+    label: c.name,
+    value: c.key,
+}));
 
 export default function CreateFoodPage() {
     const [loadingUploadImg, setLoadingUploadImg] = useState(false);
@@ -38,8 +47,8 @@ export default function CreateFoodPage() {
     // Form items.
     const [name, setName] = useState("");
     const [detail, setDetail] = useState("");
-    const [price, setPrice] = useState(0); // request field name is "prize"
-    const [requiredTime, setRequiredTime] = useState(0);
+    const [price, setPrice] = useState("0"); // request field name is "prize"
+    const [requiredTime, setRequiredTime] = useState("0");
     const [category, setCategory] = useState(0);
 
     const handleSubmitForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -80,11 +89,34 @@ export default function CreateFoodPage() {
 
             <section className="display-info">
                 <h3>$$展示信息</h3>
-                <FormItem label="$$菜名" value={name} onChange={(v) => setName(v)} />
-                <FormItem label="$$菜品描述" value={detail} onChange={(v) => setDetail(v)} />
-                <FormItem label="$$标价" value={price} onChange={(v) => setPrice(v)} />
-                <FormItem label="$$需要时间 (s)" value={price} onChange={(v) => setPrice(v)} />
-                {/* TODO: select the category */}
+                <FormItem label="$$菜名" type="text" value={name} onChange={(v) => setName(v)} />
+                <FormItem
+                    label="$$菜品描述"
+                    type="text"
+                    value={detail}
+                    onChange={(v) => setDetail(v)}
+                />
+                <FormItem
+                    label="$$标价"
+                    type="number"
+                    value={price}
+                    onChange={(v) => setPrice(v)}
+                />
+                <FormItem
+                    label="$$需要时间 (sec)"
+                    type="number"
+                    value={requiredTime}
+                    onChange={(v) => setRequiredTime(v)}
+                />
+
+                <div className="form-item">
+                    <span>$$菜品种类</span>
+                    <Select
+                        options={categoryOptions}
+                        value={category}
+                        onChange={(v) => setCategory(v)}
+                    />
+                </div>
             </section>
 
             <section className="cook-info"></section>
@@ -103,33 +135,39 @@ function UploadImgLoading() {
     );
 }
 
-interface FormItemProps<T extends string | number> {
+interface FormItemProps {
     label: string;
-    value: T;
-    onChange: (v: T) => void;
+    value: string;
+    type: "text" | "number";
+    onChange: (v: string) => void;
 }
-function FormItem<T extends string | number>(props: FormItemProps<T>) {
-    const isNumber = typeof props.value === "number";
-
+function FormItem(props: FormItemProps) {
     return (
         <div className="form-item">
             <span>{props.label}</span>
             <input
-                type={isNumber ? "number" : "text"}
+                type={props.type}
                 value={props.value}
                 onChange={(e) => {
-                    const v = e.target.value as T;
-                    if (isNumber && Number(v) <= 0) {
-                        props.onChange(0 as T);
+                    const v = e.target.value;
+
+                    if (props.type === "text") {
+                        props.onChange(v);
                         return;
                     }
 
-                    if (isNumber) {
-                        props.onChange(Number(v) as T);
+                    const parsed = parseFloat(v);
+                    if (Number.isNaN(parsed) || parsed < 0) {
+                        props.onChange("0");
                         return;
                     }
 
-                    props.onChange(v);
+                    if (parsed >= 10000) {
+                        props.onChange("9999");
+                        return;
+                    }
+
+                    props.onChange(String(parsed));
                 }}
             />
         </div>

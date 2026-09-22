@@ -3,18 +3,7 @@ import { useNavigate } from "react-router";
 import { useUserStore } from "@/store/user.store";
 import { useFoodsStore } from "@/store/food.store";
 
-import {
-    Search,
-    Beef,
-    Cake,
-    Hamburger,
-    LeafyGreen,
-    Shrimp,
-    Soup,
-    Wheat,
-    Wine,
-    Plus,
-} from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import { message } from "@/component/message/Message";
 import Loading from "@/component/loading/Loading";
 import OrderAction from "./Action";
@@ -22,67 +11,11 @@ import OrderAction from "./Action";
 import { NetworkError } from "@/network/network";
 import fetchFoodList from "@/network/food-list.api";
 
+import { foodCategoryMap } from "./category";
 import Permission from "@/util/permission";
 
 import i18n from "@/i18n";
 import "./index.css";
-
-interface FoodCategoryMap {
-    key: number;
-    name: string;
-    Icon: React.ReactNode;
-    color: string;
-}
-const foodCategoryMap: FoodCategoryMap[] = [
-    {
-        key: 0,
-        name: i18n.t("staple_food"),
-        Icon: <Wheat />,
-        color: "var(--color-yellow)",
-    },
-    {
-        key: 1,
-        name: i18n.t("vegetable"),
-        Icon: <LeafyGreen />,
-        color: "var(--color-green)",
-    },
-    {
-        key: 2,
-        name: i18n.t("meat"),
-        Icon: <Beef />,
-        color: "var(--color-red)",
-    },
-    {
-        key: 3,
-        name: i18n.t("seafood"),
-        Icon: <Shrimp />,
-        color: "var(--color-blue)",
-    },
-    {
-        key: 4,
-        name: i18n.t("soup"),
-        Icon: <Soup />,
-        color: "var(--color-maroon)",
-    },
-    {
-        key: 5,
-        name: i18n.t("dessert"),
-        Icon: <Cake />,
-        color: "var(--color-pink)",
-    },
-    {
-        key: 6,
-        name: i18n.t("drink"),
-        Icon: <Wine />,
-        color: "var(--color-orange)",
-    },
-    {
-        key: 7,
-        name: i18n.t("other_food"),
-        Icon: <Hamburger />,
-        color: "var(--color-fg-gray)",
-    },
-];
 
 export default function FoodPage() {
     const foods = useFoodsStore((state) => state.foods);
@@ -181,7 +114,8 @@ export default function FoodPage() {
                                         next.add(item.key);
                                         return next;
                                     })
-                                }>
+                                }
+                            >
                                 <span>{item.Icon}</span>
                                 <span>{item.name}</span>
                             </button>
@@ -193,7 +127,8 @@ export default function FoodPage() {
                             return (
                                 <li
                                     key={food.food_id}
-                                    onClick={() => navigate("/layout/food/detail/" + food.food_id)}>
+                                    onClick={() => navigate("/layout/food/detail/" + food.food_id)}
+                                >
                                     <section className="info">
                                         <div className="photo">
                                             {food.image_uris[0] && <img src={food.image_uris[0]} />}
