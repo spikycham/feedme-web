@@ -212,7 +212,6 @@ class Network {
     }
 }
 
-// export const BASE_URL = "https://devcham.xyz/feedme";
-export const BASE_URL = "https://devcham.xyz/feedme-dev/";
+export const BASE_URL = import.meta.env.VITE_API_URL;
 const net = new Network(BASE_URL);
 export default net;
