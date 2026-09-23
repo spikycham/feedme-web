@@ -21,6 +21,8 @@
 
     --std-icon-size: 22px;
     --std-sm-icon-size: 14px;
+
+    --std-title-size: 48px;
 }
 
 * {
@@ -30,7 +32,7 @@
 html,
 body {
     overscroll-behavior: none;
-    background-color: var(--color-gray);
+    background-color: var(--color-bg);
 }
 
 body {

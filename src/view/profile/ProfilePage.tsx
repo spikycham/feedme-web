@@ -16,6 +16,7 @@ import { removeRefreshToken, removeToken } from "@/util/token";
 
 import i18n from "@/i18n";
 import "./index.css";
+import Title from "@/component/title/Title";
 
 const MODAL_TITLES = [i18n.t("select_avatar"), i18n.t("select_background")];
 
@@ -175,6 +176,7 @@ export default function ProfilePage() {
 
     return (
         <>
+            <Title title={i18n.t("profile")} />
             <div className="profile">
                 <section
                     className="header"
@@ -183,7 +185,8 @@ export default function ProfilePage() {
                         setEditImgType(1);
                         setEditImgSrc(user.profile_background_uri);
                         setShowEditImg(true);
-                    }}>
+                    }}
+                >
                     <div className="info">
                         <div
                             className="avatar"
@@ -192,17 +195,15 @@ export default function ProfilePage() {
                                 setEditImgType(0);
                                 setEditImgSrc(user.avatar_uri);
                                 setShowEditImg(true);
-                            }}>
+                            }}
+                        >
                             {user.avatar_uri !== "" && <img src={user.avatar_uri} />}
                         </div>
 
                         <h1>
                             <p className="name">
                                 <span>{user.name}</span>
-                                <SquarePen
-                                    className="edit"
-                                    onClick={showEditNameModal}
-                                />
+                                <SquarePen className="edit" onClick={showEditNameModal} />
                             </p>
                             <span className="id">
                                 {mixAccount(user.account)} | {user.user_id.slice(0, 8)}
@@ -220,11 +221,7 @@ export default function ProfilePage() {
                 </section>
 
                 <section className="logout">
-                    <Button
-                        title={i18n.t("log_out")}
-                        loading={loadingLogout}
-                        onClick={onLogout}
-                    />
+                    <Button title={i18n.t("log_out")} loading={loadingLogout} onClick={onLogout} />
                 </section>
             </div>
 
@@ -234,7 +231,8 @@ export default function ProfilePage() {
                 title={i18n.t("rename")}
                 description={i18n.t("new_username")}
                 loading={loadingEditName}
-                onConfirm={onConfirmEditName}>
+                onConfirm={onConfirmEditName}
+            >
                 <input
                     className="edit-rename"
                     placeholder="Enter Name"
@@ -249,7 +247,8 @@ export default function ProfilePage() {
                 title={MODAL_TITLES[editImgType]}
                 description={i18n.t("upload_picture_prompt")}
                 loading={loadingEditImg}
-                onConfirm={onConfirmEditImg}>
+                onConfirm={onConfirmEditImg}
+            >
                 <div className="edit-input">
                     <label htmlFor="edit-img">
                         {loadingUpload ? (

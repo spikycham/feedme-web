@@ -58,10 +58,6 @@ export default function Layout() {
     if (loading) return <Loading />;
     return (
         <main className="layout">
-            <section className="title">
-                <h1>{tabs.find((tab) => tab.key === active)!.title} </h1>
-            </section>
-
             <section className="content">
                 <Outlet />
             </section>

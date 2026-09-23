@@ -5,20 +5,8 @@
     justify-content: space-between;
     height: 100vh;
 
-    > .title {
-        display: grid;
-        place-items: center;
-        height: 50px;
-        background-color: var(--color-gray);
-
-        > h1 {
-            font-weight: normal;
-        }
-    }
-
     > .content {
         padding: var(--std-pd);
-        background-color: var(--color-bg);
         flex: 1 0 0;
         overflow-y: auto;
         scrollbar-width: none;
@@ -29,7 +17,6 @@
     }
     > .footer {
         padding: var(--std-pd);
-        background-color: var(--color-bg);
         flex: 0 0 max-content;
         z-index: 1;
     }

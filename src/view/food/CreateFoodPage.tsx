@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { Ban, Loader, Plus, X } from "lucide-react";
 
 import { message } from "@/component/message/Message";
-import Back from "@/component/back/Back";
 import Button from "@/component/button/Button";
 import Select, { type Option } from "@/component/select/Select";
 import Modal from "@/component/modal/Modal";
@@ -17,6 +16,7 @@ import { NetworkError } from "@/network/network";
 import { useNavigate } from "react-router";
 import fetchFoodList from "@/network/food-list.api";
 import { useFoodsStore } from "@/store/food.store";
+import Title from "@/component/title/Title";
 
 const categoryOptions: Option<number>[] = foodCategoryMap.map((c) => ({
     key: c.key,
@@ -121,12 +121,8 @@ export default function CreateFoodPage() {
 
     return (
         <>
+            <Title title={i18n.t("add_food")} hasBack />
             <form className="create-food" onSubmit={handleSubmitForm}>
-                <section className="header">
-                    <Back />
-                    <h2>{i18n.t("add_food")}</h2>
-                </section>
-
                 <section className="img">
                     {loadingUploadImg ? (
                         <UploadImgLoading />
@@ -265,11 +261,7 @@ export default function CreateFoodPage() {
                     </div>
                 </section>
 
-                <Button
-                    title={i18n.t("submit")}
-                    htmlType="submit"
-                    loading={loadingCreate}
-                />
+                <Button title={i18n.t("submit")} htmlType="submit" loading={loadingCreate} />
             </form>
             <Modal
                 show={showAddIng}

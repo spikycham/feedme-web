@@ -12,6 +12,7 @@ import { getDateTimeBySec, getMinBySec } from "@/util/time";
 
 import i18n from "@/i18n";
 import "./index.css";
+import Title from "@/component/title/Title";
 
 const orderStatusMap = [
     {
@@ -64,6 +65,7 @@ export default function OrderPage() {
 
     return (
         <>
+            <Title title={i18n.t("order_history")} />
             {loadingPage ? (
                 <Loading />
             ) : (
@@ -95,7 +97,8 @@ export default function OrderPage() {
                                                 <span
                                                     style={{
                                                         color: orderStatusMap[order.status].color,
-                                                    }}>
+                                                    }}
+                                                >
                                                     {orderStatusMap[order.status].label}
                                                 </span>
                                             </p>
@@ -138,7 +141,8 @@ export default function OrderPage() {
                                                             navigate(
                                                                 `/layout/food/detail/${orderFood.food_id}`,
                                                             )
-                                                        }>
+                                                        }
+                                                    >
                                                         <div className="photo">
                                                             {food.image_uris[0] && (
                                                                 <img src={food.image_uris[0]} />

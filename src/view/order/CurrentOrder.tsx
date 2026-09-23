@@ -16,6 +16,7 @@ import { getDateTimeBySec, getMinBySec } from "@/util/time";
 
 import i18n from "@/i18n";
 import "./index.css";
+import Title from "@/component/title/Title";
 
 export default function CurrentOrder() {
     const foods = useFoodsStore((state) => state.foods);
@@ -69,6 +70,7 @@ export default function CurrentOrder() {
 
     return (
         <>
+            <Title title={i18n.t("current_order")} />
             <div className="service">
                 <h2>{i18n.t("current_order_prompt")}</h2>
                 {loadingPage ? (
@@ -88,7 +90,8 @@ export default function CurrentOrder() {
                                         }
                                         return prev - 1;
                                     });
-                                }}>
+                                }}
+                            >
                                 <header>
                                     <h2>Order: #{filterted[offset].order_id.slice(0, 4)}</h2>
                                     <p>
@@ -117,7 +120,8 @@ export default function CurrentOrder() {
                                                     navigate(
                                                         `/layout/food/detail/${orderFood.food_id}`,
                                                     )
-                                                }>
+                                                }
+                                            >
                                                 <div className="photo">
                                                     {food.image_uris[0] && (
                                                         <img src={food.image_uris[0]} />

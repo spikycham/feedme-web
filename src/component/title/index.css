@@ -1,0 +1,9 @@
+.title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: max-content;
+    height: var(--std-title-size);
+    margin: auto 0;
+    cursor: pointer;
+}

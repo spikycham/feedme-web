@@ -28,6 +28,7 @@
                     color: var(--color-fg-gray);
 
                     .title {
+                        height: max-content;
                         min-width: 70px;
                     }
                 }

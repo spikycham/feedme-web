@@ -16,6 +16,7 @@ import Permission from "@/util/permission";
 
 import i18n from "@/i18n";
 import "./index.css";
+import Title from "@/component/title/Title";
 
 export default function FoodPage() {
     const foods = useFoodsStore((state) => state.foods);
@@ -60,6 +61,7 @@ export default function FoodPage() {
 
     return (
         <>
+            <Title title={i18n.t("food_list")} />
             {loading ? (
                 <Loading />
             ) : foods.length === 0 ? (

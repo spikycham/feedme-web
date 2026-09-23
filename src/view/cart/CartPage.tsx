@@ -13,6 +13,7 @@ import type { RequestCreateOrder } from "@/network/create-order.api";
 
 import i18n from "@/i18n";
 import "./index.css";
+import Title from "@/component/title/Title";
 
 export default function CartPage() {
     const [showPay, setShowPay] = useState(false);
@@ -67,6 +68,7 @@ export default function CartPage() {
 
     return (
         <>
+            <Title title={i18n.t("cart")} />
             <div className="cart">
                 <section>
                     {cartFoods.size === 0 ? (
@@ -92,9 +94,7 @@ export default function CartPage() {
                                 if (!food) return null;
 
                                 return (
-                                    <li
-                                        key={id}
-                                        className="item">
+                                    <li key={id} className="item">
                                         <section className="info">
                                             <div className="photo">
                                                 {food.image_uris[0] && (
@@ -115,7 +115,8 @@ export default function CartPage() {
 
                                             <button
                                                 className="clear"
-                                                onClick={() => clearOne(food.food_id, food.prize)}>
+                                                onClick={() => clearOne(food.food_id, food.prize)}
+                                            >
                                                 <Trash />
                                             </button>
                                         </section>
@@ -126,9 +127,7 @@ export default function CartPage() {
                     )}
                 </section>
 
-                <button
-                    className="pay"
-                    onClick={() => setShowPay(true)}>
+                <button className="pay" onClick={() => setShowPay(true)}>
                     <ClipboardCheck />
                 </button>
             </div>
@@ -138,7 +137,8 @@ export default function CartPage() {
                 onShow={setShowPay}
                 title={i18n.t("pay_for_meals")}
                 loading={loadingPay}
-                onConfirm={submitPay}>
+                onConfirm={submitPay}
+            >
                 <span>
                     {i18n.t("total_expense")}: {i18n.t("money_sign")}
                     {amount.toFixed(2).padStart(5, "0")}
