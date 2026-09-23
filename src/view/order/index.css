@@ -81,7 +81,7 @@
 }
 
 .service {
-    height: 100%;
+    height: calc(100% - var(--std-title-size));
     overflow: hidden;
 
     h2 {
@@ -90,22 +90,18 @@
     }
 
     .card-container {
+        display: flex;
+        flex-direction: column;
         position: relative;
-        height: 100%;
 
-        .card {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .card, .card-left, .card-right {
             display: flex;
             flex-direction: column;
             gap: var(--std-lg-gap);
             justify-content: space-between;
-            width: 90%;
-            height: 90%;
             padding: 40px 30px;
-            border-radius: var(--std-br);
+            margin: 0 40px;
+            border-radius: 40px;
             background-color: var(--color-gray);
             user-select: none;
 
@@ -114,14 +110,18 @@
                 margin: 0;
             }
 
+            > main::-webkit-scrollbar {
+                display: none;
+            }
             > main {
                 --img-width: 50px;
 
-                height: 100%;
+                height: 200px;
                 overflow-y: auto;
                 display: flex;
                 flex-direction: column;
                 gap: var(--std-sm-gap);
+                scrollbar-width: none;
 
                 > .food {
                     display: flex;
@@ -160,11 +160,31 @@
                 align-items: center;
                 justify-content: space-between;
                 gap: var(--std-sm-gap);
-                margin-top: var(--std-pd);
 
                 > button {
                     flex: 1;
                 }
+            }
+        
+            z-index: 3;
+        }
+
+        .card-left {
+            transform: translate(-30%, -110%) rotate(-15deg);
+            opacity: 0.4;
+            z-index: 2;
+            
+            > main {
+                height: 150px;
+            }
+        }
+        .card-right {
+            transform: translate(30%, -210%) rotate(15deg);
+            opacity: 0.6;
+            z-index: 1;
+
+            > main {
+                height: 150px;
             }
         }
     }

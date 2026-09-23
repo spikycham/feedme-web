@@ -18,7 +18,7 @@ export const useOrdersStore = create<State & Action>()((set) => ({
             const newState = { ...state };
 
             const order = newState.orders.find((o) => o.order_id === id);
-            if (!order) return state;
+            if (!order) return newState;
 
             order.status = status;
             order.done_at = Date.now() / 1000;

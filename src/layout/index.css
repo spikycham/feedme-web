@@ -6,7 +6,6 @@
     height: 100vh;
 
     > .content {
-        padding: var(--std-pd);
         flex: 1 0 0;
         overflow-y: auto;
         scrollbar-width: none;
