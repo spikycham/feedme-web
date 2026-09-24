@@ -104,5 +104,6 @@
     "submit": "Submit",
     "current_order_id": "Current Order ID",
     "please_confirm_order": "Please Confirm Current Order",
-    "no_order_select": "No order selected"
+    "no_order_select": "No order selected",
+    "welcome_cook": "Welcome back, {{name}}"
 }

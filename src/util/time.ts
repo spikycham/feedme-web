@@ -15,3 +15,11 @@ export function getDateTimeBySec(sec: number) {
 export function getMinBySec(sec: number) {
     return (sec / 60).toFixed(0);
 }
+
+export function getTimeAndPeriodBySec(sec: number) {
+    const time = new Date(sec);
+    const m = time.getMinutes();
+    const s = time.getSeconds();
+
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")} ${m < 12 ? "AM" : "PM"}`;
+}

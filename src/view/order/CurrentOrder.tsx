@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useUserStore } from "@/store/user.store";
 import { useFoodsStore } from "@/store/food.store";
 import { useOrdersStore } from "@/store/order.store";
+
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { message } from "@/component/message/Message";
 import Loading from "@/component/loading/Loading";
@@ -9,17 +12,17 @@ import Modal from "@/component/modal/Modal";
 import Button from "@/component/button/Button";
 import Title from "@/component/title/Title";
 
+import { getDateTimeBySec, getMinBySec, getTimeAndPeriodBySec } from "@/util/time";
+
 import { NetworkError } from "@/network/network";
 import fetchOrderList from "@/network/order-list.api";
 import fetchUpdateOrderStatus from "@/network/update-order-status.api";
 
-import { getDateTimeBySec, getMinBySec } from "@/util/time";
-
 import i18n from "@/i18n";
 import "./index.css";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function CurrentOrder() {
+    const user = useUserStore((state) => state.user);
     const orders = useOrdersStore((state) => state.orders);
 
     const [loadingPage, setLoadingPage] = useState(false);
@@ -73,7 +76,13 @@ export default function CurrentOrder() {
                     <Loading />
                 ) : (
                     <>
-                        <section className="welcome">welcome</section>
+                        <div className="welcome-container">
+                            <Welcome
+                                timestamp={now - 1000}
+                                content={i18n.t("welcome_cook", { name: user.name })}
+                            />
+                            <Welcome timestamp={now} content={texts[textIdx]} />
+                        </div>
 
                         <section>
                             <section className="card-container">
@@ -175,6 +184,7 @@ export default function CurrentOrder() {
                         } else {
                             message.success(i18n.t("finish_order"));
                         }
+                        setOffset(0);
                     } catch (err) {
                         if (err instanceof NetworkError) {
                             message.failed(i18n.t("failed_to_update_order_status"));
@@ -188,6 +198,36 @@ export default function CurrentOrder() {
                 }}
             />
         </>
+    );
+}
+
+interface WelcomeProps {
+    content: string;
+    timestamp: number;
+}
+const texts = [
+    "欢迎来到今日厨房！看看有什么新订单，选一道喜欢的料理，用你的厨艺完成今天的挑战吧！",
+    "今天的订单已经到位！挑选一道你拿手的料理，认真完成它，看看能收获多少好评吧！",
+    "订单来了！选择一道你想做的料理，发挥你的厨艺，把今天的每一份餐点都做好！",
+    "准备好了吗？今天又有新的订单等你完成，选好料理，开始你的厨师挑战吧！",
+];
+const textIdx = Math.floor(Math.random() * texts.length);
+function Welcome(props: WelcomeProps) {
+    return (
+        <div className="welcome">
+            <section className="avatar">
+                <img src="https://assets.devcham.xyz/feedme/6b26f1047d42c5ce9f1decb11d186ac1.png" />
+            </section>
+            <section className="chat">
+                <p>
+                    <span>Dev Cham&nbsp;</span>
+                    <span className="time">{getTimeAndPeriodBySec(props.timestamp)}</span>
+                </p>
+                <div className="msg">
+                    <p>{props.content}</p>
+                </div>
+            </section>
+        </div>
     );
 }
 

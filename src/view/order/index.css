@@ -90,8 +90,50 @@
     height: calc(100% - var(--std-title-size) - 20px);
     overflow: hidden;
 
-    .welcome {
-        margin: 0 var(--std-pd);
+    .welcome-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--std-sm-gap);
+
+        > .welcome {
+            display: flex;
+            flex-direction: row;
+            gap: var(--std-sm-gap);
+            margin: 0 var(--std-pd);
+
+            > .avatar {
+                flex: 0 0 50px;
+                width: 50px;
+                height: 50px;
+
+                > img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: calc(var(--std-br) / 2);
+                    object-fit: cover;
+                }
+            }
+            > .chat {
+                display: flex;
+                flex-direction: column;
+                gap: var(--std-sm-gap);
+
+                .time {
+                    color: var(--color-fg-gray);
+                }
+
+                > .msg {
+                    padding: 20px;
+                    border-radius: 0 var(--std-br) var(--std-br) var(--std-br);
+                    background-color: var(--color-gray);
+                
+                    > .audio {
+                        height: 1rem;
+                    }
+                }
+            }
+        }
+
     }
 
     h2 {
@@ -134,7 +176,7 @@
             > main {
                 --img-width: 50px;
 
-                height: 200px;
+                height: 210px;
                 overflow-y: auto;
                 display: flex;
                 flex-direction: column;
@@ -157,6 +199,7 @@
                         overflow: hidden;
 
                         > img {
+                            width: 100%;
                             height: 100%;
                             object-fit: contain;
                         }
