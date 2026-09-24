@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { useUserStore } from "@/store/user.store";
 import { useFoodsStore } from "@/store/food.store";
 import { useOrdersStore } from "@/store/order.store";
 
@@ -22,7 +21,6 @@ import i18n from "@/i18n";
 import "./index.css";
 
 export default function CurrentOrder() {
-    const user = useUserStore((state) => state.user);
     const orders = useOrdersStore((state) => state.orders);
 
     const [loadingPage, setLoadingPage] = useState(false);
