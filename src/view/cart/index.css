@@ -1,5 +1,6 @@
 .cart {
     position: relative;
+    padding: 0 var(--std-pd);
 
     .empty {
         font-weight: normal;
@@ -44,7 +45,7 @@
                 > .photo {
                     width: var(--img-width);
                     height: var(--img-width);
-                    border-radius: var(--std-br);
+                    border-radius: calc(var(--std-br) / 2);
                     overflow: hidden;
 
                     > img {
@@ -81,6 +82,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            height: var(--std-title-size);
+            padding: 0 20px;
             .price {
                 font-size: 18px;
             }
