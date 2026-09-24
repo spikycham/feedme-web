@@ -21,18 +21,18 @@ const tabs: TabType[] = [
         isShow: (role) => Permission.IsMerchant(role),
     },
     {
-        key: 1,
-        icon: <Hamburger />,
-        title: i18n.t("food_list"),
-        path: "/layout/food",
-        isShow: (role) => Permission.IsCustomer(role) || Permission.IsMerchant(role),
-    },
-    {
         key: 0,
         icon: <ListOrdered />,
         title: i18n.t("order_history"),
         path: "/layout/order",
         isShow: (role) => Permission.IsMerchant(role),
+    },
+    {
+        key: 1,
+        icon: <Hamburger />,
+        title: i18n.t("food_list"),
+        path: "/layout/food",
+        isShow: (role) => Permission.IsCustomer(role) || Permission.IsMerchant(role),
     },
     {
         key: 2,

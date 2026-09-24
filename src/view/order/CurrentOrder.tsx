@@ -77,10 +77,10 @@ export default function CurrentOrder() {
                 ) : (
                     <>
                         <div className="welcome-container">
-                            <Welcome
+                            {/* <Welcome
                                 timestamp={now - 1000}
                                 content={i18n.t("welcome_cook", { name: user.name })}
-                            />
+                            /> */}
                             <Welcome timestamp={now} content={texts[textIdx]} />
                         </div>
 
