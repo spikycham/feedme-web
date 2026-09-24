@@ -101,5 +101,8 @@
     "recommend_rate": "Recommendation",
     "required_time": "Required Time",
     "food_category": "Food Category",
-    "submit": "Submit"
+    "submit": "Submit",
+    "current_order_id": "Current Order ID",
+    "please_confirm_order": "Please Confirm Current Order",
+    "no_order_select": "No order selected"
 }

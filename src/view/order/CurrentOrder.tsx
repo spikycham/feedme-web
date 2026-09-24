@@ -17,6 +17,7 @@ import { getDateTimeBySec, getMinBySec } from "@/util/time";
 
 import i18n from "@/i18n";
 import "./index.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function CurrentOrder() {
     const orders = useOrdersStore((state) => state.orders);
@@ -71,19 +72,80 @@ export default function CurrentOrder() {
                 {loadingPage ? (
                     <Loading />
                 ) : (
-                    <div className="card-container">
-                        <Card
-                            order={filtered[offset] ?? getFakeOrder()}
-                            onAction={(id, status) => {
-                                setShowModal(true);
-                                setOrderAction({ id, status });
-                            }}
-                        />
-                        <Card order={next1} isLeft />
-                        <Card order={next2} isRight />
-                        // TODO: previous and next order.
-                        <button>left</button>
-                    </div>
+                    <>
+                        <section className="welcome">welcome</section>
+
+                        <section>
+                            <section className="card-container">
+                                <Card order={filtered[offset] ?? getFakeOrder()} />
+                                <Card order={next1} isLeft />
+                                <Card order={next2} isRight />
+
+                                <button
+                                    className="action left"
+                                    onClick={() =>
+                                        setOffset((prev) => {
+                                            if (prev === filtered.length - 1) return 0;
+                                            return prev + 1;
+                                        })
+                                    }
+                                >
+                                    <ChevronLeft />
+                                </button>
+                                <button
+                                    className="action right"
+                                    onClick={() => {
+                                        setOffset((prev) => {
+                                            if (prev === 0) return filtered.length - 1;
+                                            return prev - 1;
+                                        });
+                                    }}
+                                >
+                                    <ChevronRight />
+                                </button>
+                            </section>
+
+                            <section className="actions">
+                                <h3>
+                                    {i18n.t("current_order_id")}: #
+                                    {filtered[offset]?.order_id.slice(0, 4) ?? "xxxx"}
+                                </h3>
+                                <p>{i18n.t("please_confirm_order")}</p>
+                                <div className="buttons">
+                                    <Button
+                                        title={i18n.t("action_reject")}
+                                        onClick={() => {
+                                            if (!filtered[offset]) {
+                                                message.warning(i18n.t("no_order_select"));
+                                                return;
+                                            }
+
+                                            setShowModal(true);
+                                            setOrderAction({
+                                                id: filtered[offset]?.order_id,
+                                                status: 1,
+                                            });
+                                        }}
+                                    />
+                                    <Button
+                                        title={i18n.t("action_finish")}
+                                        onClick={() => {
+                                            if (!filtered[offset]) {
+                                                message.warning(i18n.t("no_order_select"));
+                                                return;
+                                            }
+
+                                            setShowModal(true);
+                                            setOrderAction({
+                                                id: filtered[offset].order_id,
+                                                status: 2,
+                                            });
+                                        }}
+                                    />
+                                </div>
+                            </section>
+                        </section>
+                    </>
                 )}
             </div>
 
@@ -133,7 +195,6 @@ interface CardProps {
     order: Order;
     isLeft?: boolean;
     isRight?: boolean;
-    onAction?: (id: string, status: OrderStatus) => void;
 }
 function Card(props: CardProps) {
     const foods = useFoodsStore((state) => state.foods);
@@ -155,7 +216,6 @@ function Card(props: CardProps) {
                     {i18n.t("food_count", {
                         count: props.order.foods.length,
                     })}
-                    &nbsp;|&nbsp;{i18n.t("order_by", { name: "Cham" })}
                     &nbsp;|&nbsp;
                     {getDateTimeBySec(props.order.created_at ?? new Date().valueOf())}
                 </p>
@@ -200,31 +260,27 @@ function Card(props: CardProps) {
             </main>
 
             <footer>
-                <div className="actions">
-                    <Button
-                        title={i18n.t("action_reject")}
-                        onClick={() => {
-                            props.onAction?.(props.order.order_id, 1);
-                        }}
-                    />
-                    <Button
-                        title={i18n.t("action_finish")}
-                        onClick={() => {
-                            props.onAction?.(props.order.order_id, 2);
-                        }}
-                    />
-                </div>
+                <p className="amount">
+                    {i18n.t("total_expense")}: {i18n.t("money_sign")}
+                    {props.order.amount.toFixed(2)}
+                </p>
+                <p>
+                    {props.order.foods.length === 0
+                        ? i18n.t("order_by", { name: "No" })
+                        : i18n.t("order_by", { name: "Cham" })}
+                </p>
             </footer>
         </section>
     );
 }
 
+const now = Date.now().valueOf() / 1000;
 function getFakeOrder(): Order {
     return {
-        order_id: Math.random().toString(32),
+        order_id: "xxxx",
         status: 0,
-        amount: Math.random() * 50,
-        created_at: Date.now(),
+        amount: 0,
+        created_at: now,
         done_at: -1,
         comment: "",
         commented_at: -1,

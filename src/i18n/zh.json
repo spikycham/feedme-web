@@ -101,5 +101,8 @@
     "recommend_rate": "推荐指数",
     "required_time": "需要时间",
     "food_category": "菜品种类",
-    "submit": "提交"
+    "submit": "提交",
+    "current_order_id": "当前订单 ID",
+    "please_confirm_order": "请确定当前订单是否完成?",
+    "no_order_select": "暂未选中订单"
 }

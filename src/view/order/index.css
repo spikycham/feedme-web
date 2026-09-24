@@ -84,8 +84,15 @@
 }
 
 .service {
-    height: calc(100% - var(--std-title-size));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - var(--std-title-size) - 20px);
     overflow: hidden;
+
+    .welcome {
+        margin: 0 var(--std-pd);
+    }
 
     h2 {
         font-weight: normal;
@@ -93,20 +100,28 @@
     }
 
     .card-container {
-        display: flex;
-        flex-direction: column;
         position: relative;
+        height: 420px;
 
         .card, .card-left, .card-right {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
             gap: var(--std-lg-gap);
             justify-content: space-between;
-            padding: 40px 30px;
-            margin: 0 40px;
-            border-radius: 40px;
+            width: 280px;
+            padding: 20px;
+            border-radius: var(--std-br);
             background-color: var(--color-gray);
             user-select: none;
+            box-shadow: 0 6px 36px 0 rgba(0, 0, 0, 0.1);
+
+            > header > p {
+                color: var(--color-fg-gray);
+            }
 
             h2 {
                 font-weight: normal;
@@ -138,7 +153,7 @@
                     > .photo {
                         width: var(--img-width);
                         height: var(--img-width);
-                        border-radius: var(--std-br);
+                        border-radius: calc(var(--std-br) / 2);
                         overflow: hidden;
 
                         > img {
@@ -158,36 +173,71 @@
                 }
             }
 
-            .actions {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: var(--std-sm-gap);
+            > footer {
+                color: var(--color-fg-gray);
 
-                > button {
-                    flex: 1;
+                .amount {
+                    font-size: 24px;
+                    color: var(--color-fg);
                 }
             }
-        
+
             z-index: 3;
         }
 
         .card-left {
-            transform: translate(-30%, -110%) rotate(-15deg);
+            transform-origin: 50% 500%;
+            transform: translate(-50%, -50%) rotate(-7deg);
             opacity: 0.4;
             z-index: 2;
             
             > main {
-                height: 150px;
+                height: 180px;
             }
         }
         .card-right {
-            transform: translate(30%, -210%) rotate(15deg);
+            transform-origin: 50% 500%;
+            transform: translate(-50%, -50%) rotate(7deg);
             opacity: 0.6;
             z-index: 1;
 
             > main {
-                height: 150px;
+                height: 180px;
+            }
+        }
+
+        .action {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--color-gray);
+            padding: 20px 0;
+            border-radius: var(--std-br);
+            z-index: 4;
+        }
+        .action.left {
+            left: 10px;
+        }
+        .action.right {
+            right: 10px;
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        gap: var(--std-sm-gap);
+        margin: 0 var(--std-pd);
+        padding: 20px;
+        border-radius: var(--std-br);
+        background-color: var(--color-gray);
+
+        > .buttons {
+            display: flex;
+            gap: var(--std-sm-gap);
+
+            > button {
+                flex: 1;
             }
         }
     }
