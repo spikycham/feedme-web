@@ -216,9 +216,9 @@ export default function ProfilePage() {
                     )}
                 </section>
 
-                <section>
+                {/* <section>
                     <p>{i18n.t("wait_for_develop")}...</p>
-                </section>
+                </section> */}
 
                 <section className="logout">
                     <Button title={i18n.t("log_out")} loading={loadingLogout} onClick={onLogout} />

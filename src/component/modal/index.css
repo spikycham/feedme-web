@@ -14,7 +14,7 @@
         gap: var(--std-sm-gap);
         width: 80%;
         background-color: var(--color-bg);
-        padding: var(--std-pd);
+        padding: 20px;
         border-radius: var(--std-br);
 
         > h1 {
@@ -29,7 +29,7 @@
             justify-content: space-between;
             
             > button {
-                padding: 10px 20px;
+                padding: 10px 40px;
                 border-radius: var(--std-br);
             }
 
